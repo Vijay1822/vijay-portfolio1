@@ -3,18 +3,19 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import * as THREE from "three";
-import { Sparkles, RotateCcw } from "lucide-react";
+import { Sparkles, RotateCcw, Bot, Terminal, Cpu } from "lucide-react";
 import { AvatarSpeechBubble } from "./AvatarSpeechBubble";
 
 interface DeveloperAvatarProps {
   onOpenAssistant?: () => void;
+  size?: "default" | "compact";
 }
 
-export function DeveloperAvatar({ onOpenAssistant }: DeveloperAvatarProps) {
+export function DeveloperAvatar({ onOpenAssistant, size = "default" }: DeveloperAvatarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Interaction & Greeting States
+  // Interaction States
   const [phase, setPhase] = useState<"appear" | "settle" | "wave" | "speech" | "idle">("appear");
   const [speechHeading, setSpeechHeading] = useState<string>("");
   const [speechLine1, setSpeechLine1] = useState<string>("");
@@ -24,22 +25,23 @@ export function DeveloperAvatar({ onOpenAssistant }: DeveloperAvatarProps) {
   const [showQuickActions, setShowQuickActions] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [showHoverPrompt, setShowHoverPrompt] = useState<boolean>(false);
-  const [isWaving, setIsWaving] = useState<boolean>(false);
+  const [isAcknowledging, setIsAcknowledging] = useState<boolean>(false);
 
-  // 3D Parallax Tilt Physics with Framer Motion Spring
+  // 3D Parallax Tilt Physics with Responsive Springs
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const springConfig = { damping: 25, stiffness: 180, mass: 0.5 };
+  const springConfig = { damping: 28, stiffness: 190, mass: 0.45 };
   const smoothMouseX = useSpring(mouseX, springConfig);
   const smoothMouseY = useSpring(mouseY, springConfig);
 
-  const rotateY = useTransform(smoothMouseX, [-1, 1], [-14, 14]);
-  const rotateX = useTransform(smoothMouseY, [-1, 1], [10, -10]);
-  const translateX = useTransform(smoothMouseX, [-1, 1], [-12, 12]);
-  const translateY = useTransform(smoothMouseY, [-1, 1], [-8, 8]);
-  const shadowX = useTransform(smoothMouseX, [-1, 1], [18, -18]);
-  const shadowY = useTransform(smoothMouseY, [-1, 1], [15, -15]);
+  const rotateY = useTransform(smoothMouseX, [-1, 1], [-16, 16]);
+  const rotateX = useTransform(smoothMouseY, [-1, 1], [12, -12]);
+  const translateX = useTransform(smoothMouseX, [-1, 1], [-14, 14]);
+  const translateY = useTransform(smoothMouseY, [-1, 1], [-10, 10]);
+  const platformRotateX = useTransform(smoothMouseY, [-1, 1], [65, 55]);
+  const shadowX = useTransform(smoothMouseX, [-1, 1], [22, -22]);
+  const shadowY = useTransform(smoothMouseY, [-1, 1], [18, -18]);
 
   // Handle Mouse Tracking
   const handleMouseMove = useCallback(
@@ -61,9 +63,9 @@ export function DeveloperAvatar({ onOpenAssistant }: DeveloperAvatarProps) {
     setShowHoverPrompt(false);
   }, [mouseX, mouseY]);
 
-  // Typewriter Text Effect (Purely Visual, ZERO Audio)
+  // Typewriter Text Effect (Zero Audio, Pure Visual)
   const typeOut = useCallback(
-    (text: string, setter: (val: string) => void, speed = 35): Promise<void> => {
+    (text: string, setter: (val: string) => void, speed = 32): Promise<void> => {
       return new Promise((resolve) => {
         let current = "";
         let index = 0;
@@ -84,49 +86,35 @@ export function DeveloperAvatar({ onOpenAssistant }: DeveloperAvatarProps) {
     []
   );
 
-  // Cinematic Welcoming Sequence (0.0s – 4.5s)
+  // Cinematic Welcoming Sequence
   const runCinematicSequence = useCallback(async () => {
-    // 0.0s - 0.5s: Appear
     setPhase("appear");
     setIsBubbleVisible(false);
     setShowQuickActions(false);
     setSpeechHeading("");
     setSpeechLine1("");
     setSpeechLine2("");
-    setIsWaving(false);
+    setIsAcknowledging(false);
 
-    await new Promise((r) => setTimeout(r, 600));
-
-    // 0.6s - 1.2s: Settle into position
+    await new Promise((r) => setTimeout(r, 500));
     setPhase("settle");
-    await new Promise((r) => setTimeout(r, 600));
-
-    // 1.2s - 2.4s: Friendly greeting wave
-    setPhase("wave");
-    setIsWaving(true);
     await new Promise((r) => setTimeout(r, 500));
 
-    // 1.7s - 4.5s: Glassmorphic speech bubble typing
     setPhase("speech");
     setIsBubbleVisible(true);
 
-    // Line 1: "Hi! I'm Vijay 👋"
-    await typeOut("Hi! I'm Vijay 👋", setSpeechHeading, 40);
+    // Line 1: "Hey! I'm Vijay 👋"
+    await typeOut("Hey! I'm Vijay 👋", setSpeechHeading, 35);
+    await new Promise((r) => setTimeout(r, 600));
+
+    // Line 2: "AI Engineer • Full-Stack Developer"
+    await typeOut("AI Engineer • Full-Stack Developer", setSpeechLine1, 30);
     await new Promise((r) => setTimeout(r, 700));
 
-    // Line 2: "Welcome to my portfolio."
-    await typeOut("Welcome to my portfolio.", setSpeechLine1, 35);
-    await new Promise((r) => setTimeout(r, 800));
+    // Line 3: "Welcome to my interactive workspace."
+    await typeOut("Welcome to my interactive workspace. Feel free to explore!", setSpeechLine2, 28);
 
-    // Line 3: "Have a look around! ✨"
-    await typeOut("Have a look around! ✨", setSpeechLine2, 35);
-
-    // Conclude wave motion smoothly
-    setIsWaving(false);
-
-    // Let user read message, then transition to idle
-    await new Promise((r) => setTimeout(r, 2600));
-    setIsBubbleVisible(false);
+    setShowQuickActions(true);
     setPhase("idle");
 
     if (typeof window !== "undefined") {
@@ -134,7 +122,7 @@ export function DeveloperAvatar({ onOpenAssistant }: DeveloperAvatarProps) {
     }
   }, [typeOut]);
 
-  // Session Check: Welcome visitor on first visit or idle if already greeted
+  // Session Check
   useEffect(() => {
     const hasWelcomed = typeof window !== "undefined" && sessionStorage.getItem("hasWelcomedVijayAvatar");
     if (hasWelcomed) {
@@ -145,41 +133,41 @@ export function DeveloperAvatar({ onOpenAssistant }: DeveloperAvatarProps) {
     }
   }, [runCinematicSequence]);
 
-  // Click Interaction: wave and show quick actions
+  // Click Interaction: acknowledged animation & open bubble
   const handleAvatarClick = () => {
-    setIsWaving(true);
-    setTimeout(() => setIsWaving(false), 2000);
+    setIsAcknowledging(true);
+    setTimeout(() => setIsAcknowledging(false), 1600);
 
     setIsBubbleVisible(true);
     setShowHoverPrompt(false);
     setShowQuickActions(true);
-    setSpeechHeading("What would you like to explore?");
-    setSpeechLine1("Choose an area below:");
-    setSpeechLine2("");
+    setSpeechHeading("Hey! I'm Vijay 👋");
+    setSpeechLine1("AI Engineer • Full-Stack Developer");
+    setSpeechLine2("What would you like to explore today?");
   };
 
   // Hover Tooltip Trigger
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (isHovered && phase === "idle" && !isBubbleVisible && !showQuickActions) {
-      timer = setTimeout(() => setShowHoverPrompt(true), 450);
+      timer = setTimeout(() => setShowHoverPrompt(true), 400);
     } else {
       setShowHoverPrompt(false);
     }
     return () => clearTimeout(timer);
   }, [isHovered, phase, isBubbleVisible, showQuickActions]);
 
-  // Three.js Background Constellation Mesh (AI & IoT Developer Aesthetic)
+  // Three.js 3D Cyber Platform & Constellation Mesh
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const width = canvas.clientWidth || 420;
-    const height = canvas.clientHeight || 520;
+    const width = canvas.clientWidth || 460;
+    const height = canvas.clientHeight || 560;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.z = 8;
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+    camera.position.set(0, 0, 8.5);
 
     let renderer: THREE.WebGLRenderer;
     try {
@@ -187,7 +175,7 @@ export function DeveloperAvatar({ onOpenAssistant }: DeveloperAvatarProps) {
         canvas,
         alpha: true,
         antialias: true,
-        powerPreference: "low-power",
+        powerPreference: "high-performance",
       });
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -195,30 +183,54 @@ export function DeveloperAvatar({ onOpenAssistant }: DeveloperAvatarProps) {
       return;
     }
 
-    // Interactive Particle Constellation Nodes
-    const particleCount = 45;
-    const geometry = new THREE.BufferGeometry();
+    // 1. Futuristic Glowing Ring Platform (Pedestal at bottom)
+    const ringGeometry = new THREE.RingGeometry(2.2, 2.32, 64);
+    const ringMaterial = new THREE.MeshBasicMaterial({
+      color: 0x06b6d4,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.45,
+    });
+    const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+    ring.rotation.x = Math.PI / 2.3;
+    ring.position.set(0, -3.2, 0);
+    scene.add(ring);
+
+    // Inner Amber Telemetry Ring
+    const innerRingGeo = new THREE.RingGeometry(1.6, 1.68, 48);
+    const innerRingMat = new THREE.MeshBasicMaterial({
+      color: 0xf59e0b,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.35,
+    });
+    const innerRing = new THREE.Mesh(innerRingGeo, innerRingMat);
+    innerRing.rotation.x = Math.PI / 2.3;
+    innerRing.position.set(0, -3.22, 0);
+    scene.add(innerRing);
+
+    // 2. Subtle Floating Ambient Cyber Particles
+    const particleCount = 55;
+    const particleGeo = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
-    const speeds = new Float32Array(particleCount);
 
     for (let i = 0; i < particleCount; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 11;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 11;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 4;
-      speeds[i] = 0.2 + Math.random() * 0.5;
+      positions[i * 3] = (Math.random() - 0.5) * 10;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 10 - 0.5;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 5;
     }
 
-    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    particleGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
-    const material = new THREE.PointsMaterial({
-      color: 0x38bdf8,
-      size: 0.08,
+    const particleMat = new THREE.PointsMaterial({
+      color: 0x22d3ee,
+      size: 0.075,
       transparent: true,
-      opacity: 0.5,
+      opacity: 0.45,
       blending: THREE.AdditiveBlending,
     });
 
-    const particles = new THREE.Points(geometry, material);
+    const particles = new THREE.Points(particleGeo, particleMat);
     scene.add(particles);
 
     // Animation Loop
@@ -229,8 +241,11 @@ export function DeveloperAvatar({ onOpenAssistant }: DeveloperAvatarProps) {
       animationFrameId = requestAnimationFrame(animate);
       const elapsed = clock.getElapsedTime();
 
+      // Slow platform rotation & pulsation
+      ring.rotation.z = elapsed * 0.15;
+      innerRing.rotation.z = -elapsed * 0.2;
       particles.rotation.y = elapsed * 0.04;
-      particles.rotation.x = Math.sin(elapsed * 0.03) * 0.05;
+      particles.rotation.x = Math.sin(elapsed * 0.05) * 0.04;
 
       renderer.render(scene, camera);
     };
@@ -239,8 +254,8 @@ export function DeveloperAvatar({ onOpenAssistant }: DeveloperAvatarProps) {
 
     const handleResize = () => {
       if (!canvas) return;
-      const w = canvas.clientWidth || 420;
-      const h = canvas.clientHeight || 520;
+      const w = canvas.clientWidth || 460;
+      const h = canvas.clientHeight || 560;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
@@ -251,11 +266,17 @@ export function DeveloperAvatar({ onOpenAssistant }: DeveloperAvatarProps) {
     return () => {
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
-      geometry.dispose();
-      material.dispose();
+      ringGeometry.dispose();
+      ringMaterial.dispose();
+      innerRingGeo.dispose();
+      innerRingMat.dispose();
+      particleGeo.dispose();
+      particleMat.dispose();
       renderer.dispose();
     };
   }, []);
+
+  const isCompact = size === "compact";
 
   return (
     <div
@@ -263,21 +284,23 @@ export function DeveloperAvatar({ onOpenAssistant }: DeveloperAvatarProps) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full h-full min-h-[460px] sm:min-h-[540px] flex items-center justify-center select-none"
+      className={`relative w-full h-full ${
+        isCompact ? "min-h-[380px]" : "min-h-[480px] sm:min-h-[560px]"
+      } flex items-center justify-center select-none`}
       style={{ perspective: 1200 }}
     >
-      {/* Background Radial Glow (Light Mode SaaS Aesthetic) */}
+      {/* Background Radial Aurora Glow */}
       <div className="absolute inset-0 -z-20 flex items-center justify-center pointer-events-none">
-        <div className="w-80 h-80 sm:w-[460px] sm:h-[460px] rounded-full bg-gradient-to-tr from-emerald-400/15 via-blue-500/12 to-cyan-400/15 blur-3xl animate-pulse-subtle" />
+        <div className="w-80 h-80 sm:w-[480px] sm:h-[480px] rounded-full bg-gradient-to-tr from-cyan-500/20 via-sky-500/15 to-amber-500/15 blur-3xl animate-pulse-subtle" />
       </div>
 
-      {/* Three.js Background Particle Constellation */}
+      {/* Three.js 3D Cyber Platform & Constellation Canvas */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full pointer-events-none -z-10"
       />
 
-      {/* Floating Glassmorphic Speech Bubble (Pure Visual, ZERO Audio) */}
+      {/* Floating Glassmorphic Speech Bubble */}
       <AvatarSpeechBubble
         isVisible={isBubbleVisible}
         heading={speechHeading}
@@ -289,22 +312,22 @@ export function DeveloperAvatar({ onOpenAssistant }: DeveloperAvatarProps) {
         onOpenAssistant={onOpenAssistant}
       />
 
-      {/* Hover Tooltip: "Want to explore? Click me!" */}
+      {/* Hover Tooltip Prompt */}
       <AnimatePresence>
         {showHoverPrompt && !isBubbleVisible && (
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 5 }}
-            className="absolute top-8 right-2 sm:right-6 z-30 px-3.5 py-1.5 rounded-full glass-panel shadow-md border border-blue-200 text-xs font-medium text-blue-700 flex items-center gap-1.5 pointer-events-none"
+            className="absolute top-6 right-2 sm:right-6 z-30 px-3.5 py-1.5 rounded-full bg-slate-900/90 shadow-[0_0_25px_rgba(6,182,212,0.35)] border border-cyan-500/40 text-xs font-semibold text-cyan-300 flex items-center gap-1.5 pointer-events-none backdrop-blur-md"
           >
-            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-            <span>Want to explore? Click me! ✨</span>
+            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Click to interact with Vijay! ✨</span>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* 3D Interactive Avatar Character with Spring Physics & Cursor Tracking */}
+      {/* 3D Interactive Character Card with Depth Parallax Physics */}
       <motion.div
         onClick={handleAvatarClick}
         style={{
@@ -324,76 +347,92 @@ export function DeveloperAvatar({ onOpenAssistant }: DeveloperAvatarProps) {
           duration: 0.9,
           ease: [0.16, 1, 0.3, 1],
         }}
-        className="relative w-full max-w-[340px] sm:max-w-[380px] h-[460px] sm:h-[520px] flex items-center justify-center cursor-pointer group"
-        title="Click to interact with Vijay's 3D Avatar"
+        className={`relative w-full ${
+          isCompact ? "max-w-[320px] h-[400px]" : "max-w-[380px] sm:max-w-[440px] h-[480px] sm:h-[540px]"
+        } flex items-center justify-center cursor-pointer group`}
+        title="Click to interact with Vijay's 3D AI Engineer Avatar"
         aria-label="Interactive 3D Developer Avatar"
       >
-        {/* Subtle Ambient Drop Shadow under avatar */}
+        {/* Soft dynamic contact shadow */}
         <motion.div
           style={{
             x: shadowX,
             y: shadowY,
           }}
-          className="absolute bottom-4 w-44 h-8 bg-slate-900/12 dark:bg-black/30 rounded-full blur-xl pointer-events-none -z-10"
+          className="absolute bottom-2 w-56 h-10 bg-cyan-500/20 rounded-full blur-2xl pointer-events-none -z-10"
         />
 
-        {/* Breathing & Wave Animated Wrapper */}
+        {/* Natural Idle Breathing & Click Acknowledgment Physics */}
         <motion.div
           animate={
-            isWaving
+            isAcknowledging
               ? {
-                  rotate: [0, -3.5, 4, -3.5, 2.5, 0],
-                  scale: [1, 1.025, 1],
-                  y: [0, -6, 0],
+                  scale: [1, 1.03, 0.99, 1],
+                  y: [0, -8, 2, 0],
+                  rotate: [0, -1.5, 1.5, 0],
                 }
               : {
-                  y: [0, -8, 0],
-                  rotate: [0, 0.4, -0.4, 0],
+                  y: [0, -7, 0],
+                  rotate: [0, 0.3, -0.3, 0],
                 }
           }
           transition={
-            isWaving
+            isAcknowledging
               ? {
-                  duration: 1.8,
+                  duration: 1.4,
                   ease: "easeInOut",
                   repeat: 0,
                 }
               : {
-                  duration: 3.8,
+                  duration: 4.2,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }
           }
           className="relative w-full h-full flex items-center justify-center"
         >
-          {/* High-Resolution 3D Stylized Developer Avatar */}
-          <motion.img
-            src="/images/avatar-developer-3d.png"
-            alt="Mamidala Vijay Kumar - 3D Developer Avatar"
-            className="w-full h-full object-contain filter drop-shadow-md select-none transition-transform duration-300 group-hover:scale-[1.015]"
-            draggable={false}
-            priority-load="true"
-          />
+          {/* Futuristic Rounded Character Framing with Glass Backplate & Cyan Rim Glow */}
+          <div className="relative w-full h-full rounded-3xl overflow-hidden glass-card border border-slate-700/80 group-hover:border-cyan-500/50 group-hover:shadow-[0_20px_50px_rgba(6,182,212,0.3)] transition-all duration-500">
+            {/* Ambient workspace background mesh */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-transparent to-transparent z-10 pointer-events-none opacity-80" />
 
-          {/* Interactive Floating Wave Particles during Greeting */}
+            {/* High-Fidelity 3D Stylized Avatar of Vijay */}
+            <motion.img
+              src="/images/avatar-developer-3d.png"
+              alt="Mamidala Vijay Kumar - AI Engineer & Full-Stack Developer 3D Avatar"
+              className="w-full h-full object-cover object-center select-none filter contrast-[1.03] brightness-[1.02] transition-transform duration-500 group-hover:scale-[1.02]"
+              draggable={false}
+            />
+
+            {/* Subtle Interactive Lighting Sheen Overlay on Hover */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/0 via-cyan-400/5 to-amber-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10" />
+
+            {/* Futuristic Telemetry HUD Corner Accents */}
+            <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900/85 border border-cyan-500/40 text-[10px] font-mono text-cyan-300 shadow-[0_0_12px_rgba(6,182,212,0.25)] backdrop-blur-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+              <span>ONLINE</span>
+            </div>
+          </div>
+
+          {/* Interactive Floating Wave Emojis during Acknowledgment */}
           <AnimatePresence>
-            {isWaving && (
+            {isAcknowledging && (
               <>
                 <motion.div
                   initial={{ opacity: 0, scale: 0, y: 0, x: -60 }}
                   animate={{ opacity: 1, scale: 1.2, y: -45, x: -80 }}
                   exit={{ opacity: 0, scale: 0.8, y: -65 }}
                   transition={{ duration: 0.9, ease: "easeOut" }}
-                  className="absolute top-16 left-8 pointer-events-none text-2xl z-20"
+                  className="absolute top-12 left-6 pointer-events-none text-2xl z-30 drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]"
                 >
                   👋
                 </motion.div>
                 <motion.div
-                  initial={{ opacity: 0, scale: 0, y: 0, x: -30 }}
-                  animate={{ opacity: 1, scale: 1, y: -35, x: -40 }}
-                  exit={{ opacity: 0, scale: 0.5, y: -50 }}
+                  initial={{ opacity: 0, scale: 0, y: 0, x: 40 }}
+                  animate={{ opacity: 1, scale: 1.1, y: -40, x: 60 }}
+                  exit={{ opacity: 0, scale: 0.5, y: -55 }}
                   transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-                  className="absolute top-20 left-16 pointer-events-none text-xl z-20"
+                  className="absolute top-16 right-6 pointer-events-none text-xl z-30 drop-shadow-[0_0_10px_rgba(245,158,11,0.5)]"
                 >
                   ✨
                 </motion.div>
@@ -409,24 +448,27 @@ export function DeveloperAvatar({ onOpenAssistant }: DeveloperAvatarProps) {
           e.stopPropagation();
           runCinematicSequence();
         }}
-        className="absolute bottom-2 right-2 sm:right-4 glass-panel px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:text-blue-600 hover:border-blue-300 flex items-center gap-1.5 transition-all shadow-xs hover:shadow-sm z-20 active:scale-95"
+        className="absolute bottom-2 right-2 sm:right-4 bg-slate-900/85 hover:bg-slate-800/90 border border-slate-700/80 px-3 py-1.5 rounded-full text-xs font-medium text-slate-300 hover:text-cyan-300 flex items-center gap-1.5 transition-all shadow-[0_4px_15px_rgba(0,0,0,0.3)] z-20 active:scale-95 backdrop-blur-md"
         title="Replay Welcome Greeting"
       >
-        <RotateCcw className="w-3.5 h-3.5" />
-        <span>Replay Greeting</span>
+        <RotateCcw className="w-3.5 h-3.5 text-cyan-400" />
+        <span>Replay Intro</span>
       </button>
 
-      {/* Academic / Specialization Badge */}
-      <div className="absolute bottom-2 left-2 sm:left-4 glass-panel px-3 py-1.5 rounded-full shadow-xs flex items-center gap-2 text-xs font-medium text-slate-700 pointer-events-none z-20">
-        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+      {/* Academic Specialization Pill */}
+      <div className="absolute bottom-2 left-2 sm:left-4 bg-slate-900/85 border border-amber-500/30 px-3 py-1.5 rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.3)] flex items-center gap-2 text-xs font-semibold text-amber-300 pointer-events-none z-20 backdrop-blur-md">
+        <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#F59E0B]" />
         <span>VNR VJIET • CSE-IoT</span>
       </div>
 
-      {/* 3D Developer Avatar Badge */}
-      <div className="absolute top-4 left-2 sm:left-4 glass-panel px-3 py-1.5 rounded-full shadow-xs flex items-center gap-2 text-xs font-medium text-blue-700 pointer-events-none z-20">
-        <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-        <span>3D Developer Avatar</span>
+      {/* 3D AI Engineer Digital Twin Pill */}
+      <div className="absolute top-4 left-2 sm:left-4 bg-slate-900/85 border border-cyan-500/30 px-3 py-1.5 rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.3)] flex items-center gap-2 text-xs font-semibold text-cyan-300 pointer-events-none z-20 backdrop-blur-md">
+        <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+        <span>Interactive Digital Twin</span>
       </div>
     </div>
   );
 }
+
+// Reusable export alias as requested
+export const InteractiveAvatar = DeveloperAvatar;

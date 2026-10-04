@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { PERSONAL_INFO } from "@/lib/data";
+import { ClientLayout } from "@/components/layout/client-layout";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -10,7 +11,7 @@ const inter = Inter({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#FAFAFA",
+  themeColor: "#0B1120",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -82,15 +83,15 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`dark ${inter.variable}`}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="relative bg-background text-primary antialiased selection:bg-blue-100 selection:text-blue-900 min-h-screen">
-        {children}
+      <body className="relative bg-[#0B1120] text-[#F8FAFC] antialiased selection:bg-cyan-500/25 selection:text-cyan-200 min-h-screen">
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

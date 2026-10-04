@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { PORTFOLIO_SYSTEM_PROMPT, generateFallbackResponse } from "@/lib/ai-assistant";
+import { PORTFOLIO_SYSTEM_PROMPT, generateSmartResponse } from "@/lib/ai-assistant";
 
 export async function POST(req: Request) {
   try {
@@ -11,18 +11,81 @@ export async function POST(req: Request) {
     }
 
     const trimmed = message.trim();
+    const historyList = Array.isArray(history) ? history : [];
 
-    // 1. Check if an OpenAI API key is provided
+    // 1. Generate core grounded structured response (actions, project card, skills, navigation)
+    const smartStructured = generateSmartResponse(trimmed, historyList);
+
+    // 2. Check if a Gemini API key is provided for dynamic AI generation
+    if (process.env.GEMINI_API_KEY) {
+      try {
+        const formattedContents = [
+          ...historyList.slice(-6).map((h: { role: string; content: string }) => ({
+            role: h.role === "assistant" ? "model" : "user",
+            parts: [{ text: h.content }],
+          })),
+          {
+            role: "user",
+            parts: [{ text: trimmed }],
+          },
+        ];
+
+        const res = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              system_instruction: {
+                parts: [{ text: PORTFOLIO_SYSTEM_PROMPT }],
+              },
+              contents: formattedContents,
+              generationConfig: {
+                temperature: 0.4,
+                maxOutputTokens: 600,
+              },
+            }),
+          }
+        );
+
+        if (res.ok) {
+          const data = await res.json();
+          const rawReply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (rawReply) {
+            const reply = rawReply
+              .replace(/^[ \t]*[*•\-][ \t]+(?=(?:Programming Languages|AI|Frontend|Backend|Databases|IoT|Tools|Tech Stack|Key Coursework|Education|Contact|LeetCode|GitHub))/gim, "")
+              .replace(/^[ \t]*[-*_]{3,}[ \t]*$/gm, "")
+              .trim();
+
+            return NextResponse.json({
+              reply,
+              actions: smartStructured.actions,
+              projectCard: smartStructured.projectCard,
+              skillsGrid: smartStructured.skillsGrid,
+              suggestedFollowUps: smartStructured.suggestedFollowUps,
+              source: "gemini",
+            });
+          }
+        } else {
+          const errData = await res.text();
+          console.warn("Gemini API call non-OK status:", res.status, errData);
+        }
+      } catch (geminiErr) {
+        console.warn("Gemini API call failed, attempting fallback:", geminiErr);
+      }
+    }
+
+    // 3. Check if an OpenAI API key is provided for natural language variation
     if (process.env.OPENAI_API_KEY) {
       try {
         const messages = [
           { role: "system", content: PORTFOLIO_SYSTEM_PROMPT },
-          ...(Array.isArray(history)
-            ? history.slice(-6).map((h: { role: string; content: string }) => ({
-                role: h.role === "assistant" ? "assistant" : "user",
-                content: h.content,
-              }))
-            : []),
+          ...historyList.slice(-6).map((h: { role: string; content: string }) => ({
+            role: h.role === "assistant" ? "assistant" : "user",
+            content: h.content,
+          })),
           { role: "user", content: trimmed },
         ];
 
@@ -36,7 +99,7 @@ export async function POST(req: Request) {
             model: "gpt-4o-mini",
             messages,
             max_tokens: 450,
-            temperature: 0.4,
+            temperature: 0.35,
           }),
         });
 
@@ -44,18 +107,24 @@ export async function POST(req: Request) {
           const data = await res.json();
           const reply = data.choices?.[0]?.message?.content;
           if (reply) {
-            return NextResponse.json({ reply, source: "openai" });
+            return NextResponse.json({
+              reply,
+              actions: smartStructured.actions,
+              projectCard: smartStructured.projectCard,
+              skillsGrid: smartStructured.skillsGrid,
+              suggestedFollowUps: smartStructured.suggestedFollowUps,
+              source: "openai",
+            });
           }
         }
       } catch (aiErr) {
-        console.warn("OpenAI API call failed, falling back to deterministic engine:", aiErr);
+        console.warn("OpenAI API call failed, falling back to local engine:", aiErr);
       }
     }
 
-    // 2. Intelligent deterministic fallback mode (Zero API keys needed, 100% reliability)
-    const reply = generateFallbackResponse(trimmed);
+    // 3. Fallback / Default Instant Knowledge Engine
     return NextResponse.json({
-      reply,
+      ...smartStructured,
       source: "local-knowledge-engine",
     });
   } catch (error) {
@@ -63,7 +132,12 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         reply:
-          "I experienced a slight glitch processing that request, but I'm here! Feel free to ask about Vijay's projects, his CSE-IoT studies at VNR VJIET, or his skills.",
+          "I experienced a slight glitch processing that request, but I'm here! Feel free to ask about Vijay's projects, his CSE-IoT studies at VNR VJIET, his skills, or hackathons.",
+        actions: [
+          { label: "Projects", type: "query", query: "Show me Vijay's projects" },
+          { label: "Skills", type: "query", query: "What technologies does Vijay know?" },
+          { label: "Contact", type: "query", query: "How can I contact Vijay?" },
+        ],
         source: "error-fallback",
       },
       { status: 200 }

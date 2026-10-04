@@ -8,23 +8,29 @@ const CATEGORY_ICONS: Record<AchievementItem["category"], React.ElementType> = {
   Academic: GraduationCap,
   "ML Project": Code2,
   Hackathon: Trophy,
+  "Hackathons & National Ideathons": Trophy,
   Certification: Award,
+  "Certifications & Learning": Award,
   "IoT Hardware": Cpu,
 };
 
 export function Achievements() {
   return (
-    <section id="journey" className="py-24 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="journey" className="py-24 relative overflow-hidden bg-[#0B1120] border-t border-slate-800/80">
+      {/* Aurora Ambient Lighting */}
+      <div className="absolute top-1/3 left-10 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[150px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-20">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/80 mb-4"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-cyan-950/80 text-cyan-300 border border-cyan-500/30 mb-4 shadow-[0_0_15px_rgba(6,182,212,0.15)]"
           >
-            <Milestone className="w-3.5 h-3.5 text-indigo-600" />
+            <Milestone className="w-3.5 h-3.5 text-cyan-400" />
             <span>Milestones & Growth</span>
           </motion.div>
 
@@ -33,7 +39,7 @@ export function Achievements() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#F8FAFC] mb-4"
           >
             Journey So Far
           </motion.h2>
@@ -43,7 +49,7 @@ export function Achievements() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
-            className="text-slate-600 text-sm sm:text-base leading-relaxed"
+            className="text-[#94A3B8] text-sm sm:text-base leading-relaxed"
           >
             An authentic chronological roadmap of my academic milestones, hands-on ML experimentation,
             hackathons, and hardware engineering progression.
@@ -53,12 +59,14 @@ export function Achievements() {
         {/* Vertical Timeline */}
         <div className="relative max-w-4xl mx-auto">
           {/* Central Connecting Vertical Line */}
-          <div className="absolute top-0 bottom-0 left-4 sm:left-1/2 -translate-x-1/2 w-0.5 bg-gradient-to-b from-blue-500 via-indigo-400 to-slate-200" />
+          <div className="absolute top-0 bottom-0 left-4 sm:left-1/2 -translate-x-1/2 w-0.5 bg-gradient-to-b from-cyan-400 via-sky-400 to-amber-400 shadow-[0_0_12px_rgba(6,182,212,0.5)]" />
 
           <div className="space-y-12 sm:space-y-16">
             {ACHIEVEMENTS.map((item, idx) => {
               const isEven = idx % 2 === 0;
               const IconComponent = CATEGORY_ICONS[item.category] || Milestone;
+              const isIoT = item.category === "IoT Hardware";
+              const isML = item.category === "ML Project" || item.category === "Hackathon";
 
               return (
                 <motion.div
@@ -72,31 +80,59 @@ export function Achievements() {
                   }`}
                 >
                   {/* Timeline Center Node Icon */}
-                  <div className="absolute left-4 sm:left-1/2 -translate-x-1/2 w-9 h-9 rounded-full bg-white border-2 border-blue-600 shadow-md flex items-center justify-center text-blue-600 z-10">
+                  <div
+                    className={`absolute left-4 sm:left-1/2 -translate-x-1/2 w-9 h-9 rounded-full bg-[#0F172A] border-2 shadow-lg flex items-center justify-center z-10 ${
+                      isIoT
+                        ? "border-amber-400 text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.5)]"
+                        : "border-cyan-400 text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.5)]"
+                    }`}
+                  >
                     <IconComponent className="w-4 h-4" />
                   </div>
 
                   {/* Content Card */}
                   <div className="ml-12 sm:ml-0 sm:w-1/2 sm:px-8 w-full">
-                    <div className="glass-card p-6 rounded-2xl hover:border-blue-200 transition-all">
+                    <div
+                      className={`glass-card p-6 rounded-2xl transition-all group ${
+                        isIoT
+                          ? "hover:border-amber-500/50 hover:shadow-[0_15px_35px_-10px_rgba(245,158,11,0.2)]"
+                          : "hover:border-cyan-500/50 hover:shadow-[0_15px_35px_-10px_rgba(6,182,212,0.2)]"
+                      }`}
+                    >
                       <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200/80">
+                        <span
+                          className={`px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold border ${
+                            isIoT
+                              ? "bg-amber-950/80 text-amber-300 border-amber-500/40"
+                              : "bg-cyan-950/80 text-cyan-300 border-cyan-500/40"
+                          }`}
+                        >
                           {item.year}
                         </span>
-                        <span className="text-xs font-medium text-slate-500">{item.category}</span>
+                        <span className="text-xs font-mono text-slate-400">{item.category}</span>
                       </div>
 
-                      <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
+                      <h3
+                        className={`text-lg font-bold text-[#F8FAFC] mb-2 transition-colors ${
+                          isIoT ? "group-hover:text-amber-300" : "group-hover:text-cyan-300"
+                        }`}
+                      >
+                        {item.title}
+                      </h3>
 
-                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+                      <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4 font-normal">
                         {item.description}
                       </p>
 
                       {/* Highlights */}
-                      <div className="space-y-1.5 pt-3 border-t border-slate-100">
+                      <div className="space-y-1.5 pt-3 border-t border-slate-800/80">
                         {item.highlights.map((h, i) => (
-                          <div key={i} className="flex items-start gap-2 text-xs text-slate-600">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
+                          <div key={i} className="flex items-start gap-2 text-xs text-slate-300">
+                            <CheckCircle2
+                              className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${
+                                isIoT ? "text-amber-400" : "text-cyan-400"
+                              }`}
+                            />
                             <span>{h}</span>
                           </div>
                         ))}

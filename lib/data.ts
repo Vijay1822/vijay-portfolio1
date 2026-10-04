@@ -35,7 +35,14 @@ export interface SkillCategory {
 export interface AchievementItem {
   year: string;
   title: string;
-  category: "Hackathon" | "ML Project" | "Certification" | "IoT Hardware" | "Academic";
+  category:
+    | "Hackathon"
+    | "ML Project"
+    | "Certification"
+    | "Certifications & Learning"
+    | "IoT Hardware"
+    | "Academic"
+    | "Hackathons & National Ideathons";
   description: string;
   highlights: string[];
 }
@@ -48,6 +55,7 @@ export const PERSONAL_INFO = {
   collegeFullName: "Vallurupalli Nageswara Rao Vignana Jyothi Institute of Engineering and Technology",
   degree: "Bachelor of Technology (B.Tech)",
   branch: "Computer Science & Engineering — IoT",
+  cgpa: "9.45 CGPA",
   graduationYear: "2029",
   location: "Hyderabad, India",
   tagline: "Building intelligent systems that turn ideas into real-world experiences.",
@@ -61,8 +69,10 @@ export const PERSONAL_INFO = {
   social: {
     github: "https://github.com/Vijay1822",
     linkedin: "https://www.linkedin.com/in/vijay-kumar-09b2bb36a",
+    leetcode: "https://leetcode.com/u/Vijay_kumar2008/",
     email: "mamidalavijay04@gmail.com",
     handle: "@Vijay1822",
+    leetcodeHandle: "@Vijay_kumar2008",
   },
   stats: [
     { label: "Graduation", value: "2029", detail: "B.Tech CSE-IoT" },
@@ -81,6 +91,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       { name: "Java", status: "Working With", iconName: "Coffee" },
       { name: "TypeScript", status: "Building With", iconName: "Code2" },
       { name: "JavaScript", status: "Building With", iconName: "Braces" },
+      { name: "C++", status: "Working With", iconName: "Binary" },
     ],
   },
   {
@@ -89,10 +100,11 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     skills: [
       { name: "Machine Learning", status: "Building With", iconName: "Brain" },
       { name: "Generative AI", status: "Building With", iconName: "Sparkles" },
+      { name: "LLMs & Prompting", status: "Building With", iconName: "Cpu" },
+      { name: "RAG Systems", status: "Building With", iconName: "Layers" },
       { name: "LangChain", status: "Working With", iconName: "Workflow" },
       { name: "Hugging Face", status: "Working With", iconName: "Smile" },
-      { name: "Model Experimentation", status: "Building With", iconName: "Cpu" },
-      { name: "Data Analysis", status: "Working With", iconName: "BarChart3" },
+      { name: "Scikit-Learn", status: "Building With", iconName: "BarChart3" },
     ],
   },
   {
@@ -102,8 +114,8 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       { name: "Next.js", status: "Building With", iconName: "Layers" },
       { name: "React", status: "Building With", iconName: "Atom" },
       { name: "Tailwind CSS", status: "Building With", iconName: "Palette" },
-      { name: "HTML5 & CSS3", status: "Building With", iconName: "Globe" },
-      { name: "Framer Motion", status: "Working With", iconName: "Move" },
+      { name: "HTML5 / CSS3", status: "Building With", iconName: "Globe" },
+      { name: "Framer Motion", status: "Building With", iconName: "Move" },
     ],
   },
   {
@@ -117,8 +129,9 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   },
   {
     title: "Databases & Storage",
-    description: "Relational persistence and cloud backend services",
+    description: "Relational persistence, vector stores, and cloud backend services",
     skills: [
+      { name: "MongoDB", status: "Building With", iconName: "Database" },
       { name: "SQL", status: "Building With", iconName: "Database" },
       { name: "Supabase", status: "Working With", iconName: "Flame" },
       { name: "SQLite", status: "Working With", iconName: "HardDrive" },
@@ -132,6 +145,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       { name: "NodeMCU (ESP8266)", status: "Building With", iconName: "Wifi" },
       { name: "Environmental Sensors", status: "Building With", iconName: "Activity" },
       { name: "Blynk IoT", status: "Working With", iconName: "Smartphone" },
+      { name: "MQTT Protocols", status: "Working With", iconName: "RadioTower" },
     ],
   },
   {
@@ -148,6 +162,47 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
 ];
 
 export const PROJECTS: Project[] = [
+  {
+    id: "budgetmind",
+    title: "BudgetMind",
+    category: "AI Agent & Financial Intelligence",
+    tagline: "AI Budget Optimizer & Procurement Memory Agent",
+    description:
+      "An intelligent AI financial budget optimizer and procurement memory agent that uses RAG (Retrieval-Augmented Generation) and Large Language Models to analyze expenditure patterns, predict budget variances, and store contextual financial memory.",
+    problem:
+      "Organizations and individuals struggle with fragmented expense tracking, opaque procurement leakages, and lack of real-time predictive budgetary intelligence.",
+    solution:
+      "Engineered an autonomous AI agent leveraging Retrieval-Augmented Generation (RAG) and LLMs with persistent memory pipelines to analyze transaction streams, optimize procurement allocation, and provide actionable real-time budgetary reasoning.",
+    architecture: {
+      frontend: "React, Next.js, Tailwind CSS, Framer Motion",
+      backend: "Node.js, Express.js microservices with transactional settlement",
+      aiOrIot: "LangChain, RAG architecture, LLMs, semantic vector embeddings",
+      database: "MongoDB with vector indexing and secure session state",
+      flow: [
+        "User or organization uploads expense & procurement records",
+        "Semantic vector pipeline extracts context and stores embeddings in memory",
+        "RAG retrieval agent evaluates historical trends and budget thresholds",
+        "LLM delivers personalized optimization insights, alerts, and savings strategies",
+      ],
+    },
+    techStack: ["React", "Node.js", "MongoDB", "RAG", "LLMs", "LangChain", "Tailwind CSS"],
+    features: [
+      "Contextual procurement memory tracking recurring expenditure cycles",
+      "Automated budgetary variance forecasting with dynamic limits",
+      "Semantic financial document search and conversational query agent",
+      "Real-time cost reduction recommendations and anomaly alerts",
+      "Interactive data visualization charts for cashflow telemetry",
+    ],
+    metrics: [
+      { label: "AI Architecture", value: "RAG + LLMs" },
+      { label: "Database", value: "MongoDB" },
+      { label: "Deployment", value: "Netlify / Cloud" },
+    ],
+    githubUrl: "https://github.com/Vijay1822/BudgetMind",
+    liveDemoUrl: "https://budgetmind3.netlify.app/",
+    badge: "Featured AI Agent",
+    themeColor: "from-cyan-500 to-indigo-600",
+  },
   {
     id: "smart-farmer-procurement",
     title: "Smart Farmer Procurement System",
@@ -232,63 +287,74 @@ export const PROJECTS: Project[] = [
 
 export const ACHIEVEMENTS: AchievementItem[] = [
   {
-    year: "2025 – Present",
+    year: "2026 – Present",
     title: "B.Tech in CSE-IoT at VNR VJIET",
     category: "Academic",
     description:
-      "Pursuing Bachelor of Technology in Computer Science & Engineering (Internet of Things) at VNR VJIET, Hyderabad. Focusing on data structures, algorithmic design, embedded hardware interfacing, and distributed systems.",
+      "Pursuing Bachelor of Technology in Computer Science & Engineering (Internet of Things) at VNR VJIET, Hyderabad.",
     highlights: [
-      "Active participation in campus technical clubs and coding challenges",
-      "Rigorous foundation in computer architecture, C++, and hardware lab experiments",
-      "Collaborative project development across AI and IoT domains",
+      "Maintaining a strong academic profile with a 9.45 CGPA",
+      "Building a strong foundation in Data Structures, Algorithms, C++, Computer Networks, DBMS, Java, Computer Architecture, and IoT",
+      "Active participation in technical clubs, coding challenges, hackathons, and project-based learning",
+      "Developing collaborative projects across AI, Full-Stack Development, and IoT",
+      "Exploring practical applications of AI, cloud technologies, embedded systems, and intelligent automation",
     ],
   },
   {
-    year: "2025",
-    title: "Building Competition-Focused ML & Full-Stack Prototypes",
-    category: "ML Project",
-    description:
-      "Developed high-impact practical solutions including the Smart Farmer Procurement System and predictive ML models addressing real-world operational challenges in agriculture and resource allocation.",
-    highlights: [
-      "Implemented predictive regression and classification pipelines in Python",
-      "Integrated machine learning microservices into modern Next.js client architectures",
-      "Focused on practical feasibility and honest engineering design",
-    ],
-  },
-  {
-    year: "2025",
-    title: "Participation in Technical Competitions & Ideathons",
-    category: "Hackathon",
-    description:
-      "Engaged in technical hackathons and ideathons, pitching software-hardware integrated solutions and collaborating on rapid prototyping under tight deadlines.",
-    highlights: [
-      "Gained hands-on experience under competitive team constraints",
-      "Refined presentation of system architecture and real-world viability",
-      "Networked with fellow student builders and tech mentors",
-    ],
-  },
-  {
-    year: "2024 – 2025",
-    title: "NPTEL & Specialized AI Learning",
-    category: "Certification",
-    description:
-      "Undertook continuous self-directed learning across NPTEL coursework, online developer curricula, and open-source documentation covering Python, data analytics, and modern web frameworks.",
-    highlights: [
-      "Completed in-depth studies of Python programming and object-oriented paradigms",
-      "Explored generative AI models, Hugging Face transformers, and LLM prompting patterns",
-      "Strengthened mathematical foundations of optimization and statistics",
-    ],
-  },
-  {
-    year: "2024",
+    year: "2026",
     title: "Hands-on IoT & Microcontroller Prototyping",
     category: "IoT Hardware",
     description:
-      "Constructed hands-on microcontroller systems utilizing Arduino and NodeMCU (ESP8266/ESP32) boards, interfacing sensors, actuators, and WiFi telemetry.",
+      "Built hands-on IoT and embedded systems using Arduino and NodeMCU/ESP8266/ESP32, working with sensors, actuators, motor control, and IoT communication.",
     highlights: [
-      "Designed and deployed the Smart Temperature-Based Fan Control System",
-      "Mastered PWM control, analog-to-digital conversions, and sensor calibration",
-      "Implemented MQTT and cloud communication channels using Blynk IoT",
+      "Designed and developed a Smart Temperature-Based Fan Control System",
+      "Worked with Arduino, LM35 temperature sensors, motor drivers, DC motors/fans, LCD displays, and embedded components",
+      "Implemented PWM-based motor control and analog-to-digital sensor interfacing",
+      "Practiced sensor calibration, real-time hardware control, and Wi-Fi IoT cloud communication using Blynk",
+      "Gained practical experience in circuit prototyping, hardware debugging, and IoT system integration",
+    ],
+  },
+  {
+    year: "2025 – 2026",
+    title: "AI Full-Stack Web Development, NPTEL & AI/ML Learning",
+    category: "Certifications & Learning",
+    description:
+      "Completed certifications and technical learning programs during 2025–2026, with a focus on AI, full-stack development, machine learning, and modern software engineering.",
+    highlights: [
+      "Completed certification in AI Full-Stack Web Development with React & Node.js",
+      "Completed / pursued NPTEL coursework covering Python, machine learning, data analytics, and related technical foundations",
+      "Explored Generative AI, Hugging Face Transformers, LLMs, RAG, LangChain/LangGraph, and AI agents",
+      "Practiced programming and algorithmic problem solving through LeetCode",
+      "Built practical projects applying AI/ML, backend development, databases, cloud deployment, and full-stack engineering",
+    ],
+  },
+  {
+    year: "2025 – 2026",
+    title: "Adobe Hackathon & Creative AI Challenges",
+    category: "Hackathon",
+    description:
+      "Participated in the Adobe Hackathon and creative AI challenges during 2025–2026, exploring intelligent digital experiences and AI-powered applications.",
+    highlights: [
+      "Built and explored LLM-powered applications, AI agents, automation workflows, and RAG architectures",
+      "Experimented with Generative AI, tool calling, prompt engineering, and intelligent workflows",
+      "Developed responsive interfaces connected to AI-powered backend services",
+      "Explored practical applications of AI in creative technology, automation, and data-driven experiences",
+      "Strengthened skills in rapid product development and presenting technical solutions",
+    ],
+  },
+  {
+    year: "2025 – 2026",
+    title: "Smart India Hackathon (SIH) & National Hackathons",
+    category: "Hackathons & National Ideathons",
+    description:
+      "Participated in Smart India Hackathon (SIH), national-level hackathons, college hackathons, and ideathons during 2025–2026, developing technology solutions for real-world problems.",
+    highlights: [
+      "Designed and developed end-to-end AI, IoT, and full-stack prototypes",
+      "Worked under intensive hackathon timelines to convert problem statements into functional prototypes",
+      "Collaborated with multidisciplinary teams on architecture, development, integration, and deployment",
+      "Worked on solutions involving AI agents, RAG, intelligent automation, IoT, databases, and cloud technologies",
+      "Presented system architecture, technical feasibility, innovation, and scalability to hackathon judges and mentors",
+      "Gained practical experience in rapid prototyping, problem-solving, teamwork, and technical pitching",
     ],
   },
 ];
@@ -300,12 +366,13 @@ export const EDUCATION = {
   degree: "Bachelor of Technology (B.Tech)",
   branch: "Computer Science & Engineering — Internet of Things (CSE-IoT)",
   status: "Undergraduate Student",
+  cgpa: "9.45/10 CGPA",
   graduationYear: "2029",
   overview:
     "VNR VJIET is recognized among the premier autonomous engineering institutions in Hyderabad, distinguished for excellence in computing education, research culture, state-of-the-art laboratory infrastructure, and high academic standards.",
   keyCoursework: [
     "Data Structures & Algorithms",
-    "Object-Oriented Programming (Java & Python)",
+    "Object-Oriented Programming (Java, Python, C++)",
     "Internet of Things Architecture & Protocols",
     "Microcontrollers & Embedded Interfacing",
     "Computer Networks & Telemetry",
@@ -317,10 +384,13 @@ export const EDUCATION = {
 
 export const AI_ASSISTANT_SUGGESTIONS = [
   "Who is Vijay?",
-  "What technologies does Vijay use?",
-  "Tell me about his projects.",
-  "What is Vijay studying?",
-  "Tell me about his IoT experience.",
-  "How can I contact Vijay?",
-  "Show me his GitHub.",
+  "Resume",
+  "Tech Stack",
+  "Projects",
+  "BudgetMind",
+  "Education",
+  "Hackathons",
+  "LeetCode",
+  "GitHub",
+  "Contact Vijay",
 ];
