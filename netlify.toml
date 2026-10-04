@@ -5,7 +5,7 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# The contact email is intentionally public (shown on the site, resume, and README),
+# The contact email and public site URL are intentionally public (shown on the site, resume, and README),
 # so exclude these non-secret keys from secrets scanning.
 [build.environment]
-  SECRETS_SCAN_OMIT_KEYS = "CONTACT_DESTINATION_EMAIL,FROM_EMAIL"
+  SECRETS_SCAN_OMIT_KEYS = "CONTACT_DESTINATION_EMAIL,FROM_EMAIL,NEXT_PUBLIC_SITE_URL"
