@@ -1,6 +1,5 @@
 [build]
   command = "npm run build"
-  publish = ".next"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
@@ -8,4 +7,5 @@
 # The contact email and public site URL are intentionally public (shown on the site, resume, and README),
 # so exclude these non-secret keys from secrets scanning.
 [build.environment]
+  NODE_VERSION = "20"
   SECRETS_SCAN_OMIT_KEYS = "CONTACT_DESTINATION_EMAIL,FROM_EMAIL,NEXT_PUBLIC_SITE_URL"
