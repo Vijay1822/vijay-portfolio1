@@ -41,33 +41,33 @@ export function ResumeViewer() {
   };
 
   return (
-    <div className="min-h-screen py-10 relative overflow-hidden bg-[#0B1120]">
+    <div className="min-h-screen py-10 relative overflow-hidden bg-[#070B14]">
       {/* Background Radial Glow */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#22D3EE]/[0.05] rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#3B82F6]/[0.04] rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Top Control Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-slate-800/80">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-[rgba(148,163,184,0.12)]">
           {/* Back Button */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 transition-all shadow-[0_4px_15px_rgba(0,0,0,0.3)] w-fit group"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-[#A7B4C7] hover:text-[#F8FAFC] bg-[#0D1626] hover:bg-[#121C2D] border border-[rgba(148,163,184,0.15)] transition-all shadow-sm w-fit group"
           >
-            <ArrowLeft className="w-4 h-4 text-cyan-400 group-hover:-translate-x-1 transition-transform" />
+            <ArrowLeft className="w-4 h-4 text-[#22D3EE] group-hover:-translate-x-1 transition-transform" />
             <span>Back to Portfolio</span>
           </Link>
 
           {/* Action Buttons: Download, Open in New Tab, Share */}
           <div className="flex flex-wrap items-center gap-2.5">
             {/* View Mode Toggle */}
-            <div className="flex items-center p-1 rounded-xl bg-slate-900 border border-slate-800">
+            <div className="flex items-center p-1 rounded-xl bg-[#0D1626] border border-[rgba(148,163,184,0.12)]">
               <button
                 onClick={() => setViewMode("interactive")}
                 className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
                   viewMode === "interactive"
-                    ? "bg-cyan-950 text-cyan-300 border border-cyan-500/40 shadow-[0_0_10px_rgba(6,182,212,0.2)]"
-                    : "text-slate-400 hover:text-slate-200"
+                    ? "bg-[#172338] text-[#22D3EE] border border-[rgba(34,211,238,0.25)] shadow-sm"
+                    : "text-[#64748B] hover:text-[#A7B4C7]"
                 }`}
               >
                 Interactive
@@ -76,8 +76,8 @@ export function ResumeViewer() {
                 onClick={() => setViewMode("pdf")}
                 className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
                   viewMode === "pdf"
-                    ? "bg-cyan-950 text-cyan-300 border border-cyan-500/40 shadow-[0_0_10px_rgba(6,182,212,0.2)]"
-                    : "text-slate-400 hover:text-slate-200"
+                    ? "bg-[#172338] text-[#22D3EE] border border-[rgba(34,211,238,0.25)] shadow-sm"
+                    : "text-[#64748B] hover:text-[#A7B4C7]"
                 }`}
               >
                 Original PDF
@@ -89,17 +89,17 @@ export function ResumeViewer() {
               href={resumePdfUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-200 bg-slate-800/90 hover:bg-slate-700 border border-slate-700 hover:border-slate-600 transition-all shadow-[0_4px_15px_rgba(0,0,0,0.3)]"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-[#F8FAFC] bg-[#121C2D] hover:bg-[#172338] border border-[rgba(148,163,184,0.15)] hover:border-[rgba(34,211,238,0.45)] transition-all shadow-sm"
             >
               <span>Open in New Tab</span>
-              <ExternalLink className="w-3.5 h-3.5 text-cyan-400" />
+              <ExternalLink className="w-3.5 h-3.5 text-[#22D3EE]" />
             </a>
 
             {/* Download Resume Button */}
             <a
               href={resumePdfUrl}
               download="Mamidala_Vijay_Kumar_Resume.pdf"
-              className="inline-flex items-center gap-2 px-4.5 py-2 rounded-xl text-xs font-bold text-slate-950 bg-gradient-to-r from-cyan-400 via-sky-400 to-cyan-300 hover:from-cyan-300 hover:to-sky-300 shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_28px_rgba(6,182,212,0.6)] transition-all"
+              className="inline-flex items-center gap-2 px-4.5 py-2 rounded-xl text-xs font-bold text-[#061018] bg-[#22D3EE] hover:bg-[#67E8F9] shadow-[0_10px_30px_rgba(34,211,238,0.18)] transition-all"
             >
               <Download className="w-4 h-4 stroke-[2.5]" />
               <span>Download Resume</span>

@@ -21,7 +21,7 @@ export function ClientLayout({ children }: { children: ReactNode }) {
   const [isAssistantOpen, setIsAssistantOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col relative bg-[#0B1120] text-[#F8FAFC]">
+    <div className="min-h-screen flex flex-col relative bg-[#070B14] text-[#F8FAFC]">
       {/* Interactive Desktop Custom Cursor */}
       <CustomCursor />
 

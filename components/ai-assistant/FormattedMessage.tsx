@@ -65,7 +65,7 @@ function renderInlineContent(text: string): React.ReactNode[] {
           href={url}
           target={isInternal ? undefined : "_blank"}
           rel={isInternal ? undefined : "noopener noreferrer"}
-          className="inline-flex items-center gap-1 px-2 py-0.5 mx-0.5 rounded text-xs font-semibold bg-cyan-950/80 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-900/90 hover:text-cyan-200 transition-colors"
+          className="inline-flex items-center gap-1 px-2 py-0.5 mx-0.5 rounded text-xs font-semibold bg-[#172338] text-[#22D3EE] border border-[rgba(34,211,238,0.3)] hover:bg-[#0D1626] hover:text-[#67E8F9] transition-colors"
         >
           <span>{label}</span>
           {isInternal ? (
@@ -82,7 +82,7 @@ function renderInlineContent(text: string): React.ReactNode[] {
     // 2. Bold **text**
     if (part.startsWith("**") && part.endsWith("**") && part.length >= 4) {
       return (
-        <strong key={idx} className="font-semibold text-white">
+        <strong key={idx} className="font-semibold text-[#F8FAFC]">
           {part.slice(2, -2)}
         </strong>
       );
@@ -93,7 +93,7 @@ function renderInlineContent(text: string): React.ReactNode[] {
       return (
         <code
           key={idx}
-          className="px-1.5 py-0.5 mx-0.5 rounded bg-slate-800 text-cyan-300 font-mono text-[11px] border border-slate-700/80"
+          className="px-1.5 py-0.5 mx-0.5 rounded bg-[#0D1626] text-[#22D3EE] font-mono text-[11px] border border-[rgba(148,163,184,0.15)]"
         >
           {part.slice(1, -1)}
         </code>
@@ -132,7 +132,7 @@ function renderInlineContent(text: string): React.ReactNode[] {
             href={part}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 my-0.5 rounded-lg text-xs font-semibold bg-cyan-950/80 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-900/90 hover:border-cyan-400 transition-all shadow-sm"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 my-0.5 rounded-lg text-xs font-semibold bg-[#172338] text-[#22D3EE] border border-[rgba(34,211,238,0.3)] hover:bg-[#0D1626] hover:text-[#67E8F9] hover:border-[#22D3EE] transition-all shadow-sm"
           >
             <span>{label}</span>
             <ExternalLink className="w-3 h-3" />
@@ -146,7 +146,7 @@ function renderInlineContent(text: string): React.ReactNode[] {
           href={part}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-cyan-400 underline hover:text-cyan-300 transition-colors break-all"
+          className="text-[#22D3EE] underline hover:text-[#67E8F9] transition-colors break-all"
         >
           {part}
         </a>
@@ -213,16 +213,16 @@ export function FormattedMessage({ content, onNavigate, onQuery }: FormattedMess
       const chips = extractSkillChips(techMatch[2]);
 
       elements.push(
-        <div key={`tech-${i}`} className="my-2.5 p-2 rounded-xl bg-slate-950/60 border border-slate-800/80">
-          <div className="text-[11px] font-bold text-cyan-300 uppercase tracking-wider font-mono flex items-center gap-1.5 mb-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(6,182,212,0.6)]" />
+        <div key={`tech-${i}`} className="my-2.5 p-2 rounded-xl bg-[#0D1626] border border-[rgba(148,163,184,0.12)]">
+          <div className="text-[11px] font-bold text-[#22D3EE] uppercase tracking-wider font-mono flex items-center gap-1.5 mb-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] shadow-[0_0_6px_rgba(34,211,238,0.25)]" />
             <span>{category}</span>
           </div>
           <div className="flex flex-wrap gap-1.5">
             {chips.map((chip, cIdx) => (
               <span
                 key={cIdx}
-                className="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800/90 text-slate-200 border border-slate-700/80 hover:border-cyan-500/50 hover:text-cyan-200 transition-all shadow-sm select-none"
+                className="px-2.5 py-1 rounded-lg text-xs font-medium bg-[#172338] text-[#67E8F9] border border-[rgba(34,211,238,0.15)] hover:border-[rgba(34,211,238,0.4)] transition-all shadow-sm select-none"
               >
                 {chip}
               </span>
@@ -239,8 +239,8 @@ export function FormattedMessage({ content, onNavigate, onQuery }: FormattedMess
       const headingText = rawLine.replace(/^#{1,4}\s+/, "").replace(/[*_]/g, "").trim();
       elements.push(
         <div key={`h-${i}`} className="mt-3.5 mb-1.5 flex items-center gap-2">
-          <span className="w-1 h-3.5 bg-gradient-to-b from-cyan-400 to-sky-500 rounded-full shrink-0" />
-          <h4 className="text-xs sm:text-sm font-bold text-white tracking-tight">{headingText}</h4>
+          <span className="w-1 h-3.5 bg-gradient-to-b from-[#22D3EE] to-[#3B82F6] rounded-full shrink-0" />
+          <h4 className="text-xs sm:text-sm font-bold text-[#F8FAFC] tracking-tight">{headingText}</h4>
         </div>
       );
       continue;
@@ -258,8 +258,8 @@ export function FormattedMessage({ content, onNavigate, onQuery }: FormattedMess
       flushList();
       elements.push(
         <div key={`section-h-${i}`} className="mt-3 mb-1.5 flex items-center gap-2">
-          <span className="w-1 h-3.5 bg-cyan-400 rounded-full shrink-0" />
-          <h4 className="text-xs sm:text-sm font-bold text-white tracking-tight">{rawLine}</h4>
+          <span className="w-1 h-3.5 bg-[#22D3EE] rounded-full shrink-0" />
+          <h4 className="text-xs sm:text-sm font-bold text-[#F8FAFC] tracking-tight">{rawLine}</h4>
         </div>
       );
       continue;
@@ -278,16 +278,16 @@ export function FormattedMessage({ content, onNavigate, onQuery }: FormattedMess
         const chips = extractSkillChips(subTechMatch[2]);
 
         elements.push(
-          <div key={`bullet-tech-${i}`} className="my-2 p-2 rounded-xl bg-slate-950/60 border border-slate-800/80">
-            <div className="text-[11px] font-bold text-cyan-300 uppercase tracking-wider font-mono flex items-center gap-1.5 mb-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+          <div key={`bullet-tech-${i}`} className="my-2 p-2 rounded-xl bg-[#0D1626] border border-[rgba(148,163,184,0.12)]">
+            <div className="text-[11px] font-bold text-[#22D3EE] uppercase tracking-wider font-mono flex items-center gap-1.5 mb-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE]" />
               <span>{category}</span>
             </div>
             <div className="flex flex-wrap gap-1.5">
               {chips.map((chip, cIdx) => (
                 <span
                   key={cIdx}
-                  className="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800/90 text-slate-200 border border-slate-700/80"
+                  className="px-2.5 py-1 rounded-lg text-xs font-medium bg-[#172338] text-[#67E8F9] border border-[rgba(34,211,238,0.15)]"
                 >
                   {chip}
                 </span>
@@ -299,8 +299,8 @@ export function FormattedMessage({ content, onNavigate, onQuery }: FormattedMess
       }
 
       currentListItems.push(
-        <div key={`item-${i}`} className="flex items-start gap-2 leading-relaxed text-slate-200">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0 shadow-[0_0_6px_rgba(6,182,212,0.4)]" />
+        <div key={`item-${i}`} className="flex items-start gap-2 leading-relaxed text-[#A7B4C7]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] mt-2 shrink-0 shadow-[0_0_6px_rgba(34,211,238,0.25)]" />
           <div className="flex-1">{renderInlineContent(lineText)}</div>
         </div>
       );
@@ -310,7 +310,7 @@ export function FormattedMessage({ content, onNavigate, onQuery }: FormattedMess
     // 5. Regular paragraph
     flushList();
     elements.push(
-      <p key={`p-${i}`} className="leading-relaxed text-slate-200">
+      <p key={`p-${i}`} className="leading-relaxed text-[#A7B4C7]">
         {renderInlineContent(rawLine)}
       </p>
     );

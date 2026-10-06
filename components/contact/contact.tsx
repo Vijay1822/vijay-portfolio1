@@ -176,10 +176,10 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-[#0B1120] border-t border-slate-800/80">
+    <section id="contact" className="py-24 relative overflow-hidden bg-[#0B1220] border-t border-[rgba(148,163,184,0.12)]">
       {/* Aurora Ambient Glows */}
-      <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[550px] h-[550px] bg-amber-500/10 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-[#22D3EE]/[0.05] rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[550px] h-[550px] bg-[#3B82F6]/[0.04] rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -188,9 +188,9 @@ export function Contact() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-cyan-950/80 text-cyan-300 border border-cyan-500/30 mb-4 shadow-[0_0_15px_rgba(6,182,212,0.15)]"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-[#0D1626] text-[#22D3EE] border border-[rgba(34,211,238,0.25)] mb-4 shadow-[0_0_12px_rgba(34,211,238,0.10)]"
           >
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+            <Sparkles className="w-3.5 h-3.5 text-[#22D3EE]" />
             <span>Open for Opportunities</span>
           </motion.div>
 
@@ -209,7 +209,7 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
-            className="text-[#94A3B8] text-sm sm:text-base leading-relaxed max-w-2xl"
+            className="text-[#A7B4C7] text-sm sm:text-base leading-relaxed max-w-2xl"
           >
             Whether you are looking to collaborate on high-impact AI/ML projects, discuss internship
             opportunities, build hackathon prototypes, or exchange engineering thoughts—my inbox is always open.
@@ -217,25 +217,25 @@ export function Contact() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start max-w-5xl mx-auto">
-          {/* Left Column: Direct Links & Coordinates */}
+          {/* Left Column: Direct Links & Coordinates (Obsidian unified style) */}
           <div className="lg:col-span-5 space-y-4">
             {/* Email Card */}
             <a
               href={`mailto:${PERSONAL_INFO.social.email}`}
-              className="glass-card p-5 rounded-2xl flex items-center gap-4 group hover:border-cyan-500/50 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)] transition-all block"
+              className="glass-card p-5 rounded-2xl flex items-center gap-4 group border border-[rgba(148,163,184,0.12)] hover:border-[rgba(34,211,238,0.45)] hover:shadow-[0_16px_45px_rgba(34,211,238,0.08)] transition-all block"
             >
-              <div className="w-12 h-12 rounded-xl bg-cyan-950/80 text-cyan-400 border border-cyan-500/30 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-all shadow-[0_0_12px_rgba(6,182,212,0.2)]">
+              <div className="w-12 h-12 rounded-xl bg-[#0D1626] text-[#A7B4C7] border border-[rgba(148,163,184,0.12)] flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:border-[rgba(34,211,238,0.45)] group-hover:text-[#22D3EE] transition-all">
                 <Mail className="w-5 h-5" />
               </div>
               <div className="flex-1 min-w-0">
-                <span className="text-[11px] font-mono font-medium text-slate-400 uppercase tracking-wider block">
+                <span className="text-[11px] font-mono font-medium text-[#64748B] uppercase tracking-wider block">
                   Direct Email
                 </span>
-                <span className="text-sm font-bold text-[#F8FAFC] truncate block group-hover:text-cyan-300 transition-colors">
+                <span className="text-sm font-bold text-[#F8FAFC] truncate block group-hover:text-[#22D3EE] transition-colors">
                   {PERSONAL_INFO.social.email}
                 </span>
               </div>
-              <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-cyan-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+              <ArrowUpRight className="w-4 h-4 text-[#64748B] group-hover:text-[#22D3EE] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
             </a>
 
             {/* LinkedIn Card */}
@@ -243,20 +243,20 @@ export function Contact() {
               href={PERSONAL_INFO.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-card p-5 rounded-2xl flex items-center gap-4 group hover:border-cyan-500/50 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)] transition-all block"
+              className="glass-card p-5 rounded-2xl flex items-center gap-4 group border border-[rgba(148,163,184,0.12)] hover:border-[rgba(34,211,238,0.45)] hover:shadow-[0_16px_45px_rgba(34,211,238,0.08)] transition-all block"
             >
-              <div className="w-12 h-12 rounded-xl bg-sky-950/80 text-sky-400 border border-sky-500/30 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-sky-400 group-hover:text-slate-950 transition-all shadow-[0_0_12px_rgba(56,189,248,0.2)]">
+              <div className="w-12 h-12 rounded-xl bg-[#0D1626] text-[#A7B4C7] border border-[rgba(148,163,184,0.12)] flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:border-[rgba(34,211,238,0.45)] group-hover:text-[#22D3EE] transition-all">
                 <Linkedin className="w-5 h-5" />
               </div>
               <div className="flex-1 min-w-0">
-                <span className="text-[11px] font-mono font-medium text-slate-400 uppercase tracking-wider block">
+                <span className="text-[11px] font-mono font-medium text-[#64748B] uppercase tracking-wider block">
                   Professional Network
                 </span>
-                <span className="text-sm font-bold text-[#F8FAFC] truncate block group-hover:text-sky-300 transition-colors">
+                <span className="text-sm font-bold text-[#F8FAFC] truncate block group-hover:text-[#22D3EE] transition-colors">
                   linkedin.com/in/vijay-kumar...
                 </span>
               </div>
-              <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-sky-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+              <ArrowUpRight className="w-4 h-4 text-[#64748B] group-hover:text-[#22D3EE] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
             </a>
 
             {/* GitHub Card */}
@@ -264,20 +264,20 @@ export function Contact() {
               href={PERSONAL_INFO.social.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-card p-5 rounded-2xl flex items-center gap-4 group hover:border-amber-500/50 hover:shadow-[0_10px_30px_rgba(245,158,11,0.15)] transition-all block"
+              className="glass-card p-5 rounded-2xl flex items-center gap-4 group border border-[rgba(148,163,184,0.12)] hover:border-[rgba(34,211,238,0.45)] hover:shadow-[0_16px_45px_rgba(34,211,238,0.08)] transition-all block"
             >
-              <div className="w-12 h-12 rounded-xl bg-amber-950/80 text-amber-400 border border-amber-500/30 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-amber-400 group-hover:text-slate-950 transition-all shadow-[0_0_12px_rgba(245,158,11,0.2)]">
+              <div className="w-12 h-12 rounded-xl bg-[#0D1626] text-[#A7B4C7] border border-[rgba(148,163,184,0.12)] flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:border-[rgba(34,211,238,0.45)] group-hover:text-[#22D3EE] transition-all">
                 <Github className="w-5 h-5" />
               </div>
               <div className="flex-1 min-w-0">
-                <span className="text-[11px] font-mono font-medium text-slate-400 uppercase tracking-wider block">
+                <span className="text-[11px] font-mono font-medium text-[#64748B] uppercase tracking-wider block">
                   GitHub Profile
                 </span>
-                <span className="text-sm font-bold text-[#F8FAFC] truncate block group-hover:text-amber-300 transition-colors">
+                <span className="text-sm font-bold text-[#F8FAFC] truncate block group-hover:text-[#22D3EE] transition-colors">
                   {PERSONAL_INFO.social.handle}
                 </span>
               </div>
-              <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-amber-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+              <ArrowUpRight className="w-4 h-4 text-[#64748B] group-hover:text-[#22D3EE] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
             </a>
 
             {/* LeetCode Card */}
@@ -286,25 +286,25 @@ export function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Open Vijay Kumar's LeetCode profile"
-              className="glass-card p-5 rounded-2xl flex items-center gap-4 group hover:border-amber-500/50 hover:shadow-[0_10px_30px_rgba(245,158,11,0.15)] transition-all block"
+              className="glass-card p-5 rounded-2xl flex items-center gap-4 group border border-[rgba(148,163,184,0.12)] hover:border-[rgba(34,211,238,0.45)] hover:shadow-[0_16px_45px_rgba(34,211,238,0.08)] transition-all block"
             >
-              <div className="w-12 h-12 rounded-xl bg-amber-950/80 text-amber-400 border border-amber-500/30 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-amber-400 group-hover:text-slate-950 transition-all shadow-[0_0_12px_rgba(245,158,11,0.2)]">
+              <div className="w-12 h-12 rounded-xl bg-[#0D1626] text-[#A7B4C7] border border-[rgba(148,163,184,0.12)] flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:border-[rgba(34,211,238,0.45)] group-hover:text-[#22D3EE] transition-all">
                 <LeetCodeIcon className="w-5 h-5" />
               </div>
               <div className="flex-1 min-w-0">
-                <span className="text-[11px] font-mono font-medium text-slate-400 uppercase tracking-wider block">
+                <span className="text-[11px] font-mono font-medium text-[#64748B] uppercase tracking-wider block">
                   LeetCode Profile
                 </span>
-                <span className="text-sm font-bold text-[#F8FAFC] truncate block group-hover:text-amber-300 transition-colors">
+                <span className="text-sm font-bold text-[#F8FAFC] truncate block group-hover:text-[#22D3EE] transition-colors">
                   {PERSONAL_INFO.social.leetcodeHandle}
                 </span>
               </div>
-              <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-amber-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" aria-hidden="true" />
+              <ArrowUpRight className="w-4 h-4 text-[#64748B] group-hover:text-[#22D3EE] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" aria-hidden="true" />
             </a>
           </div>
 
           {/* Right Column: Interactive Contact Form */}
-          <div className="lg:col-span-7 glass-card p-6 sm:p-8 rounded-3xl relative border border-slate-800/90">
+          <div className="lg:col-span-7 glass-card p-6 sm:p-8 rounded-3xl relative border border-[rgba(148,163,184,0.12)] shadow-[0_16px_45px_rgba(0,0,0,0.25)]">
             {isSubmitted ? (
               /* Success State */
               <motion.div
@@ -312,18 +312,18 @@ export function Contact() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="py-12 text-center flex flex-col items-center"
               >
-                <div className="w-14 h-14 rounded-full bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(52,211,153,0.3)]">
+                <div className="w-14 h-14 rounded-full bg-[#0D1626] text-[#34D399] border border-[#34D399]/40 flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(52,211,153,0.2)]">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold text-[#F8FAFC] mb-2">Message Sent!</h3>
-                <p className="text-sm text-slate-300 max-w-md mb-6 font-normal">
-                  Thanks for reaching out, <span className="font-semibold text-white">{submittedName}</span>.
+                <p className="text-sm text-[#A7B4C7] max-w-md mb-6 font-normal">
+                  Thanks for reaching out, <span className="font-semibold text-[#F8FAFC]">{submittedName}</span>.
                   I&apos;ll get back to you as soon as possible.
                 </p>
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="px-5 py-2.5 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 transition-colors shadow-sm"
+                  className="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#172338] hover:bg-[#121C2D] text-[#F8FAFC] border border-[rgba(148,163,184,0.15)] transition-colors shadow-sm"
                 >
                   Send Another Message
                 </button>
@@ -358,17 +358,17 @@ export function Contact() {
                   <motion.div
                     initial={{ opacity: 0, y: -8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="p-3.5 rounded-xl bg-rose-950/70 border border-rose-500/40 text-rose-200 text-xs sm:text-sm space-y-2"
+                    className="p-3.5 rounded-xl bg-[#172338] border border-[#FB7185]/40 text-[#FB7185] text-xs sm:text-sm space-y-2"
                   >
-                    <div className="flex items-center gap-1.5 font-bold text-rose-300">
-                      <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+                    <div className="flex items-center gap-1.5 font-bold text-[#FB7185]">
+                      <AlertCircle className="w-4 h-4 text-[#FB7185] shrink-0" />
                       <span>Something went wrong.</span>
                     </div>
-                    <p className="text-xs text-rose-200/90 leading-relaxed">
+                    <p className="text-xs text-[#A7B4C7] leading-relaxed">
                       Your message wasn&apos;t sent. Please try again or contact me directly at:{" "}
                       <a
                         href="mailto:mamidalavijay04@gmail.com"
-                        className="underline font-semibold text-white"
+                        className="underline font-semibold text-[#F8FAFC]"
                       >
                         mamidalavijay04@gmail.com
                       </a>
@@ -376,7 +376,7 @@ export function Contact() {
                     <button
                       type="button"
                       onClick={() => setSubmitError(null)}
-                      className="px-3 py-1 rounded-lg text-xs font-semibold bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 transition-colors"
+                      className="px-3 py-1 rounded-lg text-xs font-semibold bg-[#FB7185]/20 hover:bg-[#FB7185]/30 text-[#FB7185] border border-[#FB7185]/40 transition-colors"
                     >
                       Try Again
                     </button>
@@ -386,7 +386,7 @@ export function Contact() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Name Field */}
                   <div>
-                    <label className="text-xs font-semibold text-slate-300 block mb-1.5">
+                    <label className="text-xs font-semibold text-[#A7B4C7] block mb-1.5">
                       Your Name *
                     </label>
                     <input
@@ -399,14 +399,14 @@ export function Contact() {
                         if (fieldErrors.name) setFieldErrors({ ...fieldErrors, name: undefined });
                       }}
                       placeholder="e.g. Alex Morgan"
-                      className={`w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-slate-900/80 border text-[#F8FAFC] placeholder:text-slate-500 focus:outline-none transition-colors ${
+                      className={`w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-[#0D1626] border text-[#F8FAFC] placeholder:text-[#64748B] focus:outline-none transition-colors ${
                         fieldErrors.name
-                          ? "border-rose-500 focus:ring-2 focus:ring-rose-500/30"
-                          : "border-slate-700/80 focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400"
+                          ? "border-[#FB7185] focus:ring-2 focus:ring-[#FB7185]/30"
+                          : "border-[rgba(148,163,184,0.15)] focus:ring-2 focus:ring-[#22D3EE]/10 focus:border-[#22D3EE]"
                       }`}
                     />
                     {fieldErrors.name && (
-                      <p className="text-xs text-rose-400 mt-1 flex items-center gap-1">
+                      <p className="text-xs text-[#FB7185] mt-1 flex items-center gap-1">
                         <AlertCircle className="w-3 h-3" />
                         <span>{fieldErrors.name}</span>
                       </p>
@@ -415,7 +415,7 @@ export function Contact() {
 
                   {/* Email Field */}
                   <div>
-                    <label className="text-xs font-semibold text-slate-300 block mb-1.5">
+                    <label className="text-xs font-semibold text-[#A7B4C7] block mb-1.5">
                       Your Email *
                     </label>
                     <input
@@ -428,14 +428,14 @@ export function Contact() {
                         if (fieldErrors.email) setFieldErrors({ ...fieldErrors, email: undefined });
                       }}
                       placeholder="alex@company.com"
-                      className={`w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-slate-900/80 border text-[#F8FAFC] placeholder:text-slate-500 focus:outline-none transition-colors ${
+                      className={`w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-[#0D1626] border text-[#F8FAFC] placeholder:text-[#64748B] focus:outline-none transition-colors ${
                         fieldErrors.email
-                          ? "border-rose-500 focus:ring-2 focus:ring-rose-500/30"
-                          : "border-slate-700/80 focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400"
+                          ? "border-[#FB7185] focus:ring-2 focus:ring-[#FB7185]/30"
+                          : "border-[rgba(148,163,184,0.15)] focus:ring-2 focus:ring-[#22D3EE]/10 focus:border-[#22D3EE]"
                       }`}
                     />
                     {fieldErrors.email && (
-                      <p className="text-xs text-rose-400 mt-1 flex items-center gap-1">
+                      <p className="text-xs text-[#FB7185] mt-1 flex items-center gap-1">
                         <AlertCircle className="w-3 h-3" />
                         <span>{fieldErrors.email}</span>
                       </p>
@@ -445,7 +445,7 @@ export function Contact() {
 
                 {/* Subject Field */}
                 <div>
-                  <label className="text-xs font-semibold text-slate-300 block mb-1.5">
+                  <label className="text-xs font-semibold text-[#A7B4C7] block mb-1.5">
                     Subject
                   </label>
                   <input
@@ -454,13 +454,13 @@ export function Contact() {
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     placeholder="Internship / Project Collaboration / Research"
-                    className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700/80 text-[#F8FAFC] placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400 transition-colors"
+                    className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-[#0D1626] border border-[rgba(148,163,184,0.15)] text-[#F8FAFC] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/10 focus:border-[#22D3EE] transition-colors"
                   />
                 </div>
 
                 {/* Message Field */}
                 <div>
-                  <label className="text-xs font-semibold text-slate-300 block mb-1.5">
+                  <label className="text-xs font-semibold text-[#A7B4C7] block mb-1.5">
                     Your Message *
                   </label>
                   <textarea
@@ -473,14 +473,14 @@ export function Contact() {
                       if (fieldErrors.message) setFieldErrors({ ...fieldErrors, message: undefined });
                     }}
                     placeholder="Hi Vijay, I came across your portfolio and wanted to discuss..."
-                    className={`w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-slate-900/80 border text-[#F8FAFC] placeholder:text-slate-500 focus:outline-none resize-none transition-colors ${
+                    className={`w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-[#0D1626] border text-[#F8FAFC] placeholder:text-[#64748B] focus:outline-none resize-none transition-colors ${
                       fieldErrors.message
-                        ? "border-rose-500 focus:ring-2 focus:ring-rose-500/30"
-                        : "border-slate-700/80 focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400"
+                        ? "border-[#FB7185] focus:ring-2 focus:ring-[#FB7185]/30"
+                        : "border-[rgba(148,163,184,0.15)] focus:ring-2 focus:ring-[#22D3EE]/10 focus:border-[#22D3EE]"
                     }`}
                   />
                   {fieldErrors.message && (
-                    <p className="text-xs text-rose-400 mt-1 flex items-center gap-1">
+                    <p className="text-xs text-[#FB7185] mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" />
                       <span>{fieldErrors.message}</span>
                     </p>
@@ -491,11 +491,11 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={isSending}
-                  className="w-full py-3.5 rounded-xl text-sm font-bold text-slate-950 bg-gradient-to-r from-cyan-400 via-sky-400 to-cyan-300 hover:from-cyan-300 hover:to-sky-300 transition-all duration-200 shadow-[0_0_25px_rgba(6,182,212,0.4)] hover:shadow-[0_0_35px_rgba(6,182,212,0.6)] flex items-center justify-center gap-2 group disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
+                  className="w-full py-3.5 rounded-xl text-sm font-bold text-[#061018] bg-[#22D3EE] hover:bg-[#67E8F9] hover:-translate-y-0.5 transition-all duration-200 shadow-[0_10px_30px_rgba(34,211,238,0.18)] flex items-center justify-center gap-2 group disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
                 >
                   {isSending ? (
                     <>
-                      <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
+                      <Loader2 className="w-4 h-4 animate-spin text-[#061018]" />
                       <span>Sending...</span>
                     </>
                   ) : (

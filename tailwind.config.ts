@@ -9,43 +9,37 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0B1120",
+        background: "#070B14",
+        obsidian: {
+          950: "#070B14", // Primary Background
+          900: "#0B1220", // Secondary Background
+          850: "#0F1726", // Section Background
+          800: "#121C2D", // Card Background
+          750: "#172338", // Elevated Card Background
+          700: "#0D1626", // Input Background
+        },
         surface: {
-          DEFAULT: "#0F172A",
-          card: "#1E293B",
-          glass: "rgba(30, 41, 59, 0.75)",
-          elevated: "rgba(15, 23, 42, 0.85)",
+          DEFAULT: "#070B14",
+          secondary: "#0B1220",
+          section: "#0F1726",
+          card: "#121C2D",
+          elevated: "#172338",
+          input: "#0D1626",
+          glass: "rgba(7, 11, 20, 0.82)",
+          border: "rgba(148, 163, 184, 0.12)",
         },
-        midnight: {
-          950: "#070B14",
-          900: "#0B1120",
-          800: "#0F172A",
-          700: "#1E293B",
-          600: "#334155",
-        },
-        primary: {
-          DEFAULT: "#F8FAFC",
-          muted: "#94A3B8",
-          subtle: "#64748B",
-          dark: "#0F172A",
-        },
-        aurora: {
-          cyan: "#06B6D4",
-          "cyan-light": "#22D3EE",
-          "cyan-glow": "rgba(6, 182, 212, 0.35)",
+        brand: {
+          cyan: "#22D3EE",
+          "cyan-hover": "#67E8F9",
+          blue: "#3B82F6",
+          "blue-deep": "#2563EB",
           amber: "#F59E0B",
-          "amber-light": "#FBBF24",
-          "amber-glow": "rgba(245, 158, 11, 0.3)",
-          indigo: "#6366F1",
-          "indigo-light": "#818CF8",
         },
-        accent: {
-          cyan: "#06B6D4",
-          "cyan-light": "#22D3EE",
-          amber: "#F59E0B",
-          "amber-light": "#FBBF24",
-          blue: "#38BDF8",
-          violet: "#818CF8",
+        text: {
+          primary: "#F8FAFC",
+          secondary: "#A7B4C7",
+          muted: "#64748B",
+          dim: "#475569",
         },
       },
       fontFamily: {
@@ -61,13 +55,11 @@ const config: Config = {
         ],
       },
       boxShadow: {
-        subtle: "0 1px 3px 0 rgba(0, 0, 0, 0.4)",
-        glass: "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
-        "glass-hover": "0 20px 40px -15px rgba(6, 182, 212, 0.2)",
-        "amber-hover": "0 20px 40px -15px rgba(245, 158, 11, 0.2)",
-        "glow-cyan": "0 0 35px -5px rgba(6, 182, 212, 0.45)",
-        "glow-amber": "0 0 35px -5px rgba(245, 158, 11, 0.4)",
-        "glow-indigo": "0 0 35px -5px rgba(99, 102, 241, 0.35)",
+        card: "0 10px 40px rgba(0, 0, 0, 0.18)",
+        "card-hover": "0 16px 45px rgba(34, 211, 238, 0.08)",
+        "amber-hover": "0 16px 45px rgba(245, 158, 11, 0.08)",
+        "btn-primary": "0 10px 30px rgba(34, 211, 238, 0.18)",
+        "logo-glow": "0 8px 30px rgba(34, 211, 238, 0.16)",
       },
       animation: {
         "spin-slow": "spin 25s linear infinite",

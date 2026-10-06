@@ -23,42 +23,42 @@ export function ProjectCard({
 
   return (
     <motion.div
-      whileHover={{ y: -6 }}
+      whileHover={{ y: -4 }}
       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-      className={`glass-card rounded-3xl overflow-hidden border border-slate-800/90 flex flex-col justify-between group transition-all duration-300 relative ${
+      className={`glass-card rounded-3xl overflow-hidden border border-[rgba(148,163,184,0.12)] flex flex-col justify-between group transition-all duration-300 relative ${
         isCyan
-          ? "hover:border-cyan-500/50 hover:shadow-[0_20px_45px_-15px_rgba(6,182,212,0.25)]"
-          : "hover:border-amber-500/50 hover:shadow-[0_20px_45px_-15px_rgba(245,158,11,0.25)]"
+          ? "hover:border-[rgba(34,211,238,0.45)] hover:shadow-[0_16px_45px_rgba(34,211,238,0.08)]"
+          : "hover:border-[rgba(245,158,11,0.45)] hover:shadow-[0_16px_45px_rgba(245,158,11,0.08)]"
       }`}
     >
       {/* Top Banner Visual Representation */}
-      <div className={`relative ${isFeaturedLarge ? "h-56 sm:h-64" : "h-48 sm:h-56"} w-full bg-[#070B14] overflow-hidden flex items-center justify-center p-6 border-b border-slate-800/80`}>
+      <div className={`relative ${isFeaturedLarge ? "h-56 sm:h-64" : "h-48 sm:h-56"} w-full bg-[#070B14] overflow-hidden flex items-center justify-center p-6 border-b border-[rgba(148,163,184,0.12)]`}>
         {/* Animated Background Gradients */}
         <div
           className={`absolute inset-0 bg-gradient-to-tr ${
             isCyan
-              ? "from-cyan-950/70 via-slate-900/90 to-[#070B14]"
-              : "from-amber-950/70 via-slate-900/90 to-[#070B14]"
+              ? "from-[#0D2731]/50 via-[#0B1220]/80 to-[#070B14]"
+              : "from-[#172338]/50 via-[#0B1220]/80 to-[#070B14]"
           }`}
         />
 
         {/* Ambient Orb Glow */}
         <div
-          className={`absolute w-44 h-44 rounded-full blur-3xl pointer-events-none opacity-40 group-hover:opacity-75 transition-opacity ${
-            isCyan ? "bg-cyan-500" : "bg-amber-500"
+          className={`absolute w-44 h-44 rounded-full blur-3xl pointer-events-none opacity-20 group-hover:opacity-40 transition-opacity ${
+            isCyan ? "bg-[#22D3EE]" : "bg-[#F59E0B]"
           }`}
         />
 
         {/* Geometric pattern overlay */}
-        <div className="absolute inset-0 bg-tech-grid opacity-40" />
+        <div className="absolute inset-0 bg-tech-grid opacity-30" />
 
         {/* Abstract Schematic Diagram / Visual */}
         <div className="relative z-10 flex flex-col items-center justify-center text-center">
           <div
-            className={`w-16 h-16 rounded-2xl bg-slate-900/80 backdrop-blur-md border flex items-center justify-center mb-3 group-hover:scale-110 transition-all duration-300 ${
+            className={`w-16 h-16 rounded-2xl bg-[#0D1626]/90 backdrop-blur-md border flex items-center justify-center mb-3 group-hover:scale-105 transition-all duration-300 ${
               isCyan
-                ? "border-cyan-500/40 text-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)]"
-                : "border-amber-500/40 text-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.3)]"
+                ? "border-[rgba(34,211,238,0.3)] text-[#22D3EE] shadow-[0_0_15px_rgba(34,211,238,0.15)]"
+                : "border-[rgba(245,158,11,0.3)] text-[#F59E0B] shadow-[0_0_15px_rgba(245,158,11,0.15)]"
             }`}
           >
             {isCyan ? (
@@ -69,7 +69,7 @@ export function ProjectCard({
           </div>
           <span
             className={`text-xs font-mono tracking-widest uppercase font-semibold ${
-              isCyan ? "text-cyan-300" : "text-amber-300"
+              isCyan ? "text-[#22D3EE]" : "text-[#F59E0B]"
             }`}
           >
             {isCyan ? "Machine Learning & Microservices" : "NodeMCU & Closed-Loop PWM"}
@@ -84,8 +84,8 @@ export function ProjectCard({
           <span
             className={`px-3 py-1 rounded-full text-[11px] font-semibold backdrop-blur-md border ${
               isCyan
-                ? "bg-cyan-950/80 text-cyan-300 border-cyan-500/40 shadow-[0_0_10px_rgba(6,182,212,0.2)]"
-                : "bg-amber-950/80 text-amber-300 border-amber-500/40 shadow-[0_0_10px_rgba(245,158,11,0.2)]"
+                ? "bg-[#0D1626]/90 text-[#22D3EE] border-[rgba(34,211,238,0.3)] shadow-[0_0_10px_rgba(34,211,238,0.12)]"
+                : "bg-[#0D1626]/90 text-[#F59E0B] border-[rgba(245,158,11,0.3)] shadow-[0_0_10px_rgba(245,158,11,0.12)]"
             }`}
           >
             {project.badge}
@@ -93,7 +93,7 @@ export function ProjectCard({
         </div>
 
         <div className="absolute top-4 right-4 z-20">
-          <span className="text-[11px] font-mono text-slate-300 bg-slate-900/80 backdrop-blur-sm px-2.5 py-1 rounded-full border border-slate-700/60">
+          <span className="text-[11px] font-mono text-[#A7B4C7] bg-[#0D1626]/90 backdrop-blur-sm px-2.5 py-1 rounded-full border border-[rgba(148,163,184,0.12)]">
             {project.category}
           </span>
         </div>
@@ -105,7 +105,7 @@ export function ProjectCard({
           <div className="flex items-start justify-between gap-3 mb-2">
             <h4
               className={`text-xl font-extrabold text-[#F8FAFC] transition-colors ${
-                isCyan ? "group-hover:text-cyan-300" : "group-hover:text-amber-300"
+                isCyan ? "group-hover:text-[#22D3EE]" : "group-hover:text-[#F59E0B]"
               }`}
             >
               {project.title}
@@ -114,8 +114,8 @@ export function ProjectCard({
               <span
                 className={`shrink-0 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold border ${
                   isCyan
-                    ? "bg-cyan-950 text-cyan-300 border-cyan-500/50 shadow-[0_0_8px_rgba(6,182,212,0.3)]"
-                    : "bg-amber-950 text-amber-300 border-amber-500/50 shadow-[0_0_8px_rgba(245,158,11,0.3)]"
+                    ? "bg-[#0D1626] text-[#22D3EE] border-[rgba(34,211,238,0.3)]"
+                    : "bg-[#0D1626] text-[#F59E0B] border-[rgba(245,158,11,0.3)]"
                 }`}
               >
                 {customMetric}
@@ -123,19 +123,19 @@ export function ProjectCard({
             )}
           </div>
 
-          <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5 line-clamp-3">
+          <p className="text-[#A7B4C7] text-xs sm:text-sm leading-relaxed mb-5 line-clamp-3">
             {project.description}
           </p>
 
           {/* Quick Metrics */}
           {project.metrics && (
-            <div className="grid grid-cols-3 gap-2 mb-5 p-3 rounded-2xl bg-slate-900/80 border border-slate-800">
+            <div className="grid grid-cols-3 gap-2 mb-5 p-3 rounded-2xl bg-[#0D1626] border border-[rgba(148,163,184,0.12)]">
               {project.metrics.map((m) => (
                 <div key={m.label} className="text-center">
-                  <div className="text-[10px] text-slate-400 font-mono uppercase">{m.label}</div>
+                  <div className="text-[10px] text-[#64748B] font-mono uppercase">{m.label}</div>
                   <div
                     className={`text-xs font-bold mt-0.5 ${
-                      isCyan ? "text-cyan-300" : "text-amber-300"
+                      isCyan ? "text-[#22D3EE]" : "text-[#F59E0B]"
                     }`}
                   >
                     {m.value}
@@ -150,7 +150,7 @@ export function ProjectCard({
             {project.techStack.map((tech) => (
               <span
                 key={tech}
-                className="px-2.5 py-0.5 rounded-md text-[11px] font-medium bg-slate-800/80 text-slate-200 border border-slate-700/60"
+                className="px-2.5 py-0.5 rounded-md text-[11px] font-medium bg-[#172338] text-[#67E8F9] border border-[rgba(34,211,238,0.15)] group-hover:border-[rgba(34,211,238,0.35)] transition-colors"
               >
                 {tech}
               </span>
@@ -159,11 +159,11 @@ export function ProjectCard({
         </div>
 
         {/* Card Footer Actions */}
-        <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
+        <div className="pt-4 border-t border-[rgba(148,163,184,0.12)] flex items-center justify-between gap-3">
           <button
             onClick={() => onSelect(project)}
             className={`inline-flex items-center gap-1.5 text-xs font-bold transition-colors group/btn ${
-              isCyan ? "text-cyan-400 hover:text-cyan-300" : "text-amber-400 hover:text-amber-300"
+              isCyan ? "text-[#22D3EE] hover:text-[#67E8F9]" : "text-[#F59E0B] hover:text-[#fbbf24]"
             }`}
           >
             <span>View System Architecture</span>
@@ -174,7 +174,7 @@ export function ProjectCard({
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 border border-transparent hover:border-slate-700 transition-colors"
+            className="p-2 rounded-lg text-[#A7B4C7] hover:text-[#22D3EE] hover:bg-[#121C2D] border border-transparent hover:border-[rgba(34,211,238,0.25)] transition-colors"
             title="View Vijay's GitHub"
           >
             <Github className="w-4 h-4" />

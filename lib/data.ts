@@ -378,7 +378,6 @@ export const EDUCATION = {
     "Computer Networks & Telemetry",
     "Database Management Systems",
     "Machine Learning Foundations",
-    "Digital Logic & Circuit Design",
   ],
 };
 

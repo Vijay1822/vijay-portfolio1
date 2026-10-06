@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#0B1120",
+  themeColor: "#070B14",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -90,7 +90,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="relative bg-[#0B1120] text-[#F8FAFC] antialiased selection:bg-cyan-500/25 selection:text-cyan-200 min-h-screen">
+      <body className="relative bg-[#070B14] text-[#F8FAFC] antialiased selection:bg-cyan-500/20 selection:text-cyan-300 min-h-screen">
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

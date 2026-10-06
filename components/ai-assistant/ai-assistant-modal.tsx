@@ -453,31 +453,31 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
           }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="relative flex items-center gap-3 px-4 py-2.5 rounded-full bg-[#0F172A]/90 backdrop-blur-xl border border-cyan-500/40 text-slate-100 shadow-[0_0_30px_rgba(6,182,212,0.45)] hover:shadow-[0_0_40px_rgba(6,182,212,0.65)] hover:border-cyan-400 transition-all focus:outline-none focus:ring-2 focus:ring-cyan-400/50 group"
+          className="relative flex items-center gap-3 px-4 py-2.5 rounded-full bg-[#121C2D]/95 backdrop-blur-xl border border-[rgba(34,211,238,0.35)] text-slate-100 shadow-[0_10px_35px_rgba(0,0,0,0.5)] hover:border-[#22D3EE] transition-all focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/30 group"
           aria-label={isOpen && !isMinimized ? "Close Vijay AI Assistant" : "Open Vijay AI Assistant"}
         >
           {/* Orbital Ambient Halo */}
-          <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-400 via-sky-500 to-amber-400 opacity-40 blur-sm group-hover:opacity-75 transition duration-500 animate-pulse-subtle" />
+          <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#22D3EE] via-[#3B82F6] to-[#2563EB] opacity-25 blur-sm group-hover:opacity-40 transition duration-500" />
 
           {/* 3D Avatar Head Thumbnail */}
-          <div className="relative w-8 h-8 rounded-full overflow-hidden border border-cyan-400/60 shadow-[0_0_10px_rgba(6,182,212,0.4)] shrink-0 bg-slate-900">
+          <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#22D3EE]/50 shadow-[0_0_10px_rgba(34,211,238,0.2)] shrink-0 bg-[#070B14]">
             <img
               src="/images/avatar-developer-3d.png"
               alt="Vijay AI Avatar"
               className="w-full h-full object-cover"
             />
-            <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-slate-900 shadow-[0_0_6px_#34D399]" />
+            <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-[#34D399] ring-2 ring-[#121C2D] shadow-[0_0_6px_#34D399]" />
           </div>
 
           <div className="relative flex flex-col text-left pr-1">
             <span className="text-xs font-bold text-[#F8FAFC] flex items-center gap-1.5 leading-tight">
               <span>Ask Vijay AI</span>
-              <Sparkles className="w-3 h-3 text-cyan-400 animate-pulse" />
+              <Sparkles className="w-3 h-3 text-[#22D3EE]" />
             </span>
-            <span className="text-[10px] text-cyan-300/90 font-mono leading-none">Portfolio Assistant</span>
+            <span className="text-[10px] text-[#22D3EE]/90 font-mono leading-none">Portfolio Assistant</span>
           </div>
 
-          {isOpen && !isMinimized && <X className="w-4 h-4 text-slate-400 ml-1" />}
+          {isOpen && !isMinimized && <X className="w-4 h-4 text-[#A7B4C7] ml-1" />}
         </motion.button>
       </div>
 
@@ -489,19 +489,19 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.96 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-20 sm:bottom-24 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[400px] h-[78vh] sm:h-[580px] max-h-[580px] bg-[#0F172A]/95 backdrop-blur-2xl rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.85)] border border-slate-700/80 z-50 flex flex-col overflow-hidden text-slate-100"
+            className="fixed bottom-20 sm:bottom-24 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[400px] h-[78vh] sm:h-[580px] max-h-[580px] bg-[#121C2D]/98 backdrop-blur-2xl rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.35)] border border-[rgba(34,211,238,0.22)] z-50 flex flex-col overflow-hidden text-[#F8FAFC]"
           >
             {/* Header: [Avatar] Vijay AI [Online] ... [Speaking] [—] [×] */}
-            <div className="p-3.5 sm:p-4 border-b border-slate-800/90 bg-slate-900/95 flex items-center justify-between relative shrink-0">
+            <div className="p-3.5 sm:p-4 border-b border-[rgba(148,163,184,0.12)] bg-[#0D1626]/95 flex items-center justify-between relative shrink-0">
               <div className="flex items-center gap-2.5">
                 {/* 3D Avatar */}
-                <div className="relative w-9 h-9 rounded-2xl overflow-hidden border border-cyan-500/50 shadow-[0_0_12px_rgba(6,182,212,0.35)] shrink-0 bg-slate-950">
+                <div className="relative w-9 h-9 rounded-2xl overflow-hidden border border-[rgba(34,211,238,0.4)] shadow-[0_0_12px_rgba(34,211,238,0.2)] shrink-0 bg-[#070B14]">
                   <img
                     src="/images/avatar-developer-3d.png"
                     alt="Vijay AI Avatar"
                     className="w-full h-full object-cover"
                   />
-                  <span className="absolute bottom-0.5 right-0.5 w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-slate-900 shadow-[0_0_6px_#34D399]" />
+                  <span className="absolute bottom-0.5 right-0.5 w-2 h-2 rounded-full bg-[#34D399] ring-2 ring-[#0D1626] shadow-[0_0_6px_#34D399]" />
                 </div>
 
                 <div>
@@ -509,11 +509,11 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                     <h3 className="font-extrabold text-[#F8FAFC] text-sm tracking-tight leading-none">
                       Vijay AI
                     </h3>
-                    <span className="px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 leading-none">
+                    <span className="px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-[#0D2731] text-[#34D399] border border-[#34D399]/40 leading-none">
                       Online
                     </span>
                   </div>
-                  <p className="text-[10px] text-slate-400 font-mono mt-0.5">AI Engineer Assistant</p>
+                  <p className="text-[10px] text-[#A7B4C7] font-mono mt-0.5">AI Engineer Assistant</p>
                 </div>
               </div>
 
@@ -523,11 +523,11 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                 {isSpeaking && (
                   <button
                     onClick={stopSpeaking}
-                    className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold bg-rose-500/20 text-rose-300 border border-rose-500/40 hover:bg-rose-500/30 transition-all shadow-sm animate-pulse"
+                    className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold bg-[#FB7185]/20 text-[#FB7185] border border-[#FB7185]/40 hover:bg-[#FB7185]/30 transition-all shadow-sm animate-pulse"
                     title="Stop Voice Output"
                     aria-label="Stop Voice Output"
                   >
-                    <Square className="w-3 h-3 fill-rose-300" />
+                    <Square className="w-3 h-3 fill-[#FB7185]" />
                     <span>Stop Voice</span>
                   </button>
                 )}
@@ -541,8 +541,8 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                     }}
                     className={`w-7 h-7 rounded-full flex items-center justify-center transition-all ${
                       isSpeakingEnabled
-                        ? "text-cyan-300 bg-cyan-950/80 border border-cyan-500/40"
-                        : "text-slate-400 hover:text-white hover:bg-slate-800"
+                        ? "text-[#22D3EE] bg-[#0D2731] border border-[rgba(34,211,238,0.4)]"
+                        : "text-[#A7B4C7] hover:text-[#F8FAFC] hover:bg-[rgba(34,211,238,0.10)]"
                     }`}
                     title={isSpeakingEnabled ? "Disable Read Aloud" : "Enable Read Aloud"}
                     aria-label="Toggle voice readout"
@@ -554,7 +554,7 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                 {/* Clear Chat Button */}
                 <button
                   onClick={handleClear}
-                  className="w-7 h-7 rounded-full flex items-center justify-center text-slate-400 hover:text-rose-300 hover:bg-slate-800 transition-colors"
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-[#A7B4C7] hover:text-[#FB7185] hover:bg-[rgba(251,113,133,0.10)] transition-colors"
                   title="Clear Chat History"
                   aria-label="Clear Chat History"
                 >
@@ -564,7 +564,7 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                 {/* Minimize Button [—] */}
                 <button
                   onClick={handleMinimize}
-                  className="w-7 h-7 rounded-full border border-slate-700/80 bg-slate-800/80 hover:bg-slate-700 hover:text-white text-slate-300 flex items-center justify-center transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-400/40"
+                  className="w-7 h-7 rounded-full border border-[rgba(148,163,184,0.15)] bg-[#172338] hover:bg-[#121C2D] hover:text-white text-[#A7B4C7] flex items-center justify-center transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/30"
                   title="Minimize Chatbot"
                   aria-label="Minimize Chatbot"
                 >
@@ -574,7 +574,7 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                 {/* Clear, Prominent Close Button [×] */}
                 <button
                   onClick={handleClose}
-                  className="w-8 h-8 rounded-full border border-slate-700 bg-slate-800 hover:bg-rose-500/20 hover:text-rose-300 hover:border-rose-500/40 text-slate-300 flex items-center justify-center transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-400/50"
+                  className="w-8 h-8 rounded-full border border-[rgba(148,163,184,0.15)] bg-[#172338] hover:bg-[#FB7185]/20 hover:text-[#FB7185] hover:border-[#FB7185]/40 text-[#A7B4C7] flex items-center justify-center transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-[#FB7185]/40"
                   title="Close Vijay AI (Escape)"
                   aria-label="Close Chatbot"
                 >
@@ -612,8 +612,8 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                     <div
                       className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 text-xs shadow-md ${
                         isAssistant
-                          ? "bg-gradient-to-tr from-cyan-500 to-sky-500 text-slate-950 font-bold"
-                          : "bg-slate-800 text-slate-200 border border-slate-700"
+                          ? "bg-[#0D1626] text-[#22D3EE] border border-[rgba(34,211,238,0.3)] shadow-[0_0_10px_rgba(34,211,238,0.15)]"
+                          : "bg-[#172338] text-[#A7B4C7] border border-[rgba(148,163,184,0.15)]"
                       }`}
                     >
                       {isAssistant ? <Bot className="w-4 h-4" /> : <User className="w-4 h-4" />}
@@ -622,8 +622,8 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                     <div
                       className={`max-w-[85%] rounded-2xl p-3 sm:p-3.5 space-y-2.5 leading-relaxed ${
                         isAssistant
-                          ? "bg-slate-900/90 text-slate-200 rounded-tl-sm border border-slate-800/90 shadow-md"
-                          : "bg-gradient-to-r from-cyan-400 to-sky-400 text-slate-950 font-medium rounded-tr-sm shadow-[0_0_20px_rgba(6,182,212,0.25)]"
+                          ? "bg-[#0D2731] text-[#F8FAFC] rounded-tl-sm border border-[rgba(34,211,238,0.22)] shadow-md"
+                          : "bg-[#172338] text-[#F8FAFC] font-medium rounded-tr-sm border border-[rgba(148,163,184,0.15)] shadow-md"
                       }`}
                     >
                       {/* Message Content */}
@@ -644,41 +644,41 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
 
                       {/* Project Card Render (e.g. BudgetMind) */}
                       {m.projectCard && (
-                        <div className="glass-card p-3 rounded-xl border border-cyan-500/40 bg-slate-950/80 mt-2 space-y-2 shadow-lg">
+                        <div className="glass-card p-3 rounded-xl border border-[rgba(34,211,238,0.3)] bg-[#0D1626] mt-2 space-y-2 shadow-lg">
                           <div className="flex items-center justify-between">
-                            <h4 className="font-extrabold text-cyan-300 text-xs sm:text-sm tracking-tight flex items-center gap-1.5">
-                              <FolderGit2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                            <h4 className="font-extrabold text-[#22D3EE] text-xs sm:text-sm tracking-tight flex items-center gap-1.5">
+                              <FolderGit2 className="w-3.5 h-3.5 text-[#22D3EE] shrink-0" />
                               <span>{m.projectCard.title}</span>
                             </h4>
-                            <span className="px-2 py-0.5 rounded-full text-[9px] font-mono text-cyan-300 bg-cyan-950/80 border border-cyan-500/40">
+                            <span className="px-2 py-0.5 rounded-full text-[9px] font-mono text-[#22D3EE] bg-[#0D2731] border border-[rgba(34,211,238,0.3)]">
                               {m.projectCard.tagline || "Project"}
                             </span>
                           </div>
-                          <p className="text-[11px] text-slate-300 leading-snug">
+                          <p className="text-[11px] text-[#A7B4C7] leading-snug">
                             {m.projectCard.description}
                           </p>
                           <div className="space-y-1">
-                            <span className="text-[9px] font-mono uppercase text-slate-400 block tracking-wider">
+                            <span className="text-[9px] font-mono uppercase text-[#64748B] block tracking-wider">
                               Tech Stack
                             </span>
                             <div className="flex flex-wrap gap-1">
                               {m.projectCard.techStack.map((tech, tIdx) => (
                                 <span
                                   key={tIdx}
-                                  className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-slate-800/90 text-slate-200 border border-slate-700/80"
+                                  className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-[#172338] text-[#67E8F9] border border-[rgba(34,211,238,0.15)]"
                                 >
                                   {tech}
                                 </span>
                               ))}
                             </div>
                           </div>
-                          <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-800/80">
+                          <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-[rgba(148,163,184,0.12)]">
                             <button
                               onClick={() => {
                                 handleClose();
                                 router.push("/projects");
                               }}
-                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-cyan-400 text-slate-950 hover:bg-cyan-300 transition-colors shadow-sm"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-[#22D3EE] text-[#061018] hover:bg-[#67E8F9] transition-colors shadow-sm"
                             >
                               <span>View Project</span>
                               <ArrowUpRight className="w-3 h-3" />
@@ -687,7 +687,7 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                               href={m.projectCard.githubUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-medium bg-[#172338] hover:bg-[#121C2D] text-[#F8FAFC] border border-[rgba(148,163,184,0.15)] transition-colors"
                             >
                               <span>GitHub</span>
                               <ExternalLink className="w-3 h-3" />
@@ -697,7 +697,7 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                                 href={m.projectCard.liveDemoUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-cyan-950/80 hover:bg-cyan-900/90 text-cyan-300 border border-cyan-500/40 transition-colors"
+                                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-[#0D2731] hover:bg-[#070B14] text-[#22D3EE] border border-[rgba(34,211,238,0.3)] transition-colors"
                               >
                                 <span>Live Demo</span>
                                 <ExternalLink className="w-3 h-3" />
@@ -710,22 +710,22 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                       {/* Structured Skills Grid */}
                       {m.skillsGrid && (
                         <div className="space-y-1.5 mt-2">
-                          <div className="text-[11px] font-bold text-white tracking-tight flex items-center gap-1">
-                            <Sparkles className="w-3 h-3 text-cyan-400" />
-                            <span>Vijay's Technical Skills</span>
+                          <div className="text-[11px] font-bold text-[#F8FAFC] tracking-tight flex items-center gap-1">
+                            <Sparkles className="w-3 h-3 text-[#22D3EE]" />
+                            <span>Vijay&apos;s Technical Skills</span>
                           </div>
                           <div className="grid grid-cols-1 gap-1.5">
                             {m.skillsGrid.map((group, gIdx) => (
-                              <div key={gIdx} className="p-2 rounded-xl bg-slate-950/70 border border-slate-800/90">
-                                <h5 className="font-semibold text-cyan-300 text-[10px] mb-1 font-mono uppercase tracking-wider flex items-center gap-1">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                              <div key={gIdx} className="p-2 rounded-xl bg-[#0D1626] border border-[rgba(148,163,184,0.12)]">
+                                <h5 className="font-semibold text-[#22D3EE] text-[10px] mb-1 font-mono uppercase tracking-wider flex items-center gap-1">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE]" />
                                   <span>{group.category}</span>
                                 </h5>
                                 <div className="flex flex-wrap gap-1">
                                   {group.skills.map((s, sIdx) => (
                                     <span
                                       key={sIdx}
-                                      className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-slate-800/90 text-slate-200 border border-slate-700/80 hover:border-cyan-500/40 hover:text-cyan-200 transition-all shadow-sm select-none"
+                                      className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-[#172338] text-[#67E8F9] border border-[rgba(34,211,238,0.15)] hover:border-[#22D3EE] transition-all select-none"
                                     >
                                       {s}
                                     </span>
@@ -739,17 +739,17 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
 
                       {/* Interactive Actions / Buttons */}
                       {m.actions && m.actions.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-800/80">
+                        <div className="flex flex-wrap gap-1.5 pt-2 border-t border-[rgba(148,163,184,0.12)]">
                           {m.actions.map((act, aIdx) => (
                             <button
                               key={aIdx}
                               onClick={() => handleActionClick(act)}
                               className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all ${
                                 act.variant === "primary"
-                                  ? "bg-gradient-to-r from-cyan-400 to-sky-400 text-slate-950 font-bold shadow-[0_0_10px_rgba(6,182,212,0.3)] hover:brightness-110"
+                                  ? "bg-[#22D3EE] text-[#061018] font-bold shadow-[0_0_10px_rgba(34,211,238,0.2)] hover:bg-[#67E8F9]"
                                   : act.variant === "secondary"
-                                  ? "bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-600"
-                                  : "bg-cyan-950/70 hover:bg-cyan-900/80 text-cyan-300 border border-cyan-500/40"
+                                  ? "bg-[#172338] hover:bg-[#121C2D] text-[#F8FAFC] border border-[rgba(148,163,184,0.15)]"
+                                  : "bg-[#0D1626] hover:bg-[#172338] text-[#22D3EE] border border-[rgba(34,211,238,0.3)]"
                               }`}
                             >
                               <span>{act.label}</span>
@@ -762,8 +762,8 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
 
                       {/* Suggested Follow-Up Questions Chips */}
                       {m.suggestedFollowUps && m.suggestedFollowUps.length > 0 && (
-                        <div className="pt-2 border-t border-slate-800/60 space-y-1">
-                          <span className="text-[9px] font-mono text-slate-400 block uppercase">
+                        <div className="pt-2 border-t border-[rgba(148,163,184,0.12)] space-y-1">
+                          <span className="text-[9px] font-mono text-[#64748B] block uppercase">
                             Suggested follow-ups:
                           </span>
                           <div className="flex flex-wrap gap-1">
@@ -771,7 +771,7 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                               <button
                                 key={pIdx}
                                 onClick={() => handleSendMessage(prompt)}
-                                className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-800/80 hover:bg-cyan-950 hover:text-cyan-300 text-slate-300 border border-slate-700 hover:border-cyan-500/40 transition-colors"
+                                className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#172338] hover:bg-[#0D2731] hover:text-[#22D3EE] text-[#A7B4C7] border border-[rgba(148,163,184,0.15)] hover:border-[rgba(34,211,238,0.3)] transition-colors"
                               >
                                 {prompt}
                               </button>
@@ -782,7 +782,7 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
 
                       <span
                         className={`text-[9px] block mt-1 ${
-                          isAssistant ? "text-slate-500" : "text-slate-900/70 text-right"
+                          isAssistant ? "text-[#64748B]" : "text-[#A7B4C7] text-right"
                         }`}
                       >
                         {m.timestamp}
@@ -794,19 +794,19 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
 
               {/* Typing Indicator */}
               {isLoading && (
-                <div className="flex items-center gap-2 text-slate-400 text-xs pl-2">
-                  <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-cyan-500 to-sky-500 text-slate-950 flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(6,182,212,0.4)]">
+                <div className="flex items-center gap-2 text-[#A7B4C7] text-xs pl-2">
+                  <div className="w-7 h-7 rounded-xl bg-[#0D1626] text-[#22D3EE] border border-[rgba(34,211,238,0.3)] flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(34,211,238,0.15)]">
                     <Bot className="w-4 h-4" />
                   </div>
-                  <div className="p-2.5 bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-sm flex items-center gap-1.5">
-                    <span className="text-[11px] text-cyan-300/90 font-mono">Vijay AI is thinking</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce" />
+                  <div className="p-2.5 bg-[#0D2731] border border-[rgba(34,211,238,0.2)] rounded-2xl rounded-tl-sm flex items-center gap-1.5">
+                    <span className="text-[11px] text-[#22D3EE] font-mono">Vijay AI is thinking</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] animate-bounce" />
                     <span
-                      className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce"
+                      className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] animate-bounce"
                       style={{ animationDelay: "0.2s" }}
                     />
                     <span
-                      className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce"
+                      className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] animate-bounce"
                       style={{ animationDelay: "0.4s" }}
                     />
                   </div>
@@ -818,34 +818,34 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
 
             {/* Live Voice Recording Status & Waveform Indicator */}
             {isListening && (
-              <div className="px-3.5 py-2 bg-slate-950/90 border-t border-rose-500/40 flex items-center justify-between">
+              <div className="px-3.5 py-2 bg-[#070B14] border-t border-[#FB7185]/40 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="relative flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500" />
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FB7185] opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FB7185]" />
                   </span>
-                  <span className="text-xs font-semibold text-rose-300">Listening...</span>
+                  <span className="text-xs font-semibold text-[#FB7185]">Listening...</span>
 
                   {/* Equalizer Waveform Animation */}
                   <div className="flex items-end gap-0.5 h-3.5 ml-1">
-                    <span className="w-0.5 h-2 bg-rose-400 animate-[bounce_0.6s_ease-in-out_infinite]" />
-                    <span className="w-0.5 h-3.5 bg-rose-500 animate-[bounce_0.4s_ease-in-out_infinite]" />
-                    <span className="w-0.5 h-1.5 bg-rose-300 animate-[bounce_0.8s_ease-in-out_infinite]" />
-                    <span className="w-0.5 h-3 bg-cyan-400 animate-[bounce_0.5s_ease-in-out_infinite]" />
-                    <span className="w-0.5 h-2 bg-cyan-300 animate-[bounce_0.7s_ease-in-out_infinite]" />
+                    <span className="w-0.5 h-2 bg-[#FB7185] animate-[bounce_0.6s_ease-in-out_infinite]" />
+                    <span className="w-0.5 h-3.5 bg-[#FB7185] animate-[bounce_0.4s_ease-in-out_infinite]" />
+                    <span className="w-0.5 h-1.5 bg-[#FB7185] animate-[bounce_0.8s_ease-in-out_infinite]" />
+                    <span className="w-0.5 h-3 bg-[#22D3EE] animate-[bounce_0.5s_ease-in-out_infinite]" />
+                    <span className="w-0.5 h-2 bg-[#22D3EE] animate-[bounce_0.7s_ease-in-out_infinite]" />
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">
+                  <span className="text-[10px] text-[#64748B] font-mono hidden sm:inline">
                     Speak complete question
                   </span>
                   <button
                     type="button"
                     onClick={finalizeAndSendVoice}
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-rose-500 text-white hover:bg-rose-400 transition-colors shadow-sm"
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#FB7185] text-[#061018] hover:brightness-110 transition-colors shadow-sm"
                   >
-                    <Square className="w-2.5 h-2.5 fill-white" />
+                    <Square className="w-2.5 h-2.5 fill-[#061018]" />
                     <span>Done</span>
                   </button>
                 </div>
@@ -853,12 +853,12 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
             )}
 
             {/* Quick Action Suggestion Chips Horizontal Bar */}
-            <div className="px-3 py-1.5 border-t border-slate-800 bg-slate-900/80 flex items-center gap-1.5 overflow-x-auto scrollbar-none shrink-0">
+            <div className="px-3 py-1.5 border-t border-[rgba(148,163,184,0.12)] bg-[#0D1626]/90 flex items-center gap-1.5 overflow-x-auto scrollbar-none shrink-0">
               {AI_ASSISTANT_SUGGESTIONS.map((suggestion) => (
                 <button
                   key={suggestion}
                   onClick={() => handleSendMessage(suggestion)}
-                  className="px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-slate-800/80 hover:bg-cyan-950 hover:text-cyan-300 hover:border-cyan-500/40 text-slate-300 border border-slate-700/70 whitespace-nowrap transition-colors shrink-0"
+                  className="px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-[#172338] hover:bg-[#0D2731] hover:text-[#22D3EE] hover:border-[rgba(34,211,238,0.3)] text-[#A7B4C7] border border-[rgba(148,163,184,0.15)] whitespace-nowrap transition-colors shrink-0"
                 >
                   {suggestion}
                 </button>
@@ -871,7 +871,7 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                 e.preventDefault();
                 handleSendMessage();
               }}
-              className="p-3 bg-slate-900 border-t border-slate-800 flex items-center gap-2 shrink-0"
+              className="p-3 bg-[#0D1626] border-t border-[rgba(148,163,184,0.12)] flex items-center gap-2 shrink-0"
             >
               {/* Voice Input Button */}
               {voiceRecognitionSupported && (
@@ -880,14 +880,14 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                   onClick={toggleVoiceInput}
                   className={`p-2.5 rounded-xl transition-all shrink-0 ${
                     isListening
-                      ? "bg-rose-500 text-white animate-pulse shadow-[0_0_15px_rgba(244,63,94,0.6)]"
-                      : "bg-slate-950 text-slate-400 hover:text-cyan-300 hover:bg-slate-800 border border-slate-700"
+                      ? "bg-[#FB7185] text-[#061018] animate-pulse shadow-[0_0_15px_rgba(251,113,133,0.5)]"
+                      : "bg-[#070B14] text-[#A7B4C7] hover:text-[#22D3EE] hover:bg-[#172338] border border-[rgba(148,163,184,0.15)]"
                   }`}
                   title={isListening ? "Listening... Click to stop and send" : "Start Voice Input"}
                   aria-label={isListening ? "Stop Voice Input" : "Start Voice Input"}
                 >
                   {isListening ? (
-                    <Square className="w-4 h-4 fill-white" />
+                    <Square className="w-4 h-4 fill-[#061018]" />
                   ) : (
                     <Mic className="w-4 h-4" />
                   )}
@@ -904,17 +904,17 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                     ? "Listening to your question..."
                     : "Ask about BudgetMind, skills, projects, CGPA..."
                 }
-                className={`flex-1 text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-slate-950 border transition-all text-[#F8FAFC] placeholder:text-slate-500 focus:outline-none ${
+                className={`flex-1 text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-[#070B14] border transition-all text-[#F8FAFC] placeholder:text-[#64748B] focus:outline-none ${
                   isListening
-                    ? "border-rose-500/60 ring-2 ring-rose-500/20"
-                    : "border-slate-700 focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-400"
+                    ? "border-[#FB7185]/60 ring-2 ring-[#FB7185]/20"
+                    : "border-[rgba(148,163,184,0.15)] focus:ring-2 focus:ring-[#22D3EE]/10 focus:border-[#22D3EE]"
                 }`}
               />
 
               <button
                 type="submit"
                 disabled={!input.trim() || isLoading}
-                className="p-2.5 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-cyan-300 text-slate-950 font-bold hover:from-cyan-300 hover:to-sky-300 disabled:opacity-40 transition-all shrink-0 shadow-[0_0_15px_rgba(6,182,212,0.35)]"
+                className="p-2.5 rounded-xl bg-[#22D3EE] text-[#061018] font-bold hover:bg-[#67E8F9] disabled:opacity-40 transition-all shrink-0 shadow-[0_10px_25px_rgba(34,211,238,0.18)]"
                 aria-label="Send Message"
               >
                 <Send className="w-4 h-4 stroke-[2.5]" />

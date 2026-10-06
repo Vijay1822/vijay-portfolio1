@@ -14,10 +14,10 @@ export function Projects() {
   const fanProject = PROJECTS.find((p) => p.id.includes("fan")) || PROJECTS[1];
 
   return (
-    <section id="projects" className="py-24 relative bg-[#0B1120] border-t border-slate-800/80">
+    <section id="projects" className="py-24 relative bg-[#070B14] border-t border-[rgba(148,163,184,0.12)]">
       {/* Aurora Ambient Lighting */}
-      <div className="absolute top-20 left-10 w-[550px] h-[550px] bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute bottom-20 right-10 w-[550px] h-[550px] bg-amber-500/10 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-20 left-10 w-[550px] h-[550px] bg-[#22D3EE]/[0.05] rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-20 right-10 w-[550px] h-[550px] bg-[#3B82F6]/[0.04] rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -26,9 +26,9 @@ export function Projects() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-cyan-950/80 text-cyan-300 border border-cyan-500/30 mb-4 shadow-[0_0_15px_rgba(6,182,212,0.15)]"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-[#0D1626] text-[#22D3EE] border border-[rgba(34,211,238,0.25)] mb-4 shadow-[0_0_12px_rgba(34,211,238,0.10)]"
           >
-            <FolderGit2 className="w-3.5 h-3.5 text-cyan-400" />
+            <FolderGit2 className="w-3.5 h-3.5 text-[#22D3EE]" />
             <span>Featured Case Studies</span>
           </motion.div>
 
@@ -47,7 +47,7 @@ export function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
-            className="text-[#94A3B8] text-sm sm:text-base leading-relaxed"
+            className="text-[#A7B4C7] text-sm sm:text-base leading-relaxed"
           >
             Two flagship engineering implementations highlighted across an asymmetrical Bento Grid:
             intelligent full-stack AI architectures and closed-loop IoT hardware telemetry.
@@ -79,33 +79,33 @@ export function Projects() {
           </div>
 
           {/* Domain Highlights Row */}
-          <div className="lg:col-span-4 glass-card p-5 rounded-2xl flex items-center gap-3.5 border border-slate-800/80 hover:border-cyan-500/40 transition-all">
-            <div className="p-3 rounded-xl bg-cyan-950/80 text-cyan-400 border border-cyan-500/30">
+          <div className="lg:col-span-4 glass-card p-5 rounded-2xl flex items-center gap-3.5 border border-[rgba(148,163,184,0.12)] hover:border-[rgba(34,211,238,0.45)] transition-all">
+            <div className="p-3 rounded-xl bg-[#0D1626] text-[#22D3EE] border border-[rgba(34,211,238,0.25)]">
               <Layers className="w-5 h-5" />
             </div>
             <div>
               <h4 className="text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">AI Domain</h4>
-              <p className="text-xs text-slate-300">Random Forest Regressor, Python ML API</p>
+              <p className="text-xs text-[#A7B4C7]">Random Forest Regressor, Python ML API</p>
             </div>
           </div>
 
-          <div className="lg:col-span-4 glass-card p-5 rounded-2xl flex items-center gap-3.5 border border-slate-800/80 hover:border-sky-500/40 transition-all">
-            <div className="p-3 rounded-xl bg-sky-950/80 text-sky-400 border border-sky-500/30">
+          <div className="lg:col-span-4 glass-card p-5 rounded-2xl flex items-center gap-3.5 border border-[rgba(148,163,184,0.12)] hover:border-[rgba(59,130,246,0.45)] transition-all">
+            <div className="p-3 rounded-xl bg-[#0D1626] text-[#3B82F6] border border-[rgba(59,130,246,0.25)]">
               <Cpu className="w-5 h-5" />
             </div>
             <div>
               <h4 className="text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">Full-Stack Domain</h4>
-              <p className="text-xs text-slate-300">Next.js 14, Node.js Gateway, Supabase</p>
+              <p className="text-xs text-[#A7B4C7]">Next.js 14, Node.js Gateway, Supabase</p>
             </div>
           </div>
 
-          <div className="lg:col-span-4 glass-card p-5 rounded-2xl flex items-center gap-3.5 border border-slate-800/80 hover:border-amber-500/40 transition-all">
-            <div className="p-3 rounded-xl bg-amber-950/80 text-amber-400 border border-amber-500/30">
+          <div className="lg:col-span-4 glass-card p-5 rounded-2xl flex items-center gap-3.5 border border-[rgba(148,163,184,0.12)] hover:border-[rgba(245,158,11,0.45)] transition-all">
+            <div className="p-3 rounded-xl bg-[#0D1626] text-[#F59E0B] border border-[rgba(245,158,11,0.25)]">
               <RadioTower className="w-5 h-5" />
             </div>
             <div>
               <h4 className="text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">Embedded IoT Domain</h4>
-              <p className="text-xs text-slate-300">NodeMCU ESP8266, DHT22 & PWM Control</p>
+              <p className="text-xs text-[#A7B4C7]">NodeMCU ESP8266, DHT22 &amp; PWM Control</p>
             </div>
           </div>
         </div>

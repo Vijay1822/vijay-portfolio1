@@ -39,7 +39,7 @@ export default function HomePage() {
       <Hero />
 
       {/* 2. Introduction & Profile Preview */}
-      <section className="py-20 relative bg-[#0B1120] border-t border-slate-800/80">
+      <section className="py-20 relative bg-[#0B1220] border-t border-[rgba(148,163,184,0.12)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left summary copy */}
@@ -49,29 +49,29 @@ export default function HomePage() {
               viewport={{ once: true }}
               className="lg:col-span-6 space-y-5"
             >
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-cyan-950/80 text-cyan-300 border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Introduction & Vision</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-[#0D1626] text-[#22D3EE] border border-[rgba(34,211,238,0.25)] shadow-[0_0_12px_rgba(34,211,238,0.10)]">
+                <Sparkles className="w-3.5 h-3.5 text-[#22D3EE]" />
+                <span>Introduction &amp; Vision</span>
               </div>
 
               <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#F8FAFC]">
                 Engineering at the Intersection of{" "}
-                <span className="bg-gradient-to-r from-cyan-400 to-amber-300 bg-clip-text text-transparent">
-                  AI & Embedded Systems.
+                <span className="bg-gradient-to-r from-[#22D3EE] to-[#3B82F6] bg-clip-text text-transparent">
+                  AI &amp; Embedded Systems.
                 </span>
               </h2>
 
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+              <p className="text-[#A7B4C7] text-sm sm:text-base leading-relaxed">
                 {PERSONAL_INFO.aboutParagraphs[0]}
               </p>
-              <p className="text-slate-400 text-sm leading-relaxed">
+              <p className="text-[#64748B] text-sm leading-relaxed">
                 {PERSONAL_INFO.aboutParagraphs[1]}
               </p>
 
               <div className="pt-2">
                 <Link
                   href="/about"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-cyan-300 bg-cyan-950/60 hover:bg-cyan-900/60 border border-cyan-500/40 hover:border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.15)] transition-all group"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-[#22D3EE] bg-[#121C2D] hover:bg-[#172338] border border-[rgba(34,211,238,0.3)] hover:border-[#22D3EE] transition-all group"
                 >
                   <span>Learn More About Vijay</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -90,15 +90,15 @@ export default function HomePage() {
               {PERSONAL_INFO.stats.map((stat, idx) => (
                 <div
                   key={idx}
-                  className="glass-card p-5 sm:p-6 rounded-2xl border border-slate-800 hover:border-cyan-500/40 transition-all duration-300 group hover:shadow-[0_10px_30px_rgba(6,182,212,0.1)]"
+                  className="glass-card p-5 sm:p-6 rounded-2xl border border-[rgba(148,163,184,0.12)] hover:border-[rgba(34,211,238,0.45)] transition-all duration-300 group hover:shadow-[0_16px_45px_rgba(34,211,238,0.08)]"
                 >
-                  <span className="text-xs text-slate-400 font-medium block mb-1 uppercase tracking-wider font-mono">
+                  <span className="text-xs text-[#64748B] font-medium block mb-1 uppercase tracking-wider font-mono">
                     {stat.label}
                   </span>
-                  <div className="text-2xl sm:text-3xl font-extrabold text-[#F8FAFC] group-hover:text-cyan-300 transition-colors mb-1">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-[#F8FAFC] group-hover:text-[#22D3EE] transition-colors mb-1">
                     {stat.value}
                   </div>
-                  <p className="text-xs text-slate-400 leading-snug">{stat.detail}</p>
+                  <p className="text-xs text-[#A7B4C7] leading-snug">{stat.detail}</p>
                 </div>
               ))}
             </motion.div>
@@ -107,12 +107,12 @@ export default function HomePage() {
       </section>
 
       {/* 3. Featured Projects Preview */}
-      <section className="py-20 relative bg-[#090E1A] border-t border-slate-800/80">
+      <section className="py-20 relative bg-[#070B14] border-t border-[rgba(148,163,184,0.12)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-cyan-950/80 text-cyan-300 border border-cyan-500/30 mb-3 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-                <Terminal className="w-3.5 h-3.5 text-cyan-400" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-[#0D1626] text-[#22D3EE] border border-[rgba(34,211,238,0.25)] mb-3 shadow-[0_0_12px_rgba(34,211,238,0.10)]">
+                <Terminal className="w-3.5 h-3.5 text-[#22D3EE]" />
                 <span>Featured Engineering Work</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#F8FAFC]">
@@ -121,7 +121,7 @@ export default function HomePage() {
             </div>
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors group"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#22D3EE] hover:text-[#67E8F9] transition-colors group"
             >
               <span>Explore All Projects ({PROJECTS.length})</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -144,9 +144,9 @@ export default function HomePage() {
           <div className="mt-12 text-center">
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-slate-950 bg-gradient-to-r from-cyan-400 via-sky-400 to-cyan-300 hover:from-cyan-300 hover:to-sky-300 shadow-[0_0_25px_rgba(6,182,212,0.4)] transition-all duration-200"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-[#061018] bg-[#22D3EE] hover:bg-[#67E8F9] shadow-[0_10px_30px_rgba(34,211,238,0.18)] hover:-translate-y-0.5 transition-all duration-200"
             >
-              <span>View All Projects & Architectures</span>
+              <span>View All Projects &amp; Architectures</span>
               <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
             </Link>
           </div>
@@ -154,23 +154,23 @@ export default function HomePage() {
       </section>
 
       {/* 4. Short Skills Preview */}
-      <section className="py-20 relative bg-[#0B1120] border-t border-slate-800/80">
+      <section className="py-20 relative bg-[#0F1726] border-t border-[rgba(148,163,184,0.12)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-amber-950/80 text-amber-300 border border-amber-500/30 mb-3 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
-                <Cpu className="w-3.5 h-3.5 text-amber-400" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-[#172338] text-[#F59E0B] border border-[rgba(245,158,11,0.25)] mb-3 shadow-[0_0_12px_rgba(245,158,11,0.10)]">
+                <Cpu className="w-3.5 h-3.5 text-[#F59E0B]" />
                 <span>Technical Arsenal</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#F8FAFC]">
-                Skills & Technologies Overview.
+                Skills &amp; Technologies Overview.
               </h2>
             </div>
             <Link
               href="/skills"
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-amber-400 hover:text-amber-300 transition-colors group"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#F59E0B] hover:text-[#fbbf24] transition-colors group"
             >
-              <span>View All Skills & Filter by Domain</span>
+              <span>View All Skills &amp; Filter by Domain</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -180,17 +180,17 @@ export default function HomePage() {
             {topSkillCategories.map((cat, idx) => (
               <div
                 key={idx}
-                className="glass-card p-5 rounded-2xl border border-slate-800 hover:border-cyan-500/30 transition-all flex flex-col justify-between"
+                className="glass-card p-5 rounded-2xl border border-[rgba(148,163,184,0.12)] hover:border-[rgba(34,211,238,0.45)] transition-all flex flex-col justify-between"
               >
                 <div>
                   <h3 className="text-base font-bold text-[#F8FAFC] mb-1.5">{cat.title}</h3>
-                  <p className="text-xs text-slate-400 mb-4">{cat.description}</p>
+                  <p className="text-xs text-[#A7B4C7] mb-4">{cat.description}</p>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {cat.skills.map((skill, sIdx) => (
                     <span
                       key={sIdx}
-                      className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-900/80 border border-slate-700/60 text-slate-200"
+                      className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-[#172338] border border-[rgba(34,211,238,0.15)] text-[#67E8F9]"
                     >
                       {skill.name}
                     </span>
@@ -203,7 +203,7 @@ export default function HomePage() {
           <div className="mt-10 text-center">
             <Link
               href="/skills"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-200 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 hover:border-slate-600 transition-all"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-[#A7B4C7] hover:text-[#F8FAFC] bg-[#121C2D] hover:bg-[#172338] border border-[rgba(148,163,184,0.15)] hover:border-[rgba(34,211,238,0.45)] transition-all"
             >
               <span>Explore Complete Categorized Skill Matrix</span>
               <ArrowRight className="w-4 h-4" />
@@ -213,13 +213,13 @@ export default function HomePage() {
       </section>
 
       {/* 5. Short Journey Preview */}
-      <section className="py-20 relative bg-[#090E1A] border-t border-slate-800/80">
+      <section className="py-20 relative bg-[#070B14] border-t border-[rgba(148,163,184,0.12)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-cyan-950/80 text-cyan-300 border border-cyan-500/30 mb-3 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-                <Calendar className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Roadmap & Highlights</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-[#0D1626] text-[#22D3EE] border border-[rgba(34,211,238,0.25)] mb-3 shadow-[0_0_12px_rgba(34,211,238,0.10)]">
+                <Calendar className="w-3.5 h-3.5 text-[#22D3EE]" />
+                <span>Roadmap &amp; Highlights</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#F8FAFC]">
                 Recent Journey Milestones.
@@ -227,7 +227,7 @@ export default function HomePage() {
             </div>
             <Link
               href="/journey"
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors group"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#22D3EE] hover:text-[#67E8F9] transition-colors group"
             >
               <span>View Full Journey Timeline</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -239,22 +239,22 @@ export default function HomePage() {
             {latestMilestones.map((item, idx) => (
               <div
                 key={idx}
-                className="glass-card p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition-all"
+                className="glass-card p-6 rounded-2xl border border-[rgba(148,163,184,0.12)] hover:border-[rgba(34,211,238,0.45)] transition-all"
               >
                 <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="text-xs font-mono font-bold text-cyan-400 bg-cyan-950/70 border border-cyan-500/30 px-2.5 py-0.5 rounded-full">
+                  <span className="text-xs font-mono font-bold text-[#22D3EE] bg-[#0D1626] border border-[rgba(34,211,238,0.25)] px-2.5 py-0.5 rounded-full">
                     {item.year}
                   </span>
-                  <span className="text-xs text-amber-400 bg-amber-950/50 border border-amber-500/20 px-2.5 py-0.5 rounded-full font-medium">
+                  <span className="text-xs text-[#F59E0B] bg-[#172338] border border-[rgba(245,158,11,0.25)] px-2.5 py-0.5 rounded-full font-medium">
                     {item.category}
                   </span>
                 </div>
                 <h3 className="text-lg font-bold text-[#F8FAFC] mb-2">{item.title}</h3>
-                <p className="text-xs sm:text-sm text-slate-300 mb-4 leading-relaxed">{item.description}</p>
+                <p className="text-xs sm:text-sm text-[#A7B4C7] mb-4 leading-relaxed">{item.description}</p>
                 <ul className="space-y-1.5">
                   {item.highlights.slice(0, 2).map((h, hIdx) => (
-                    <li key={hIdx} className="flex items-start gap-2 text-xs text-slate-400">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                    <li key={hIdx} className="flex items-start gap-2 text-xs text-[#A7B4C7]">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#22D3EE] shrink-0 mt-0.5" />
                       <span>{h}</span>
                     </li>
                   ))}
@@ -266,7 +266,7 @@ export default function HomePage() {
           <div className="mt-10 text-center">
             <Link
               href="/journey"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-200 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 hover:border-slate-600 transition-all"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-[#A7B4C7] hover:text-[#F8FAFC] bg-[#121C2D] hover:bg-[#172338] border border-[rgba(148,163,184,0.15)] hover:border-[rgba(34,211,238,0.45)] transition-all"
             >
               <span>Explore Complete Engineering Timeline</span>
               <ArrowRight className="w-4 h-4" />
@@ -276,28 +276,28 @@ export default function HomePage() {
       </section>
 
       {/* 6. Call to Action Banner */}
-      <section className="py-16 relative bg-gradient-to-b from-[#090E1A] to-[#0B1120] border-t border-slate-800/80">
+      <section className="py-16 relative bg-gradient-to-b from-[#070B14] to-[#0B1220] border-t border-[rgba(148,163,184,0.12)]">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="glass-card p-8 sm:p-12 rounded-3xl border border-cyan-500/30 shadow-[0_0_50px_rgba(6,182,212,0.15)] relative overflow-hidden">
-            <div className="absolute -right-16 -bottom-16 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -left-16 -top-16 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="glass-card p-8 sm:p-12 rounded-3xl border border-[rgba(34,211,238,0.3)] shadow-[0_16px_50px_rgba(0,0,0,0.35)] relative overflow-hidden">
+            <div className="absolute -right-16 -bottom-16 w-64 h-64 bg-[#22D3EE]/[0.05] rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -left-16 -top-16 w-64 h-64 bg-[#3B82F6]/[0.04] rounded-full blur-3xl pointer-events-none" />
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#F8FAFC] mb-3">
               Ready to Collaborate or Build Something Impactful?
             </h2>
-            <p className="text-sm text-slate-300 max-w-xl mx-auto mb-6">
+            <p className="text-sm text-[#A7B4C7] max-w-xl mx-auto mb-6">
               Whether you are interested in AI engineering, full-stack systems, IoT prototypes, or innovative partnerships, I would love to connect.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-slate-950 bg-gradient-to-r from-cyan-400 via-sky-400 to-cyan-300 hover:from-cyan-300 hover:to-sky-300 shadow-[0_0_25px_rgba(6,182,212,0.4)] transition-all"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-[#061018] bg-[#22D3EE] hover:bg-[#67E8F9] shadow-[0_10px_30px_rgba(34,211,238,0.18)] hover:-translate-y-0.5 transition-all"
               >
                 <span>Get in Touch</span>
                 <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
               </Link>
               <Link
                 href="/education"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-slate-200 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 transition-all"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-[#F8FAFC] bg-transparent hover:bg-[rgba(34,211,238,0.08)] border border-[rgba(34,211,238,0.55)] hover:border-[#22D3EE] transition-all"
               >
                 <span>View Academic Background</span>
               </Link>
