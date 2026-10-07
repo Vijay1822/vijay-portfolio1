@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://vijaykumar.dev",
+    url: "https://vijay-portfolio18.netlify.app",
     title: `${PERSONAL_INFO.name} | ${PERSONAL_INFO.title}`,
     description: `${PERSONAL_INFO.tagline} B.Tech CSE-IoT at ${PERSONAL_INFO.college}.`,
     siteName: `${PERSONAL_INFO.name} Portfolio`,
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     description: `${PERSONAL_INFO.tagline} B.Tech CSE-IoT at ${PERSONAL_INFO.college}.`,
     creator: "@Vijay1822",
   },
-  metadataBase: new URL("https://vijaykumar.dev"),
+  metadataBase: new URL("https://vijay-portfolio18.netlify.app"),
   icons: {
     icon: "/favicon.svg",
   },
@@ -68,7 +68,7 @@ export default function RootLayout({
       "@type": "CollegeOrUniversity",
       name: PERSONAL_INFO.collegeFullName,
     },
-    url: "https://vijaykumar.dev",
+    url: "https://vijay-portfolio18.netlify.app",
     sameAs: [PERSONAL_INFO.social.github, PERSONAL_INFO.social.linkedin],
     knowsAbout: [
       "Artificial Intelligence",

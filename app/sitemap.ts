@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vijaykumar.dev";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vijay-portfolio18.netlify.app";
   const routes = ["", "/about", "/skills", "/projects", "/journey", "/education", "/resume", "/contact"];
 
   return routes.map((route) => ({

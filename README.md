@@ -1,5 +1,12 @@
 # Mamidala Vijay Kumar — AI Engineer & Full-Stack Developer Portfolio
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-vijay--portfolio18.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://vijay-portfolio18.netlify.app/)
+[![Next.js 14](https://img.shields.io/badge/Next.js_14-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Vijay1822/vijay-portfolio1)
+
+> 🌐 **Live Website**: **[https://vijay-portfolio18.netlify.app/](https://vijay-portfolio18.netlify.app/)**
+
 A production-ready personal portfolio for **Mamidala Vijay Kumar** (B.Tech CSE-IoT at VNR VJIET, Class of 2029). Crafted with a **light-mode first SaaS aesthetic**, interactive **Three.js WebGL developer avatar**, **Framer Motion** animation system, and an integrated **Vijay AI** personal assistant.
 
 ![Portfolio Preview Banner](https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80)
@@ -28,7 +35,7 @@ A production-ready personal portfolio for **Mamidala Vijay Kumar** (B.Tech CSE-I
 - **3D Graphics**: [Three.js](https://threejs.org/) (WebGL Canvas)
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Micro-Interactions**: [canvas-confetti](https://www.npmjs.com/package/canvas-confetti)
-- **Deployment**: [Vercel](https://vercel.com/) (Optimized out of the box)
+- **Deployment**: [Netlify](https://vijay-portfolio18.netlify.app/) & [Vercel](https://vercel.com/) (Next.js 14 App Router, Node 20 LTS)
 
 ---
 
@@ -44,8 +51,8 @@ npm -v
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/Vijay1822/portfolio.git
-cd portfolio
+git clone https://github.com/Vijay1822/vijay-portfolio1.git
+cd vijay-portfolio1
 ```
 
 ### 2. Install Dependencies
@@ -63,7 +70,7 @@ cp .env.example .env.local
 | :--- | :--- | :--- |
 | `OPENAI_API_KEY` | Optional | OpenAI API key for conversational AI responses in `/api/chat`. |
 | `GEMINI_API_KEY` | Optional | Alternative Gemini API key for dynamic generation. |
-| `NEXT_PUBLIC_SITE_URL` | Optional | Base URL for Open Graph and sitemap generation (default: `https://vijaykumar.dev`). |
+| `NEXT_PUBLIC_SITE_URL` | Optional | Base URL for Open Graph and sitemap generation (default: `https://vijay-portfolio18.netlify.app`). |
 
 > **Note**: If no API key is provided, the portfolio automatically operates in **intelligent offline fallback mode**, answering questions factually with zero dependencies.
 
@@ -145,9 +152,22 @@ To update your contact information, add new projects, or modify milestones, simp
 
 ---
 
-## 🌐 Deploying to Vercel
+## 🌐 Live Production Deployment
 
-The website is fully optimized for **1-click deployment on Vercel**:
+### Netlify (Official Live Site)
+The portfolio is deployed live on Netlify with continuous automated deployment from GitHub:
+👉 **[https://vijay-portfolio18.netlify.app/](https://vijay-portfolio18.netlify.app/)**
+
+#### Deployment Highlights:
+- **Zero-Config CI/CD**: Pre-configured [`netlify.toml`](netlify.toml) utilizing `@netlify/plugin-nextjs`.
+- **Node.js 20 LTS**: Pinned environment runtime for maximum build stability and performance.
+- **Full Next.js 14 Support**: Full support for App Router, server-rendered routes, static optimization, and API endpoints.
+
+---
+
+## ☁️ Alternative Deployment (Vercel)
+
+The codebase is also fully compatible with **1-click deployment on Vercel**:
 
 ### Option A: Using the Vercel CLI
 ```bash
@@ -156,20 +176,10 @@ vercel
 ```
 
 ### Option B: Using GitHub & Vercel Dashboard
-1. Push your repository to GitHub:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit of premium portfolio"
-   git branch -M main
-   git remote add origin https://github.com/Vijay1822/portfolio.git
-   git push -u origin main
-   ```
-2. Log in to [Vercel](https://vercel.com).
-3. Click **"New Project"** and import your `portfolio` repository.
-4. Framework preset will automatically detect **Next.js**.
-5. (Optional) Add `OPENAI_API_KEY` under **Environment Variables**.
-6. Click **Deploy**.
+1. Import `Vijay1822/vijay-portfolio1` into [Vercel](https://vercel.com).
+2. Framework preset will automatically detect **Next.js**.
+3. (Optional) Set `GEMINI_API_KEY` or `OPENAI_API_KEY` under **Environment Variables**.
+4. Click **Deploy**.
 
 ---
 
