@@ -6,6 +6,8 @@
 
 # testing
 /coverage
+test-15-ai-and-navigation.ts
+test-ai-and-routing.ts
 
 # next.js
 /.next/

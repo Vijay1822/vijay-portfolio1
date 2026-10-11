@@ -41,28 +41,28 @@ export function Footer() {
             </span>
             <ul className="space-y-1.5 text-xs text-[#A7B4C7]">
               <li>
-                <Link href="/" className="hover:text-[#22D3EE] transition-colors">Home</Link>
+                <Link href="/" prefetch={true} className="hover:text-[#22D3EE] transition-colors">Home</Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-[#22D3EE] transition-colors">About</Link>
+                <Link href="/about" prefetch={true} className="hover:text-[#22D3EE] transition-colors">About</Link>
               </li>
               <li>
-                <Link href="/skills" className="hover:text-[#22D3EE] transition-colors">Skills</Link>
+                <Link href="/skills" prefetch={true} className="hover:text-[#22D3EE] transition-colors">Skills</Link>
               </li>
               <li>
-                <Link href="/projects" className="hover:text-[#22D3EE] transition-colors">Projects</Link>
+                <Link href="/projects" prefetch={true} className="hover:text-[#22D3EE] transition-colors">Projects</Link>
               </li>
               <li>
-                <Link href="/journey" className="hover:text-[#22D3EE] transition-colors">Journey</Link>
+                <Link href="/journey" prefetch={true} className="hover:text-[#22D3EE] transition-colors">Journey</Link>
               </li>
               <li>
-                <Link href="/education" className="hover:text-[#22D3EE] transition-colors">Education</Link>
+                <Link href="/education" prefetch={true} className="hover:text-[#22D3EE] transition-colors">Education</Link>
               </li>
               <li>
-                <Link href="/resume" className="hover:text-[#22D3EE] transition-colors">Resume</Link>
+                <Link href="/resume" prefetch={true} className="hover:text-[#22D3EE] transition-colors">Resume</Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-[#22D3EE] transition-colors">Contact</Link>
+                <Link href="/contact" prefetch={true} className="hover:text-[#22D3EE] transition-colors">Contact</Link>
               </li>
             </ul>
           </div>
@@ -79,7 +79,8 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2.5 rounded-xl bg-[#0D1626] border border-[rgba(148,163,184,0.12)] text-[#A7B4C7] hover:text-[#22D3EE] hover:border-[rgba(34,211,238,0.45)] hover:bg-[#121C2D] transition-all"
-                  aria-label="GitHub"
+                  aria-label="GitHub Profile"
+                  title="GitHub Profile (@Vijay1822)"
                 >
                   <Github className="w-4 h-4" />
                 </a>
@@ -88,14 +89,34 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2.5 rounded-xl bg-[#0D1626] border border-[rgba(148,163,184,0.12)] text-[#A7B4C7] hover:text-[#22D3EE] hover:border-[rgba(34,211,238,0.45)] hover:bg-[#121C2D] transition-all"
-                  aria-label="LinkedIn"
+                  aria-label="LinkedIn Profile"
+                  title="LinkedIn Profile"
                 >
                   <Linkedin className="w-4 h-4" />
                 </a>
                 <a
+                  href={PERSONAL_INFO.social.leetcode}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 rounded-xl bg-[#0D1626] border border-[rgba(148,163,184,0.12)] text-[#A7B4C7] hover:text-[#F59E0B] hover:border-[rgba(245,158,11,0.45)] hover:bg-[#121C2D] transition-all"
+                  aria-label="LeetCode Profile"
+                  title="LeetCode Profile (@Vijay_kumar2008)"
+                >
+                  <svg
+                    role="img"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-4 h-4"
+                    aria-hidden="true"
+                  >
+                    <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" />
+                  </svg>
+                </a>
+                <a
                   href={`mailto:${PERSONAL_INFO.social.email}`}
                   className="p-2.5 rounded-xl bg-[#0D1626] border border-[rgba(148,163,184,0.12)] text-[#A7B4C7] hover:text-[#F59E0B] hover:border-[rgba(245,158,11,0.45)] hover:bg-[#121C2D] transition-all"
-                  aria-label="Email"
+                  aria-label="Send Email"
+                  title="Send Email"
                 >
                   <Mail className="w-4 h-4" />
                 </a>

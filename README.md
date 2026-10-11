@@ -17,7 +17,7 @@ A production-ready personal portfolio for **Mamidala Vijay Kumar** (B.Tech CSE-I
 
 - **Light-Mode First SaaS Aesthetic**: Inspired by the modern elegance of Vercel, Linear, and Stripe. Built with high contrast readability, frosted glassmorphism (`backdrop-blur-md`), and subtle blue/violet/cyan accents.
 - **Interactive 3D Developer Avatar**: Dynamic Three.js WebGL canvas featuring an AI-inspired icosahedron geometric core, gyroscopic orbital rings, and reactive particle physics that tilt dynamically with cursor movement.
-- **Vijay AI Personal Assistant**: Floating assistant with `/api/chat` architecture supporting external LLM keys (OpenAI / Gemini) as well as an intelligent zero-dependency fallback engine that guarantees 100% uptime with instant, factual answers about Vijay's profile.
+- **Vijay AI Personal Assistant**: Floating assistant and CLI terminal with `/api/chat` multi-provider architecture (Groq primary inference with Google Gemini fallback) as well as an intelligent deterministic local engine that guarantees instant, factual answers about Vijay's profile.
 - **Dual Case Study Deep-Dives**:
   1. **Smart Farmer Procurement System** (*AI + Full-Stack Platform*): ML-driven fair price benchmarking and direct farmer-buyer trade portal.
   2. **Smart Temperature-Based Fan Control System** (*CSE-IoT & Embedded Hardware*): NodeMCU ESP8266 + DHT22 closed-loop PWM fan control and cloud telemetry.
@@ -68,8 +68,8 @@ cp .env.example .env.local
 
 | Variable | Required | Description |
 | :--- | :--- | :--- |
-| `OPENAI_API_KEY` | Optional | OpenAI API key for conversational AI responses in `/api/chat`. |
-| `GEMINI_API_KEY` | Optional | Alternative Gemini API key for dynamic generation. |
+| `GROQ_API_KEY` | Optional | Groq API key for ultra-fast primary inference in `/api/chat`. |
+| `GEMINI_API_KEY` | Optional | Google Gemini API key for fallback inference in `/api/chat`. |
 | `NEXT_PUBLIC_SITE_URL` | Optional | Base URL for Open Graph and sitemap generation (default: `https://vijay-portfolio18.netlify.app`). |
 
 > **Note**: If no API key is provided, the portfolio automatically operates in **intelligent offline fallback mode**, answering questions factually with zero dependencies.
@@ -178,7 +178,7 @@ vercel
 ### Option B: Using GitHub & Vercel Dashboard
 1. Import `Vijay1822/vijay-portfolio1` into [Vercel](https://vercel.com).
 2. Framework preset will automatically detect **Next.js**.
-3. (Optional) Set `GEMINI_API_KEY` or `OPENAI_API_KEY` under **Environment Variables**.
+3. (Optional) Set `GROQ_API_KEY` and `GEMINI_API_KEY` under **Environment Variables**.
 4. Click **Deploy**.
 
 ---

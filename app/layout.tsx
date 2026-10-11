@@ -69,7 +69,11 @@ export default function RootLayout({
       name: PERSONAL_INFO.collegeFullName,
     },
     url: "https://vijay-portfolio18.netlify.app",
-    sameAs: [PERSONAL_INFO.social.github, PERSONAL_INFO.social.linkedin],
+    sameAs: [
+      PERSONAL_INFO.social.github,
+      PERSONAL_INFO.social.linkedin,
+      PERSONAL_INFO.social.leetcode,
+    ],
     knowsAbout: [
       "Artificial Intelligence",
       "Machine Learning",

@@ -491,7 +491,7 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={isSending}
-                  className="w-full py-3.5 rounded-xl text-sm font-bold text-[#061018] bg-[#22D3EE] hover:bg-[#67E8F9] hover:-translate-y-0.5 transition-all duration-200 shadow-[0_10px_30px_rgba(34,211,238,0.18)] flex items-center justify-center gap-2 group disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
+                  className="cta-tactile w-full py-3.5 rounded-xl text-sm font-bold text-[#061018] bg-[#22D3EE] hover:bg-[#67E8F9] transition-all duration-200 shadow-[0_10px_30px_rgba(34,211,238,0.22)] hover:shadow-[0_14px_35px_rgba(34,211,238,0.3)] flex items-center justify-center gap-2 group disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
                 >
                   {isSending ? (
                     <>

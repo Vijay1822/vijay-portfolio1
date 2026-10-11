@@ -1,12 +1,52 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export function BackgroundMesh() {
+  const [isInteractive, setIsInteractive] = useState(false);
+  const mouseX = useMotionValue(-500);
+  const mouseY = useMotionValue(-500);
+
+  const springConfig = { damping: 45, stiffness: 180, mass: 1.2 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  useEffect(() => {
+    // Only enable on desktop pointer devices with motion enabled
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    setIsInteractive(true);
+
+    const handleMouseMove = (e: MouseEvent) => {
+      // Offset relative to viewport
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
   return (
     <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
       {/* Subtle Obsidian Grid */}
       <div className="absolute inset-0 bg-tech-grid opacity-35" />
+
+      {/* Restrained Desktop Pointer-Following Cyan Aura */}
+      {isInteractive && (
+        <motion.div
+          style={{
+            x: smoothX,
+            y: smoothY,
+            translateX: "-50%",
+            translateY: "-50%",
+          }}
+          className="fixed top-0 left-0 w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle,rgba(34,211,238,0.05)_0%,transparent_70%)] blur-[90px] pointer-events-none hidden md:block"
+        />
+      )}
 
       {/* Upper-Left Electric Cyan Ambient Depth */}
       <motion.div

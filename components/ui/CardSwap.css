@@ -1,0 +1,298 @@
+/* Straight Front-Facing Card Swap Carousel Styles */
+:root {
+  --swap-card-bg: #121C2D;
+  --swap-card-border: rgba(34, 211, 238, 0.25);
+  --swap-card-border-hover: rgba(34, 211, 238, 0.5);
+  --swap-card-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 30px rgba(34, 211, 238, 0.08);
+  --swap-cyan: #22D3EE;
+  --swap-cyan-hover: #67E8F9;
+  --swap-blue: #3B82F6;
+  --swap-amber: #F59E0B;
+  --swap-radius: 24px;
+}
+
+.card-swap-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+
+/* Stage viewport: flat, front-facing, zero perspective distortion */
+.card-swap-stage {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  padding: 12px 0 20px 0;
+  perspective: none !important;
+  transform-style: flat !important;
+}
+
+/* Main card slot: strictly rectangular, zero rotation, zero skew */
+.card-swap-card-slot {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  border-radius: var(--swap-radius);
+  transform: none;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  cursor: grab;
+}
+
+.card-swap-card-slot:active {
+  cursor: grabbing;
+}
+
+/* Front-facing active card */
+.card-swap-card-slot[data-active="true"] {
+  z-index: 20;
+}
+
+/* Adjacent preview cards (subtle, rectangular, no skew, no diagonal offset) */
+.card-swap-card-slot[data-preview="true"] {
+  z-index: 10;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* Side navigation controls for desktop: vertically aligned with active card */
+.card-swap-side-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 25;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  background: rgba(11, 18, 32, 0.88);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  color: #F8FAFC;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: all 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+@media (min-width: 640px) {
+  .card-swap-side-btn {
+    display: inline-flex;
+  }
+}
+
+.card-swap-side-btn-prev {
+  left: -20px;
+}
+
+@media (min-width: 1024px) {
+  .card-swap-side-btn-prev {
+    left: -28px;
+  }
+}
+
+.card-swap-side-btn-next {
+  right: -20px;
+}
+
+@media (min-width: 1024px) {
+  .card-swap-side-btn-next {
+    right: -28px;
+  }
+}
+
+.card-swap-side-btn:hover:not(:disabled) {
+  background: #121C2D;
+  border-color: rgba(34, 211, 238, 0.6);
+  color: var(--swap-cyan);
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.25);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.card-swap-side-btn:active:not(:disabled) {
+  transform: translateY(-50%) scale(0.98);
+}
+
+.card-swap-side-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--swap-cyan);
+  border-color: var(--swap-cyan);
+}
+
+/* Controls bar: soft-bevel design matching obsidian theme */
+.card-swap-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  width: 100%;
+  z-index: 30;
+}
+
+.card-swap-controls-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.card-swap-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: #0B1220;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  color: #F8FAFC;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.card-swap-nav-btn:hover:not(:disabled) {
+  background: #121C2D;
+  border-color: rgba(34, 211, 238, 0.5);
+  color: var(--swap-cyan);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.2);
+  transform: translateY(-2px);
+}
+
+.card-swap-nav-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.card-swap-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  border-color: rgba(148, 163, 184, 0.08);
+}
+
+.card-swap-nav-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--swap-cyan);
+  border-color: var(--swap-cyan);
+}
+
+/* Play/Pause Button */
+.card-swap-play-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #0B1528;
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  color: var(--swap-cyan);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.card-swap-play-btn:hover {
+  background: #101F38;
+  border-color: var(--swap-cyan);
+  color: #FFFFFF;
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.25);
+  transform: translateY(-1px);
+}
+
+.card-swap-play-btn:active {
+  transform: translateY(0);
+}
+
+.card-swap-play-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--swap-cyan);
+}
+
+/* Position indicator pill */
+.card-swap-counter {
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--swap-cyan);
+  background: #0B1528;
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  padding: 8px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Pagination dots */
+.card-swap-pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-swap-dot {
+  height: 8px;
+  border-radius: 9999px;
+  transition: all 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: #1E293B;
+}
+
+.card-swap-dot[data-active="true"] {
+  width: 28px;
+  background: var(--swap-cyan);
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.45);
+}
+
+.card-swap-dot[data-active="false"] {
+  width: 8px;
+  background: #1E293B;
+}
+
+.card-swap-dot[data-active="false"]:hover {
+  background: #475569;
+}
+
+/* Autoplay Progress Line */
+.card-swap-progress-track {
+  width: 140px;
+  height: 3px;
+  border-radius: 9999px;
+  background: rgba(148, 163, 184, 0.15);
+  overflow: hidden;
+  position: relative;
+}
+
+.card-swap-progress-bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #22D3EE 0%, #3B82F6 100%);
+  box-shadow: 0 0 8px rgba(34, 211, 238, 0.5);
+  border-radius: 9999px;
+  transform-origin: left;
+}
+
+/* Accessibility: Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .card-swap-card-slot,
+  .card-swap-nav-btn,
+  .card-swap-side-btn,
+  .card-swap-dot,
+  .card-swap-progress-bar {
+    transition: none !important;
+    animation: none !important;
+  }
+}

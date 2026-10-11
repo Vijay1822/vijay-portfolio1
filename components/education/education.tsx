@@ -1,7 +1,18 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { GraduationCap, MapPin, Calendar, BookOpen, Award, CheckCircle } from "lucide-react";
+import {
+  GraduationCap,
+  MapPin,
+  Calendar,
+  BookOpen,
+  Award,
+  CheckCircle,
+  ArrowRight,
+  FileText,
+  Milestone,
+} from "lucide-react";
 import { EDUCATION } from "@/lib/data";
 
 export function Education() {
@@ -16,7 +27,8 @@ export function Education() {
         <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-14">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-[#0D1626] text-[#22D3EE] border border-[rgba(34,211,238,0.25)] mb-4 shadow-[0_0_12px_rgba(34,211,238,0.10)]"
           >
             <GraduationCap className="w-3.5 h-3.5 text-[#22D3EE]" />
@@ -25,7 +37,8 @@ export function Education() {
 
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#F8FAFC] mb-4"
           >
@@ -34,19 +47,21 @@ export function Education() {
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.15 }}
             className="text-[#A7B4C7] text-sm sm:text-base leading-relaxed max-w-2xl"
           >
             Rigorous engineering education blending computer science fundamentals with hands-on
-            Internet of Things laboratory systems and algorithm design.
+            Internet of Things laboratory systems, telemetry, and algorithm design.
           </motion.p>
         </div>
 
         {/* Premium Academic Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.2 }}
           className="max-w-4xl mx-auto glass-card rounded-3xl p-6 sm:p-10 border border-[rgba(148,163,184,0.12)] relative overflow-hidden group hover:border-[rgba(34,211,238,0.45)] hover:shadow-[0_16px_45px_rgba(34,211,238,0.08)]"
         >
@@ -116,7 +131,7 @@ export function Education() {
           </div>
 
           {/* Coursework Matrix */}
-          <div>
+          <div className="mb-8">
             <h3 className="text-xs font-mono font-medium text-[#64748B] uppercase tracking-wider mb-3.5 flex items-center gap-2">
               <BookOpen className="w-3.5 h-3.5 text-[#22D3EE]" />
               Core Academic Coursework &amp; Interfacing Labs
@@ -132,6 +147,29 @@ export function Education() {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Contextual Subpage Links */}
+          <div className="pt-6 border-t border-[rgba(148,163,184,0.12)] flex flex-wrap items-center justify-between gap-4">
+            <Link
+              href="/journey"
+              prefetch={true}
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#22D3EE] hover:text-[#67E8F9] active:scale-95 active:opacity-90 transition-all group"
+            >
+              <Milestone className="w-4 h-4 text-[#22D3EE]" />
+              <span>Explore Milestones on Journey</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+
+            <Link
+              href="/resume"
+              prefetch={true}
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#F8FAFC] hover:text-[#22D3EE] active:scale-95 active:opacity-90 transition-all group"
+            >
+              <FileText className="w-4 h-4 text-[#22D3EE]" />
+              <span>Inspect Official Resume Credentials</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
         </motion.div>
       </div>

@@ -21,10 +21,12 @@ import {
   VolumeX,
   FolderGit2,
   AlertCircle,
+  Cpu,
 } from "lucide-react";
 import { AI_ASSISTANT_SUGGESTIONS, PERSONAL_INFO } from "@/lib/data";
 import { generateSmartResponse, ChatAction, ChatProjectCard } from "@/lib/ai-assistant";
 import { FormattedMessage } from "./FormattedMessage";
+import { StarBorder } from "@/components/ui/star-border";
 
 interface Message {
   id: string;
@@ -40,9 +42,10 @@ interface Message {
 interface AIAssistantProps {
   isOpen: boolean;
   onToggle: () => void;
+  initialQuery?: string;
 }
 
-export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
+export function AIAssistantModal({ isOpen, onToggle, initialQuery }: AIAssistantProps) {
   const router = useRouter();
 
   const [isMinimized, setIsMinimized] = useState(false);
@@ -84,6 +87,26 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
   const finalTranscriptRef = useRef<string>("");
   const interimTranscriptRef = useRef<string>("");
   const silenceTimerRef = useRef<any>(null);
+
+  // Listen for external prefill events (e.g. from terminal 'ask' command)
+  useEffect(() => {
+    const handlePrefill = (event: Event) => {
+      const customEvent = event as CustomEvent<{ query: string }>;
+      if (customEvent.detail?.query) {
+        setInput(customEvent.detail.query);
+        if (!isOpen) {
+          onToggle();
+        }
+        setIsMinimized(false);
+        setTimeout(() => {
+          inputRef.current?.focus();
+        }, 200);
+      }
+    };
+
+    window.addEventListener("vijay_ai_prefill", handlePrefill);
+    return () => window.removeEventListener("vijay_ai_prefill", handlePrefill);
+  }, [isOpen, onToggle]);
 
   // Check speech synthesis and recognition support
   useEffect(() => {
@@ -187,6 +210,13 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
       }, 200);
     }
   }, [isOpen, isMinimized, messages]);
+
+  useEffect(() => {
+    if (initialQuery) {
+      setInput(initialQuery);
+      setIsMinimized(false);
+    }
+  }, [initialQuery]);
 
   // Stop all active voice recognition and microphone activity
   const stopAllVoice = useCallback(() => {
@@ -362,39 +392,49 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
           speakText(replyText);
         }
       } else {
-        // Fallback engine
-        const localStructured = generateSmartResponse(query, history);
+        const errorReply =
+          "⚠️ Unable to reach the AI reasoning assistant. Both Groq and Gemini services are currently unreachable. Please click **Retry Question** below to try again.";
         setMessages((prev) => [
           ...prev,
           {
             id: `ai-${Date.now()}`,
             role: "assistant",
-            content: localStructured.reply,
+            content: errorReply,
             timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-            actions: localStructured.actions,
-            projectCard: localStructured.projectCard,
-            skillsGrid: localStructured.skillsGrid,
-            suggestedFollowUps: localStructured.suggestedFollowUps,
+            actions: [
+              { label: "Retry Question", type: "query", query, variant: "primary" },
+              { label: "View Projects →", type: "navigate", url: "/projects" },
+            ],
+            suggestedFollowUps: [
+              "What is Vijay's CGPA?",
+              "What is Vijay's GitHub?",
+              "Tell me about BudgetMind",
+            ],
           },
         ]);
-        if (isSpeakingEnabled) speakText(localStructured.reply);
+        if (isSpeakingEnabled) speakText(errorReply);
       }
     } catch {
-      const localStructured = generateSmartResponse(query);
+      const networkErrorReply =
+        "⚠️ Network error while connecting to the AI assistant. Please check your connection and click **Retry Question** below.";
       setMessages((prev) => [
         ...prev,
         {
           id: `ai-${Date.now()}`,
           role: "assistant",
-          content: localStructured.reply,
+          content: networkErrorReply,
           timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-          actions: localStructured.actions,
-          projectCard: localStructured.projectCard,
-          skillsGrid: localStructured.skillsGrid,
-          suggestedFollowUps: localStructured.suggestedFollowUps,
+          actions: [
+            { label: "Retry Question", type: "query", query, variant: "primary" },
+            { label: "View Projects →", type: "navigate", url: "/projects" },
+          ],
+          suggestedFollowUps: [
+            "What is Vijay's CGPA?",
+            "What is Vijay's GitHub?",
+          ],
         },
       ]);
-      if (isSpeakingEnabled) speakText(localStructured.reply);
+      if (isSpeakingEnabled) speakText(networkErrorReply);
     } finally {
       setIsLoading(false);
     }
@@ -443,42 +483,44 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
     <>
       {/* Floating Modern AI Assistant Trigger Button (Bottom-Right) */}
       <div className="fixed bottom-6 right-6 z-40">
-        <motion.button
-          onClick={() => {
-            if (isMinimized) {
-              setIsMinimized(false);
-            } else {
-              onToggle();
-            }
-          }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="relative flex items-center gap-3 px-4 py-2.5 rounded-full bg-[#121C2D]/95 backdrop-blur-xl border border-[rgba(34,211,238,0.35)] text-slate-100 shadow-[0_10px_35px_rgba(0,0,0,0.5)] hover:border-[#22D3EE] transition-all focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/30 group"
-          aria-label={isOpen && !isMinimized ? "Close Vijay AI Assistant" : "Open Vijay AI Assistant"}
-        >
-          {/* Orbital Ambient Halo */}
-          <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#22D3EE] via-[#3B82F6] to-[#2563EB] opacity-25 blur-sm group-hover:opacity-40 transition duration-500" />
+        <StarBorder className="rounded-full inline-block" color="#22D3EE" speed="4.5s">
+          <motion.button
+            onClick={() => {
+              if (isMinimized) {
+                setIsMinimized(false);
+              } else {
+                onToggle();
+              }
+            }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="relative flex items-center gap-3 px-4 py-2.5 rounded-full bg-[#121C2D]/95 backdrop-blur-xl border border-[rgba(34,211,238,0.35)] text-slate-100 shadow-[0_10px_35px_rgba(0,0,0,0.5),0_0_20px_rgba(34,211,238,0.12)] hover:border-[#22D3EE] hover:shadow-[0_10px_35px_rgba(0,0,0,0.5),0_0_25px_rgba(34,211,238,0.22)] transition-all focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/30 group"
+            aria-label={isOpen && !isMinimized ? "Close Vijay AI Assistant" : "Open Vijay AI Assistant"}
+          >
+            {/* Orbital Ambient Halo */}
+            <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#22D3EE] via-[#3B82F6] to-[#2563EB] opacity-25 blur-sm group-hover:opacity-40 transition duration-500" />
 
-          {/* 3D Avatar Head Thumbnail */}
-          <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#22D3EE]/50 shadow-[0_0_10px_rgba(34,211,238,0.2)] shrink-0 bg-[#070B14]">
-            <img
-              src="/images/avatar-developer-3d.png"
-              alt="Vijay AI Avatar"
-              className="w-full h-full object-cover"
-            />
-            <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-[#34D399] ring-2 ring-[#121C2D] shadow-[0_0_6px_#34D399]" />
-          </div>
+            {/* 3D Avatar Head Thumbnail */}
+            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#22D3EE]/50 shadow-[0_0_10px_rgba(34,211,238,0.2)] shrink-0 bg-[#070B14]">
+              <img
+                src="/images/avatar-developer-3d.png"
+                alt="Vijay AI Avatar"
+                className="w-full h-full object-cover"
+              />
+              <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-[#34D399] ring-2 ring-[#121C2D] shadow-[0_0_6px_#34D399]" />
+            </div>
 
-          <div className="relative flex flex-col text-left pr-1">
-            <span className="text-xs font-bold text-[#F8FAFC] flex items-center gap-1.5 leading-tight">
-              <span>Ask Vijay AI</span>
-              <Sparkles className="w-3 h-3 text-[#22D3EE]" />
-            </span>
-            <span className="text-[10px] text-[#22D3EE]/90 font-mono leading-none">Portfolio Assistant</span>
-          </div>
+            <div className="relative flex flex-col text-left pr-1">
+              <span className="text-xs font-bold text-[#F8FAFC] flex items-center gap-1.5 leading-tight">
+                <span>Ask Vijay AI</span>
+                <Sparkles className="w-3 h-3 text-[#22D3EE]" />
+              </span>
+              <span className="text-[10px] text-[#22D3EE]/90 font-mono leading-none">Portfolio Assistant</span>
+            </div>
 
-          {isOpen && !isMinimized && <X className="w-4 h-4 text-[#A7B4C7] ml-1" />}
-        </motion.button>
+            {isOpen && !isMinimized && <X className="w-4 h-4 text-[#A7B4C7] ml-1" />}
+          </motion.button>
+        </StarBorder>
       </div>
 
       {/* Modern AI Assistant Chat Panel */}
@@ -561,6 +603,18 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
 
+                {/* Architecture Deep-Dive Link */}
+                <Link
+                  href="/projects#how-vijay-ai-works"
+                  prefetch={true}
+                  onClick={handleMinimize}
+                  className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-mono text-[#22D3EE] bg-[#0B1528] border border-[rgba(34,211,238,0.3)] hover:border-[#22D3EE] hover:bg-[#0E1F3B] active:scale-95 active:opacity-90 transition-all"
+                  title="Explore How Vijay AI Works behind the scenes"
+                >
+                  <Cpu className="w-3 h-3 text-[#22D3EE]" />
+                  <span>How AI Works</span>
+                </Link>
+
                 {/* Minimize Button [—] */}
                 <button
                   onClick={handleMinimize}
@@ -600,12 +654,20 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
             )}
 
             {/* Messages Scroll View */}
-            <div className="flex-1 p-3.5 sm:p-4 overflow-y-auto space-y-3 text-xs sm:text-sm">
+            <div
+              role="log"
+              aria-live="polite"
+              aria-label="Vijay AI conversation history"
+              className="flex-1 p-3.5 sm:p-4 overflow-y-auto space-y-3 text-xs sm:text-sm"
+            >
               {messages.map((m) => {
                 const isAssistant = m.role === "assistant";
                 return (
-                  <div
+                  <motion.div
                     key={m.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                     className={`flex items-start gap-2.5 ${isAssistant ? "" : "flex-row-reverse"}`}
                   >
                     {/* Role Icon */}
@@ -788,7 +850,7 @@ export function AIAssistantModal({ isOpen, onToggle }: AIAssistantProps) {
                         {m.timestamp}
                       </span>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
 

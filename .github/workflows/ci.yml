@@ -1,0 +1,50 @@
+name: Portfolio CI & Automated Regression Suite
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  audit-and-test:
+    name: Type-Check, Build & E2E Regression
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Type-Check (TypeScript Strictness)
+        run: npx tsc --noEmit
+
+      - name: Build Next.js Production Bundle
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+
+      - name: Start Production Server
+        run: |
+          npm run start &
+          echo "Waiting for Next.js production server on http://localhost:3000..."
+          for i in {1..30}; do
+            if curl -s http://localhost:3000 > /dev/null; then
+              echo "Server is ready!"
+              break
+            fi
+            sleep 1
+          done
+
+      - name: Run Automated Regression Test Suite
+        run: npx tsx test-e2e-regression.ts
+        env:
+          TEST_BASE_URL: http://localhost:3000

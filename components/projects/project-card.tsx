@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Github, Sparkles, Cpu, Layers, Activity, RadioTower } from "lucide-react";
+import { ArrowUpRight, Github, ExternalLink, Sparkles, Cpu, Layers, Activity, RadioTower } from "lucide-react";
 import { Project } from "@/lib/data";
+import { StarBorder } from "@/components/ui/star-border";
 
 interface ProjectCardProps {
   project: Project;
@@ -10,6 +11,7 @@ interface ProjectCardProps {
   isFeaturedLarge?: boolean;
   accent?: "cyan" | "amber";
   customMetric?: string;
+  className?: string;
 }
 
 export function ProjectCard({
@@ -18,19 +20,35 @@ export function ProjectCard({
   isFeaturedLarge = false,
   accent = "cyan",
   customMetric,
+  className = "",
 }: ProjectCardProps) {
   const isCyan = accent === "cyan";
+  const isBudgetMind = project.id === "budgetmind" || project.title.toLowerCase().includes("budgetmind");
 
   return (
     <motion.div
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-      className={`glass-card rounded-3xl overflow-hidden border border-[rgba(148,163,184,0.12)] flex flex-col justify-between group transition-all duration-300 relative ${
+      onClick={() => onSelect(project)}
+      role="button"
+      tabIndex={0}
+      aria-label={`View ${project.title} architecture and details`}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onSelect(project);
+        }
+      }}
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+      className={`glass-card rounded-3xl overflow-hidden border border-[rgba(148,163,184,0.12)] flex flex-col justify-between group transition-all duration-300 relative cursor-pointer active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#22D3EE] ${
         isCyan
-          ? "hover:border-[rgba(34,211,238,0.45)] hover:shadow-[0_16px_45px_rgba(34,211,238,0.08)]"
-          : "hover:border-[rgba(245,158,11,0.45)] hover:shadow-[0_16px_45px_rgba(245,158,11,0.08)]"
-      }`}
+          ? "hover:border-[rgba(34,211,238,0.50)] hover:shadow-[0_20px_50px_rgba(34,211,238,0.12)]"
+          : "hover:border-[rgba(245,158,11,0.50)] hover:shadow-[0_20px_50px_rgba(245,158,11,0.12)]"
+      } ${className}`}
     >
+      {/* Featured Star Border on BudgetMind */}
+      {isBudgetMind && (
+        <StarBorder className="absolute inset-0 rounded-3xl pointer-events-none z-20" color="#22D3EE" speed="6s" />
+      )}
       {/* Top Banner Visual Representation */}
       <div className={`relative ${isFeaturedLarge ? "h-56 sm:h-64" : "h-48 sm:h-56"} w-full bg-[#070B14] overflow-hidden flex items-center justify-center p-6 border-b border-[rgba(148,163,184,0.12)]`}>
         {/* Animated Background Gradients */}
@@ -166,19 +184,44 @@ export function ProjectCard({
               isCyan ? "text-[#22D3EE] hover:text-[#67E8F9]" : "text-[#F59E0B] hover:text-[#fbbf24]"
             }`}
           >
-            <span>View System Architecture</span>
+            <span>
+              {project.id === "smart-fan-control"
+                ? "View Architecture & Simulation"
+                : project.id === "budgetmind"
+                ? "View Hindsight Architecture"
+                : "View System Architecture"}
+            </span>
             <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
           </button>
 
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-lg text-[#A7B4C7] hover:text-[#22D3EE] hover:bg-[#121C2D] border border-transparent hover:border-[rgba(34,211,238,0.25)] transition-colors"
-            title="View Vijay's GitHub"
-          >
-            <Github className="w-4 h-4" />
-          </a>
+          <div className="flex items-center gap-2">
+            {project.liveDemoUrl && (
+              <a
+                href={project.liveDemoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#22D3EE] bg-[#0B1528] hover:bg-[#12233E] border border-[rgba(34,211,238,0.25)] hover:border-[#22D3EE] transition-all"
+                title="Open Live Deployment"
+                aria-label={`Open live demo for ${project.title}`}
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Live Demo</span>
+              </a>
+            )}
+
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="p-2 rounded-lg text-[#A7B4C7] hover:text-[#22D3EE] hover:bg-[#121C2D] border border-transparent hover:border-[rgba(34,211,238,0.25)] transition-colors"
+              title="View GitHub Repository"
+              aria-label={`View ${project.title} on GitHub`}
+            >
+              <Github className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </div>
     </motion.div>

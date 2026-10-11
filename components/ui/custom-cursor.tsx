@@ -16,8 +16,12 @@ export function CustomCursor() {
   const smoothY = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    // Disable custom cursor on touch devices
-    if (window.matchMedia("(pointer: coarse)").matches) {
+    // Only disable if device is strictly touch-only without fine pointer
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(pointer: coarse)").matches &&
+      !window.matchMedia("(any-pointer: fine)").matches
+    ) {
       return;
     }
 
@@ -45,8 +49,8 @@ export function CustomCursor() {
       setIsHovered(!!isInteractive);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseover", handleOver);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("mouseover", handleOver, { passive: true });
     document.addEventListener("mouseleave", handleMouseLeave);
     document.addEventListener("mouseenter", handleMouseEnter);
 
@@ -61,10 +65,10 @@ export function CustomCursor() {
   if (!isVisible) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden hidden md:block">
+    <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden hidden md:block">
       {/* Outer trailing ring */}
       <motion.div
-        className="fixed top-0 left-0 rounded-full border border-[rgba(34,211,238,0.3)] bg-[rgba(34,211,238,0.04)] backdrop-blur-[1px] pointer-events-none shadow-[0_0_12px_rgba(34,211,238,0.12)]"
+        className="fixed top-0 left-0 rounded-full border border-cyan-400/40 bg-cyan-500/5 backdrop-blur-[1px] pointer-events-none shadow-[0_0_15px_rgba(6,182,212,0.2)]"
         style={{
           x: smoothX,
           y: smoothY,
@@ -72,17 +76,17 @@ export function CustomCursor() {
           translateY: "-50%",
         }}
         animate={{
-          width: isHovered ? 48 : 30,
-          height: isHovered ? 48 : 30,
-          borderColor: isHovered ? "rgba(34, 211, 238, 0.6)" : "rgba(34, 211, 238, 0.25)",
-          backgroundColor: isHovered ? "rgba(34, 211, 238, 0.08)" : "rgba(34, 211, 238, 0.03)",
+          width: isHovered ? 52 : 32,
+          height: isHovered ? 52 : 32,
+          borderColor: isHovered ? "rgba(245, 158, 11, 0.8)" : "rgba(6, 182, 212, 0.5)",
+          backgroundColor: isHovered ? "rgba(245, 158, 11, 0.08)" : "rgba(6, 182, 212, 0.04)",
         }}
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
       />
 
       {/* Center sharp dot */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-[#22D3EE] pointer-events-none shadow-[0_0_6px_rgba(34,211,238,0.4)]"
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-cyan-400 pointer-events-none shadow-[0_0_8px_rgba(6,182,212,0.8)]"
         style={{
           x: cursorX,
           y: cursorY,
@@ -91,9 +95,12 @@ export function CustomCursor() {
         }}
         animate={{
           scale: isPointer ? 0.6 : 1,
-          backgroundColor: isHovered ? "#22D3EE" : "#22D3EE",
+          backgroundColor: isHovered ? "#F59E0B" : "#22D3EE",
         }}
       />
     </div>
   );
 }
+
+export const BubbleCursor = CustomCursor;
+export default CustomCursor;

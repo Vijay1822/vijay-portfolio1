@@ -3,8 +3,8 @@ import { Contact } from "@/components/contact/contact";
 import { PERSONAL_INFO } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: `Contact | ${PERSONAL_INFO.name}`,
-  description: `Get in touch with ${PERSONAL_INFO.preferredName} Kumar for AI engineering opportunities, full-stack development, collaborative research, or discussions.`,
+  title: `Contact | ${PERSONAL_INFO.preferredName} Kumar`,
+  description: `Get in touch with ${PERSONAL_INFO.name} for AI engineering opportunities, full-stack systems development, technical internships, or project collaboration.`,
 };
 
 export default function ContactPage() {

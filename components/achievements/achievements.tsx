@@ -1,7 +1,17 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Milestone, Trophy, Award, Cpu, Code2, GraduationCap, CheckCircle2 } from "lucide-react";
+import {
+  Milestone,
+  Trophy,
+  Award,
+  Cpu,
+  Code2,
+  GraduationCap,
+  CheckCircle2,
+  ArrowRight,
+} from "lucide-react";
 import { ACHIEVEMENTS, AchievementItem } from "@/lib/data";
 
 const CATEGORY_ICONS: Record<AchievementItem["category"], React.ElementType> = {
@@ -31,18 +41,18 @@ export function Achievements() {
             className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-[#0D1626] text-[#22D3EE] border border-[rgba(34,211,238,0.25)] mb-4 shadow-[0_0_12px_rgba(34,211,238,0.10)]"
           >
             <Milestone className="w-3.5 h-3.5 text-[#22D3EE]" />
-            <span>Milestones &amp; Growth</span>
+            <span>Authoritative Chronological Timeline</span>
           </motion.div>
 
-          <motion.h2
+          <motion.h1
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#F8FAFC] mb-4"
           >
-            Journey So Far
-          </motion.h2>
+            Engineering Journey So Far
+          </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -51,8 +61,8 @@ export function Achievements() {
             transition={{ delay: 0.15 }}
             className="text-[#A7B4C7] text-sm sm:text-base leading-relaxed"
           >
-            An authentic chronological roadmap of my academic milestones, hands-on ML experimentation,
-            hackathons, and hardware engineering progression.
+            An authentic roadmap of academic milestones, hands-on micro-controller prototyping,
+            national hackathon challenges, and AI/ML learning progression.
           </motion.p>
         </div>
 
@@ -143,6 +153,61 @@ export function Achievements() {
                           </div>
                         ))}
                       </div>
+
+                      {/* Contextual Subpage Links based on milestone topic */}
+                      {item.category === "Academic" && (
+                        <div className="mt-4 pt-3 border-t border-[rgba(148,163,184,0.10)]">
+                          <Link
+                            href="/education"
+                            prefetch={true}
+                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#22D3EE] hover:underline active:scale-95 active:opacity-90 transition-all"
+                          >
+                            <span>View academic credentials &amp; coursework on Education</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </div>
+                      )}
+
+                      {item.category === "IoT Hardware" && (
+                        <div className="mt-4 pt-3 border-t border-[rgba(148,163,184,0.10)]">
+                          <Link
+                            href="/projects#smart-fan-control"
+                            prefetch={true}
+                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#F59E0B] hover:underline active:scale-95 active:opacity-90 transition-all"
+                          >
+                            <span>Explore Smart Fan closed-loop project case study</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </div>
+                      )}
+
+                      {(item.category === "Certification" ||
+                        item.category === "Certifications & Learning") && (
+                        <div className="mt-4 pt-3 border-t border-[rgba(148,163,184,0.10)]">
+                          <Link
+                            href="/skills"
+                            prefetch={true}
+                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#67E8F9] hover:underline active:scale-95 active:opacity-90 transition-all"
+                          >
+                            <span>Check technical skill matrix</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </div>
+                      )}
+
+                      {(item.category === "Hackathon" ||
+                        item.category === "Hackathons & National Ideathons") && (
+                        <div className="mt-4 pt-3 border-t border-[rgba(148,163,184,0.10)]">
+                          <Link
+                            href="/projects"
+                            prefetch={true}
+                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#F59E0B] hover:underline active:scale-95 active:opacity-90 transition-all"
+                          >
+                            <span>View resulting project prototypes &amp; architectures</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </motion.div>

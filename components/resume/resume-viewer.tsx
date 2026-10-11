@@ -52,7 +52,8 @@ export function ResumeViewer() {
           {/* Back Button */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-[#A7B4C7] hover:text-[#F8FAFC] bg-[#0D1626] hover:bg-[#121C2D] border border-[rgba(148,163,184,0.15)] transition-all shadow-sm w-fit group"
+            prefetch={true}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-[#A7B4C7] hover:text-[#F8FAFC] bg-[#0D1626] hover:bg-[#121C2D] border border-[rgba(148,163,184,0.15)] active:scale-95 active:opacity-90 transition-all shadow-sm w-fit group"
           >
             <ArrowLeft className="w-4 h-4 text-[#22D3EE] group-hover:-translate-x-1 transition-transform" />
             <span>Back to Portfolio</span>

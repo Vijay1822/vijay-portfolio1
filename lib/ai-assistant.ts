@@ -440,16 +440,42 @@ export function generateSmartResponse(
     };
   }
 
-  // 13. CONTACT / EMAIL / HIRE / INTERNSHIP
+  // 13. HIRING / WHY HIRE VIJAY
+  const isHiringQuery =
+    /why\s+(should\s+(i|we)\s+)?hire/i.test(clean) ||
+    /should\s+(i|we)\s+hire/i.test(clean) ||
+    clean.includes("why hire") ||
+    clean === "hire vijay";
+
+  if (isHiringQuery) {
+    return {
+      reply: `Why hire Vijay?\n\n• High Academic Rigor: Maintaining a **9.45 CGPA** in B.Tech CSE-IoT at VNR VJIET.\n• AI Systems Engineering: Architected **BudgetMind**, a financial budget optimizer using RAG, LLMs, and persistent memory.\n• Production-Grade Projects: Built Smart Farmer Procurement (ML price intelligence) & Smart Temperature Fan Control (closed-loop PWM with IoT telemetry).\n• Problem Solving: Active algorithmic problem solver on LeetCode with national hackathon experience (SIH & Adobe Hackathon Round 2).\n• Versatile Stack: Python, Java, TypeScript, Next.js, React, Node.js, Arduino C++, and vector retrieval.`,
+      actions: [
+        { label: "View Projects →", type: "navigate", url: "/projects", variant: "primary" },
+        { label: "Explore Skills →", type: "navigate", url: "/skills" },
+        { label: "View Resume →", type: "navigate", url: "/resume" },
+        { label: "Contact Vijay →", type: "navigate", url: "/contact" },
+      ],
+      suggestedFollowUps: [
+        "Tell me about BudgetMind",
+        "What is Vijay's CGPA?",
+        "What are his technical skills?",
+        "How can I contact Vijay?",
+      ],
+    };
+  }
+
+  // 14. CONTACT / EMAIL (Strictly contact queries)
   if (
-    clean.includes("contact") ||
-    clean.includes("email") ||
-    clean.includes("hire") ||
-    clean.includes("reach") ||
-    clean.includes("internship") ||
-    clean.includes("connect") ||
-    clean.includes("message") ||
-    clean.includes("phone")
+    (clean.includes("contact") ||
+      clean.includes("email") ||
+      clean.includes("reach out") ||
+      clean.includes("reach vijay") ||
+      clean.includes("connect") ||
+      clean.includes("phone")) &&
+    !clean.includes("why") &&
+    !clean.includes("should") &&
+    !clean.includes("hire")
   ) {
     return {
       reply: `Contact Vijay\n\nEmail\nmamidalavijay04@gmail.com\n\nLinkedIn\nVijay Kumar\n\nGitHub\nVijay1822`,

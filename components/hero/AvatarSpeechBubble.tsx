@@ -36,14 +36,15 @@ export function AvatarSpeechBubble({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -10, scale: 0.95 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className={`absolute -top-3 sm:top-2 right-2 sm:right-6 z-30 transition-all duration-300 rounded-2xl bg-slate-900/95 backdrop-blur-xl shadow-[0_10px_35px_rgba(0,0,0,0.6)] border border-cyan-500/40 select-none ${
+          className={`absolute -top-6 sm:-top-8 right-2 sm:right-6 z-40 transition-all duration-300 rounded-2xl bg-slate-900/95 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.7)] border border-cyan-500/50 select-none ${
             isMinimized
               ? "p-2.5 sm:p-3 max-w-[220px]"
-              : "p-4 sm:p-4.5 max-w-[270px] sm:max-w-[320px]"
+              : "p-4 sm:p-4.5 max-w-[280px] sm:max-w-[340px]"
           }`}
+          style={{ transform: "translateZ(80px)" }}
         >
           {/* Speech-bubble pointer toward character */}
-          <div className="absolute -bottom-2 left-10 w-4 h-4 bg-slate-900/95 border-r border-b border-cyan-500/40 rotate-45" />
+          <div className="absolute -bottom-2 right-12 w-4 h-4 bg-slate-900/95 border-r border-b border-cyan-500/50 rotate-45" />
 
           {/* Header Row with Title & Controls [—] [×] */}
           <div
@@ -124,8 +125,9 @@ export function AvatarSpeechBubble({
                 >
                   <Link
                     href="/about"
+                    prefetch={true}
                     onClick={onCloseBubble}
-                    className="px-2 py-1.5 rounded-lg text-[11px] font-medium bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-cyan-300 border border-slate-700/60 flex items-center gap-1.5 transition-colors"
+                    className="px-2 py-1.5 rounded-lg text-[11px] font-medium bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-cyan-300 border border-slate-700/60 active:scale-95 active:opacity-90 flex items-center gap-1.5 transition-all"
                   >
                     <UserCheck className="w-3 h-3 text-cyan-400" />
                     <span>About Me</span>
@@ -133,8 +135,9 @@ export function AvatarSpeechBubble({
 
                   <Link
                     href="/projects"
+                    prefetch={true}
                     onClick={onCloseBubble}
-                    className="px-2 py-1.5 rounded-lg text-[11px] font-medium bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-cyan-300 border border-slate-700/60 flex items-center gap-1.5 transition-colors"
+                    className="px-2 py-1.5 rounded-lg text-[11px] font-medium bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-cyan-300 border border-slate-700/60 active:scale-95 active:opacity-90 flex items-center gap-1.5 transition-all"
                   >
                     <FolderGit2 className="w-3 h-3 text-cyan-400" />
                     <span>Projects</span>
@@ -142,19 +145,28 @@ export function AvatarSpeechBubble({
 
                   <Link
                     href="/skills"
+                    prefetch={true}
                     onClick={onCloseBubble}
-                    className="px-2 py-1.5 rounded-lg text-[11px] font-medium bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-amber-300 border border-slate-700/60 flex items-center gap-1.5 transition-colors"
+                    className="px-2 py-1.5 rounded-lg text-[11px] font-medium bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-amber-300 border border-slate-700/60 active:scale-95 active:opacity-90 flex items-center gap-1.5 transition-all"
                   >
                     <Cpu className="w-3 h-3 text-amber-400" />
                     <span>Skills</span>
                   </Link>
 
                   <button
-                    onClick={() => {
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
                       onCloseBubble();
-                      onOpenAssistant?.();
+                      if (onOpenAssistant) {
+                        onOpenAssistant();
+                      }
+                      if (typeof window !== "undefined") {
+                        window.dispatchEvent(new CustomEvent("open-ai-assistant"));
+                      }
                     }}
-                    className="px-2 py-1.5 rounded-lg text-[11px] font-bold bg-gradient-to-r from-cyan-400 to-sky-400 text-slate-950 flex items-center justify-center gap-1.5 shadow-[0_0_12px_rgba(6,182,212,0.4)] transition-all"
+                    className="px-2 py-1.5 rounded-lg text-[11px] font-bold bg-gradient-to-r from-cyan-400 to-sky-400 text-slate-950 flex items-center justify-center gap-1.5 shadow-[0_0_12px_rgba(6,182,212,0.4)] hover:brightness-110 active:scale-95 transition-all cursor-pointer"
                   >
                     <Bot className="w-3.5 h-3.5" />
                     <span>Ask AI</span>

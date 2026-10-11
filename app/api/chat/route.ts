@@ -1,144 +1,95 @@
 import { NextResponse } from "next/server";
-import { PORTFOLIO_SYSTEM_PROMPT, generateSmartResponse } from "@/lib/ai-assistant";
+import { generateAIResponse } from "@/lib/ai/provider-orchestrator";
+import { generateSmartResponse } from "@/lib/ai-assistant";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { message, history } = body;
+    let body: any;
+    try {
+      body = await req.json();
+    } catch {
+      try {
+        const rawText = await req.text();
+        body = JSON.parse(rawText.replace(/\\(?!["\\/bfnrtu])/g, "\\\\"));
+      } catch {
+        return NextResponse.json(
+          { error: "Invalid JSON format in request payload." },
+          { status: 400 }
+        );
+      }
+    }
 
+    const { message, history, source, conversationId } = body || {};
+
+    // Validate input message
     if (!message || typeof message !== "string" || message.trim().length === 0) {
-      return NextResponse.json({ error: "Message is required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Message is required and must be non-empty." },
+        { status: 400 }
+      );
+    }
+
+    if (message.length > 2000) {
+      return NextResponse.json(
+        { error: "Message exceeds maximum allowed length (2000 characters)." },
+        { status: 400 }
+      );
     }
 
     const trimmed = message.trim();
-    const historyList = Array.isArray(history) ? history : [];
+    const historyList = Array.isArray(history) ? history.slice(-10) : [];
 
-    // 1. Generate core grounded structured response (actions, project card, skills, navigation)
+    // 1. Get structured UI enhancements (actions, project cards, follow-ups)
     const smartStructured = generateSmartResponse(trimmed, historyList);
 
-    // 2. Check if a Gemini API key is provided for dynamic AI generation
-    if (process.env.GEMINI_API_KEY) {
-      try {
-        const formattedContents = [
-          ...historyList.slice(-6).map((h: { role: string; content: string }) => ({
-            role: h.role === "assistant" ? "model" : "user",
-            parts: [{ text: h.content }],
-          })),
-          {
-            role: "user",
-            parts: [{ text: trimmed }],
-          },
-        ];
+    // 2. Multi-provider AI orchestration: Fast Deterministic Lookup -> Groq (Primary) -> Gemini (Fallback)
+    const aiResponse = await generateAIResponse(trimmed, historyList);
 
-        const res = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              system_instruction: {
-                parts: [{ text: PORTFOLIO_SYSTEM_PROMPT }],
-              },
-              contents: formattedContents,
-              generationConfig: {
-                temperature: 0.4,
-                maxOutputTokens: 600,
-              },
-            }),
-          }
-        );
-
-        if (res.ok) {
-          const data = await res.json();
-          const rawReply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (rawReply) {
-            const reply = rawReply
-              .replace(/^[ \t]*[*•\-][ \t]+(?=(?:Programming Languages|AI|Frontend|Backend|Databases|IoT|Tools|Tech Stack|Key Coursework|Education|Contact|LeetCode|GitHub))/gim, "")
-              .replace(/^[ \t]*[-*_]{3,}[ \t]*$/gm, "")
-              .trim();
-
-            return NextResponse.json({
-              reply,
-              actions: smartStructured.actions,
-              projectCard: smartStructured.projectCard,
-              skillsGrid: smartStructured.skillsGrid,
-              suggestedFollowUps: smartStructured.suggestedFollowUps,
-              source: "gemini",
-            });
-          }
-        } else {
-          const errData = await res.text();
-          console.warn("Gemini API call non-OK status:", res.status, errData);
-        }
-      } catch (geminiErr) {
-        console.warn("Gemini API call failed, attempting fallback:", geminiErr);
-      }
+    if (aiResponse.isError) {
+      return NextResponse.json({
+        success: true,
+        reply: aiResponse.reply,
+        isError: true,
+        canRetry: true,
+        actions: [
+          { label: "Retry Question", type: "query", query: trimmed, variant: "primary" },
+          { label: "View Projects →", type: "navigate", url: "/projects" },
+          { label: "Contact Vijay →", type: "navigate", url: "/contact" },
+        ],
+        source: "error",
+        model: aiResponse.model,
+        latencyMs: aiResponse.latencyMs,
+        conversationId: conversationId || undefined,
+      });
     }
 
-    // 3. Check if an OpenAI API key is provided for natural language variation
-    if (process.env.OPENAI_API_KEY) {
-      try {
-        const messages = [
-          { role: "system", content: PORTFOLIO_SYSTEM_PROMPT },
-          ...historyList.slice(-6).map((h: { role: string; content: string }) => ({
-            role: h.role === "assistant" ? "assistant" : "user",
-            content: h.content,
-          })),
-          { role: "user", content: trimmed },
-        ];
-
-        const res = await fetch("https://api.openai.com/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-          },
-          body: JSON.stringify({
-            model: "gpt-4o-mini",
-            messages,
-            max_tokens: 450,
-            temperature: 0.35,
-          }),
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          const reply = data.choices?.[0]?.message?.content;
-          if (reply) {
-            return NextResponse.json({
-              reply,
-              actions: smartStructured.actions,
-              projectCard: smartStructured.projectCard,
-              skillsGrid: smartStructured.skillsGrid,
-              suggestedFollowUps: smartStructured.suggestedFollowUps,
-              source: "openai",
-            });
-          }
-        }
-      } catch (aiErr) {
-        console.warn("OpenAI API call failed, falling back to local engine:", aiErr);
-      }
-    }
-
-    // 3. Fallback / Default Instant Knowledge Engine
     return NextResponse.json({
-      ...smartStructured,
-      source: "local-knowledge-engine",
+      success: true,
+      reply: aiResponse.reply || smartStructured.reply,
+      actions: smartStructured.actions,
+      projectCard: smartStructured.projectCard,
+      skillsGrid: smartStructured.skillsGrid,
+      suggestedFollowUps: smartStructured.suggestedFollowUps,
+      source: aiResponse.source,
+      model: aiResponse.model,
+      latencyMs: aiResponse.latencyMs,
+      conversationId: conversationId || undefined,
     });
   } catch (error) {
-    console.error("Chat API error:", error);
+    console.error("[Chat API Route] Unexpected error:", error);
     return NextResponse.json(
       {
+        success: false,
         reply:
-          "I experienced a slight glitch processing that request, but I'm here! Feel free to ask about Vijay's projects, his CSE-IoT studies at VNR VJIET, his skills, or hackathons.",
+          "⚠️ An unexpected server error occurred while connecting to the AI assistant. Please try asking again or explore Vijay's projects.",
+        isError: true,
+        canRetry: true,
         actions: [
-          { label: "Projects", type: "query", query: "Show me Vijay's projects" },
-          { label: "Skills", type: "query", query: "What technologies does Vijay know?" },
-          { label: "Contact", type: "query", query: "How can I contact Vijay?" },
+          { label: "Retry Question", type: "query", query: "help", variant: "primary" },
+          { label: "View Projects →", type: "navigate", url: "/projects" },
+          { label: "Contact Vijay →", type: "navigate", url: "/contact" },
         ],
-        source: "error-fallback",
+        source: "error",
       },
       { status: 200 }
     );
