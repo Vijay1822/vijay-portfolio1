@@ -56,7 +56,14 @@ async function callGroq(
   if (!apiKey) return null;
   if (isProviderInCooldown("groq")) return null;
 
-  const model = process.env.GROQ_MODEL?.trim() || "llama-3.3-70b-versatile";
+  const configuredModel = process.env.GROQ_MODEL?.trim();
+  const candidateModels = [
+    ...(configuredModel ? [configuredModel] : []),
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-20b",
+    "qwen/qwen3.8-27b",
+  ].filter((m, i, arr) => arr.indexOf(m) === i);
+
   const messages = [
     { role: "system", content: PORTFOLIO_SYSTEM_PROMPT },
     ...history.slice(-6).map((m) => ({
@@ -67,53 +74,62 @@ async function callGroq(
   ];
 
   const startTime = Date.now();
-  try {
-    const res = await fetchWithTimeout(
-      "https://api.groq.com/openai/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
-          "User-Agent": "VijayPortfolio/1.0",
+  for (const model of candidateModels) {
+    try {
+      const res = await fetchWithTimeout(
+        "https://api.groq.com/openai/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+            "User-Agent": "VijayPortfolio/1.0",
+          },
+          body: JSON.stringify({
+            model,
+            messages,
+            temperature: 0.35,
+            max_tokens: 600,
+          }),
         },
-        body: JSON.stringify({
-          model,
-          messages,
-          temperature: 0.35,
-          max_tokens: 600,
-        }),
-      },
-      timeoutMs
-    );
+        timeoutMs
+      );
 
-    if (res.status === 401 || res.status === 403) {
-      console.warn("[AI Orchestrator] Groq Authentication/Permission error. Setting cooldown.");
-      setProviderCooldown("groq", 120000);
-      return null;
+      if (res.status === 401 || res.status === 403) {
+        console.warn("[AI Orchestrator] Groq Authentication/Permission error. Setting cooldown.");
+        setProviderCooldown("groq", 120000);
+        return null;
+      }
+
+      if (res.status === 404) {
+        console.warn(`[AI Orchestrator] Groq model "${model}" not found (404), trying fallback candidate...`);
+        continue;
+      }
+
+      if (!res.ok) {
+        console.warn(`[AI Orchestrator] Groq returned status ${res.status}`);
+        setProviderCooldown("groq", 30000);
+        return null;
+      }
+
+      const data = await res.json();
+      const reply = data.choices?.[0]?.message?.content?.trim();
+      if (!reply) continue;
+
+      return {
+        reply,
+        source: "groq",
+        model,
+        latencyMs: Date.now() - startTime,
+      };
+    } catch (err: any) {
+      console.warn(`[AI Orchestrator] Groq request failed for ${model} (${err?.name || err?.message || "error"})`);
+      continue;
     }
-
-    if (!res.ok) {
-      console.warn(`[AI Orchestrator] Groq returned status ${res.status}`);
-      setProviderCooldown("groq", 30000);
-      return null;
-    }
-
-    const data = await res.json();
-    const reply = data.choices?.[0]?.message?.content?.trim();
-    if (!reply) return null;
-
-    return {
-      reply,
-      source: "groq",
-      model,
-      latencyMs: Date.now() - startTime,
-    };
-  } catch (err: any) {
-    console.warn(`[AI Orchestrator] Groq request failed (${err?.name || err?.message || "error"})`);
-    setProviderCooldown("groq", 20000);
-    return null;
   }
+
+  setProviderCooldown("groq", 20000);
+  return null;
 }
 
 /**
@@ -128,7 +144,14 @@ async function callGemini(
   if (!apiKey) return null;
   if (isProviderInCooldown("gemini")) return null;
 
-  const model = process.env.GEMINI_MODEL?.trim() || "gemini-1.5-flash";
+  const configuredModel = process.env.GEMINI_MODEL?.trim();
+  const candidateModels = [
+    ...(configuredModel ? [configuredModel] : []),
+    "gemini-2.5-flash",
+    "gemini-flash-latest",
+    "gemini-2.5-flash-lite",
+  ].filter((m, i, arr) => arr.indexOf(m) === i);
+
   const formattedContents = [
     ...history.slice(-6).map((h) => ({
       role: h.role === "assistant" ? "model" : "user",
@@ -141,64 +164,73 @@ async function callGemini(
   ];
 
   const startTime = Date.now();
-  try {
-    const res = await fetchWithTimeout(
-      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+  for (const model of candidateModels) {
+    try {
+      const res = await fetchWithTimeout(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            system_instruction: {
+              parts: [{ text: PORTFOLIO_SYSTEM_PROMPT }],
+            },
+            contents: formattedContents,
+            generationConfig: {
+              temperature: 0.4,
+              maxOutputTokens: 600,
+            },
+          }),
         },
-        body: JSON.stringify({
-          system_instruction: {
-            parts: [{ text: PORTFOLIO_SYSTEM_PROMPT }],
-          },
-          contents: formattedContents,
-          generationConfig: {
-            temperature: 0.4,
-            maxOutputTokens: 600,
-          },
-        }),
-      },
-      timeoutMs
-    );
+        timeoutMs
+      );
 
-    if (res.status === 401 || res.status === 403) {
-      console.warn("[AI Orchestrator] Gemini Authentication/Permission error. Setting cooldown.");
-      setProviderCooldown("gemini", 120000);
-      return null;
+      if (res.status === 401 || res.status === 403) {
+        console.warn("[AI Orchestrator] Gemini Authentication/Permission error. Setting cooldown.");
+        setProviderCooldown("gemini", 120000);
+        return null;
+      }
+
+      if (res.status === 404) {
+        console.warn(`[AI Orchestrator] Gemini model "${model}" not found (404), trying fallback candidate...`);
+        continue;
+      }
+
+      if (!res.ok) {
+        console.warn(`[AI Orchestrator] Gemini returned status ${res.status}`);
+        setProviderCooldown("gemini", 30000);
+        return null;
+      }
+
+      const data = await res.json();
+      const rawReply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!rawReply) continue;
+
+      // Clean formatting artifacts
+      const reply = rawReply
+        .replace(
+          /^[ \t]*[*•\-][ \t]+(?=(?:Programming Languages|AI|Frontend|Backend|Databases|IoT|Tools|Tech Stack|Key Coursework|Education|Contact|LeetCode|GitHub))/gim,
+          ""
+        )
+        .replace(/^[ \t]*[-*_]{3,}[ \t]*$/gm, "")
+        .trim();
+
+      return {
+        reply,
+        source: "gemini",
+        model,
+        latencyMs: Date.now() - startTime,
+      };
+    } catch (err: any) {
+      console.warn(`[AI Orchestrator] Gemini request failed for ${model} (${err?.name || err?.message || "error"})`);
+      continue;
     }
-
-    if (!res.ok) {
-      console.warn(`[AI Orchestrator] Gemini returned status ${res.status}`);
-      setProviderCooldown("gemini", 30000);
-      return null;
-    }
-
-    const data = await res.json();
-    const rawReply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!rawReply) return null;
-
-    // Clean formatting artifacts
-    const reply = rawReply
-      .replace(
-        /^[ \t]*[*•\-][ \t]+(?=(?:Programming Languages|AI|Frontend|Backend|Databases|IoT|Tools|Tech Stack|Key Coursework|Education|Contact|LeetCode|GitHub))/gim,
-        ""
-      )
-      .replace(/^[ \t]*[-*_]{3,}[ \t]*$/gm, "")
-      .trim();
-
-    return {
-      reply,
-      source: "gemini",
-      model,
-      latencyMs: Date.now() - startTime,
-    };
-  } catch (err: any) {
-    console.warn(`[AI Orchestrator] Gemini request failed (${err?.name || err?.message || "error"})`);
-    setProviderCooldown("gemini", 20000);
-    return null;
   }
+
+  setProviderCooldown("gemini", 20000);
+  return null;
 }
 
 /**
